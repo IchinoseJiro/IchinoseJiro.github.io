@@ -1,4 +1,4 @@
-import{a as e,i as t,n,o as r,r as i}from"./Skills-CuCL8mtZ.js";var a=r(),o=e(),s=t(),c=[`about.jsx`,`experience.jsx`,`skills.jsx`,`contact.jsx`],l=`(max-width: 1100px), (pointer: coarse) and (max-width: 1366px)`,u={"about.jsx":`// A little about me
+import{a as e,i as t,n,o as r,r as i}from"./Skills-BDod8tTm.js";var a=r(),o=e(),s=t(),c=[`about.jsx`,`experience.jsx`,`skills.jsx`,`contact.jsx`],l=`(max-width: 1100px), (pointer: coarse) and (max-width: 1366px)`,u={"about.jsx":`// A little about me
 const developer = {
   name: 'Lowell Jireh P. Chantengco',
   goesBy: 'Jireh',
