@@ -4,7 +4,6 @@ import BrandLogo from './BrandLogo.jsx'
 import SocialLinks from './SocialLinks.jsx'
 import { SkillsSection, SkillsSidebar } from './Skills.jsx'
 import useViewMode from './useViewMode.js'
-import ViewModeMenu from './ViewModeMenu.jsx'
 
 const projects = [
   {
@@ -28,7 +27,7 @@ const projects = [
 ]
 
 export default function Portfolio() {
-  const [viewMode, setViewMode] = useViewMode()
+  const [viewMode] = useViewMode()
   const [preview, setPreview] = useState(null)
   const dialogRef = useRef(null)
   useEffect(() => {
@@ -46,7 +45,7 @@ export default function Portfolio() {
     <a className="pg-skip" href="#projects">Skip to projects</a>
     <header className="pg-titlebar">
       <a className="pg-brand" href="/" aria-label="Back to Jireh's home page"><b><BrandLogo decorative /></b><span>LunR Code <i>/ Jireh Chantengco</i></span></a>
-      <div className="pg-header-actions"><ViewModeMenu mode={viewMode} onChange={setViewMode} /><a className="pg-home" href="/">← Back to home</a></div>
+      <div className="pg-header-actions"><a className="pg-home" href="/">← Back to home</a></div>
     </header>
     <div className="pg-layout">
       <aside className="pg-rail" aria-label="Workspace"><a href="/" aria-label="Home">⌂</a><a href="#projects" className="pg-rail-active" aria-label="Projects">▧</a><span aria-hidden="true">⌘</span><span className="pg-rail-bottom" title="LunR Code"><BrandLogo /></span></aside>
@@ -60,7 +59,7 @@ export default function Portfolio() {
         <div className="pg-explorer-note"><span>WORKSPACE NOTES</span><p>College projects.<br />Real learning, one line at a time.</p><code>2 projects · 2 databases</code></div>
       </nav>
       <main className="pg-main" id="projects">
-        <nav className="pg-tabbar" aria-label="Portfolio sections"><a href="#projects"><span><i>ⓘ</i> {viewMode==='simple'?'Projects':'portfolio.md'}</span></a><a className="pg-skills-tab" href="#skills">⌘ &nbsp; Skills</a><small>PROJECT SHOWCASE</small></nav>
+        <nav className="pg-tabbar" aria-label="Portfolio sections"><a href="#projects"><span><i>ⓘ</i> Portfolio</span></a><a className="pg-skills-tab" href="#skills">⌘ &nbsp; Skills</a><small>PROJECT SHOWCASE</small></nav>
         <div className="pg-content">
           <header className="pg-hero">
             <p className="pg-eyebrow">// MY COLLEGE WORK</p>
