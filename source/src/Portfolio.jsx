@@ -5,6 +5,13 @@ import SocialLinks from './SocialLinks.jsx'
 import { SkillsSection, SkillsSidebar } from './Skills.jsx'
 import useViewMode from './useViewMode.js'
 
+const currentProject = {
+  id: 're-spawnpoint', title: 'Re-spawnpoint',
+  image: '/projects/respawnpoint.jpg', width: 1280, height: 720,
+  alt: 'Re-spawnpoint gaming storefront preview with a Gear up. Drop in. hero and gaming PC artwork.',
+  url: 'https://gamers-grounds-preview.johndave-dejesus.chatgpt.site/',
+}
+
 const projects = [
   {
     id: 'coffeego', number: '01', title: 'COFFEEGO', folder: 'coffeego',
@@ -51,24 +58,32 @@ export default function Portfolio() {
       <aside className="pg-rail" aria-label="Workspace"><a href="/" aria-label="Home">⌂</a><a href="#projects" className="pg-rail-active" aria-label="Projects">▧</a><span aria-hidden="true">⌘</span><span className="pg-rail-bottom" title="LunR Code"><BrandLogo /></span></aside>
       <nav className="pg-explorer" aria-label="Project explorer">
         <div className="pg-explorer-title">{viewMode==='simple'?'EXPLORE':'EXPLORER'} <span>···</span></div>
-        <p>⌄ &nbsp; COLLEGE-WORK</p>
+        <p>⌄ &nbsp; MY PROJECTS</p>
         <a className="pg-readme" href="#projects"><span>ⓘ</span> {viewMode==='simple'?'Projects':'README.md'}</a>
+        <a className="pg-current-link" href="#re-spawnpoint"><span>◉</span> Re-spawnpoint <small>IN PROGRESS</small></a>
         {projects.map(project => <a key={project.id} href={`#${project.id}`}><span style={{ color: project.accent }}>◇</span> {project.folder}</a>)}
         <a className="pg-skills-link" href="#skills"><span>⌘</span> Skills</a>
         <SkillsSidebar />
-        <div className="pg-explorer-note"><span>WORKSPACE NOTES</span><p>College projects.<br />Real learning, one line at a time.</p><code>2 projects · 2 databases</code></div>
+        <div className="pg-explorer-note"><span>WORKSPACE NOTES</span><p>Building now.<br />Learning from what came before.</p><code>1 current · 2 college</code></div>
       </nav>
       <main className="pg-main" id="projects">
         <nav className="pg-tabbar" aria-label="Portfolio sections"><a href="#projects"><span><i>ⓘ</i> Portfolio</span></a><a className="pg-skills-tab" href="#skills">⌘ &nbsp; Skills</a><small>PROJECT SHOWCASE</small></nav>
         <div className="pg-content">
           <header className="pg-hero">
-            <p className="pg-eyebrow">// MY COLLEGE WORK</p>
-            <h1>Built in class.<br /><span>Made for the web.</span><i aria-hidden="true" /></h1>
-            <p className="pg-intro">A look inside two websites we created during college, bringing design, code, and databases together.</p>
-            <div className="pg-meta"><span><b>02</b> projects</span><span>HTML + CSS</span><span>MongoDB / MySQL</span></div>
+            <p className="pg-eyebrow">// THE PROJECT WORKSPACE</p>
+            <h1>Still building.<br /><span>Always learning.</span><i aria-hidden="true" /></h1>
+            <p className="pg-intro">Explore what I’m working on now, alongside the college projects that helped me get started.</p>
+            <div className="pg-meta"><span><b>01</b> current project</span><span><b>02</b> college projects</span><span>Ideas → work in progress</span></div>
             <SocialLinks />
           </header>
-          <div className="pg-projects">
+          <section className="pg-current" id="re-spawnpoint" aria-labelledby="current-project-title">
+            <div className="pg-section-heading"><div><p className="pg-eyebrow">// CURRENTLY BUILDING</p><h2 id="current-project-title">The next chapter.</h2></div><span className="pg-progress-badge">In progress</span></div>
+            <article className="pg-current-card">
+              <div className="pg-current-image"><button className="pg-image-button" type="button" onClick={()=>setPreview(currentProject)} aria-label="Enlarge Re-spawnpoint screenshot"><img src={currentProject.image} alt={currentProject.alt} width={currentProject.width} height={currentProject.height} /><span>↗ View storefront screenshot</span></button></div>
+              <div className="pg-current-info"><p className="pg-eyebrow">PERSONAL PROJECT · OUTSIDE THE CLASSROOM</p><h3>Re-spawnpoint</h3><p className="pg-current-focus">A gaming storefront, taking shape.</p><p>An ongoing personal SaaS project, currently available as a gaming gear storefront preview. I’m continuing to develop it beyond my college work.</p><ul><li>Product search, category filters, and sorting</li><li>Wishlist and shopping bag saved in the browser</li><li>Responsive storefront for desktop, tablet, and mobile</li></ul><div className="pg-tags" aria-label="Current preview technologies"><span>HTML</span><span>CSS</span><span>JavaScript</span></div><a className="pg-current-visit" href={currentProject.url} target="_blank" rel="noopener noreferrer">Visit live preview <span aria-hidden="true">↗</span><span className="pg-sr-only"> (opens in a new tab)</span></a><p className="pg-current-note">Frontend demo with sample products and prices. Checkout and newsletter signup are preview-only.</p></div>
+            </article>
+          </section>
+          <section className="pg-college" aria-labelledby="college-projects-title"><div className="pg-section-heading"><div><p className="pg-eyebrow">// WHERE IT STARTED</p><h2 id="college-projects-title">College projects</h2><p>Two websites we created during college, bringing design, code, and databases together.</p></div></div><div className="pg-projects">
             {projects.map(project => <article className="pg-card" id={project.id} key={project.id} style={{ '--project-accent': project.accent, '--entry-delay': `${Number(project.number) * 100}ms` }}>
               <div className="pg-card-bar"><span><b>&lt;/&gt;</b> {viewMode==='simple'?project.title:<>{project.folder}<i>/</i>index.html</>}</span><small>PROJECT {project.number}</small></div>
               <div className="pg-card-body">
@@ -77,12 +92,13 @@ export default function Portfolio() {
               </div>
             </article>)}
           </div>
+          </section>
           <SkillsSection plain={viewMode==='simple'} />
-          <section className="pg-endnote"><span aria-hidden="true"><BrandLogo decorative /></span><div><h2>Every project starts with a little curiosity.</h2><p>Thanks for exploring my college work.</p></div><a href="/">Back to my workspace ↗</a></section>
+          <section className="pg-endnote"><span aria-hidden="true"><BrandLogo decorative /></span><div><h2>Every project starts with a little curiosity.</h2><p>Thanks for exploring my work, past and in progress.</p></div><a href="/">Back to my workspace ↗</a></section>
         </div>
       </main>
     </div>
-    <footer className="pg-status"><span>⎇ main &nbsp; ✓ 2 projects</span><span>Lowell Jireh P. Chantengco · College portfolio</span><span className="pg-status-brand"><BrandLogo decorative />LunR Code</span></footer>
+    <footer className="pg-status"><span>⎇ main &nbsp; ◉ 1 in progress · 2 college</span><span>Lowell Jireh P. Chantengco · Project portfolio</span><span className="pg-status-brand"><BrandLogo decorative />LunR Code</span></footer>
     <dialog ref={dialogRef} className="pg-dialog" aria-labelledby="pg-preview-title" onClose={() => setPreview(null)} onClick={event => { if (event.target === event.currentTarget) dialogRef.current.close() }}>
       {preview && <><div className="pg-dialog-bar"><h2 id="pg-preview-title">{preview.title} <span>/ screenshot.png</span></h2><button type="button" onClick={() => dialogRef.current.close()} aria-label="Close screenshot">×</button></div><div className="pg-dialog-image"><img src={preview.image} alt={preview.alt} width={preview.width} height={preview.height} /></div></>}
     </dialog>
