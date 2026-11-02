@@ -1,0 +1,5 @@
+source/node_modules/
+source/dist/
+source/.env
+source/.env.*
+*.log
