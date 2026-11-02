@@ -9,7 +9,7 @@ const currentProject = {
   id: 're-spawnpoint', title: 'Re-spawnpoint',
   image: '/projects/respawnpoint.jpg', width: 1280, height: 720,
   alt: 'Re-spawnpoint gaming storefront preview with a Gear up. Drop in. hero and gaming PC artwork.',
-  url: 'https://gamers-grounds-preview.johndave-dejesus.chatgpt.site/',
+  url: 'https://re-spawnpoint.vercel.app/',
 }
 
 const projects = [
