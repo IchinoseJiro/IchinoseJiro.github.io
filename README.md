@@ -23,4 +23,4 @@ npm run build
 
 The build is written to `source/dist/`. Publish that directory's contents at the repository root, keeping the source folder and documentation. GitHub Pages continues to deploy from the existing `main` branch and root folder.
 
-Visitors can select Simple view or Code view from the View menu. Their selected mode is remembered on the home page and project gallery.
+Visitors can select Simple view or Code view from the View menu. Code view opens by default on first visits and browser refreshes. A selection made through View carries between the home page and project gallery until the next refresh.
