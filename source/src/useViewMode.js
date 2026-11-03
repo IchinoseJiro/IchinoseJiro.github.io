@@ -1,5 +1,5 @@
 // Shared view preference: Code view on refresh, with selection remembered during navigation.
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 // Browser storage key that remembers the selected home-page view.
 const storageKey = 'lunr-code:view-mode'
@@ -21,10 +21,10 @@ export default function useViewMode() {
     return () => window.removeEventListener('storage', sync)
   }, [])
 // Accept only the two supported view names, persist the choice, and update React immediately.
-  const setMode = next => {
+  const setMode = useCallback(next => {
     if (next !== 'simple' && next !== 'code') return
     try { localStorage.setItem(storageKey, next) } catch { /* Mode still works when browser storage is unavailable. */ }
     updateMode(next)
-  }
+  }, [])
   return [mode, setMode]
 }

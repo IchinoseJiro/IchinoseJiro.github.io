@@ -7,6 +7,8 @@ import useViewMode from './useViewMode.js'
 import NavigationHint from './NavigationHint.jsx'
 import AboutPortfolio from './AboutPortfolio.jsx'
 import WebsiteGuide from './WebsiteGuide.jsx'
+import ViewTransition from './ViewTransition.jsx'
+import useViewTransition from './useViewTransition.js'
 import { initialDocuments, files, sectionForFile } from './profileContent.js'
 import BrandLogo from './BrandLogo.jsx'
 import SocialLinks from './SocialLinks.jsx'
@@ -42,6 +44,8 @@ function highlightCode(source) {
 function App() {
 // View, editor, sidebar, popup, and terminal state, preserved while switching views.
   const [viewMode, setViewMode] = useViewMode()
+  // View menu transitions keep App mounted so editor documents and tabs survive.
+  const [viewTransition, startViewTransition] = useViewTransition(viewMode, setViewMode)
   const isSimple = viewMode === 'simple'
   const [active, setActive] = useState('about.jsx')
   const [openTabs, setOpenTabs] = useState(['about.jsx'])
@@ -332,7 +336,7 @@ function App() {
     if (isSimple) document.getElementById(`simple-${label.toLowerCase()}`)?.scrollIntoView({ block: 'start' })
     else setFile(sectionForFile[label])
   }
-  const changeView = mode => { setViewMode(mode); setIntroOpen(false); setOpenMenu('') }
+  const changeView = mode => { startViewTransition(mode); setIntroOpen(false); setOpenMenu('') }
   const toggleNavigation = () => {
     setNavigationVisible(!navigationVisible)
     setSidebar(!navigationVisible)
@@ -391,12 +395,12 @@ function App() {
   const copyButton = (key, label, value) => <button className="contact-copy" type="button" onClick={() => copyContact(key, value)}><span>{label}</span><strong>{value}</strong><small aria-live="polite">{copied === key ? 'Copied!' : copied === 'failed' ? 'Copy unavailable' : 'Click to copy'}</small></button>
 
   const applicationMenu = <><nav className={'menubar menu-root'+(isSimple?' simple-menubar':'')} aria-label="Application menu">{!isSimple && <button className="navigation-toggle" type="button" onClick={toggleNavigation} aria-label={navigationVisible?'Hide left navigation':'Show left navigation'} title={navigationVisible?'Hide left navigation':'Show left navigation'} aria-expanded={navigationVisible}>◧<span>{navigationVisible?'Hide':'Show'} navigation</span></button>}{(isSimple ? ['File','View','Go','Help'] : menuNames).map(name => <div className="menu-entry" key={name}>
-      <button className={'menu-trigger '+(openMenu===name?'active':'')} type="button" aria-haspopup="true" aria-expanded={openMenu===name} aria-controls={openMenu===name?'application-dropdown':undefined} onClick={event => toggleMenu(name, event)} onKeyDown={event=>{if(event.key==="ArrowDown"){event.preventDefault();if(openMenu!==name)toggleMenu(name,event)}}}>{name}</button>
+      <button className={'menu-trigger '+(openMenu===name?'active':'')} data-menu-name={name} type="button" aria-haspopup="true" aria-expanded={openMenu===name} aria-controls={openMenu===name?'application-dropdown':undefined} onClick={event => toggleMenu(name, event)} onKeyDown={event=>{if(event.key==="ArrowDown"){event.preventDefault();if(openMenu!==name)toggleMenu(name,event)}}}>{name}</button>
     </div>)}</nav>
     {openMenu && <div id="application-dropdown" className="dropdown menu-root" role="menu" aria-label={openMenu} style={menuAnchor} onKeyDown={applicationMenuKeys}>{menuActions[openMenu].map(([label, shortcut, action]) => <button type="button" role={openMenu==='View' && ['Simple view','Code view'].includes(label) ? 'menuitemradio' : 'menuitem'} aria-checked={openMenu==='View' && ['Simple view','Code view'].includes(label) ? viewMode===label.split(' ')[0].toLowerCase() : undefined} className="dropdown-item" key={`${openMenu}-${label}`} onClick={() => runMenuAction(action)}><span>{label}</span><small>{shortcut}</small></button>)}</div>}  </>
 
 // Render Simple view while retaining the Code view state in App.
-  if (isSimple) return <><SimpleView menu={applicationMenu} copyButton={copyButton} onAbout={()=>setAboutOpen(true)} />{guideOpen && <WebsiteGuide onClose={closeGuide} />}{aboutOpen && <AboutPortfolio onClose={closeAbout} />}</>
+  if (isSimple) return <><SimpleView menu={applicationMenu} copyButton={copyButton} onAbout={()=>setAboutOpen(true)} />{guideOpen && <WebsiteGuide onClose={closeGuide} />}{aboutOpen && <AboutPortfolio onClose={closeAbout} />}{viewTransition && <ViewTransition {...viewTransition} />}</>
   if (closed) return <main className="ide window-closed"><section><BrandLogo /><h2>LunR Code window closed</h2><p>This closes the portfolio view here. Your browser stays open.</p><button onClick={()=>setClosed(false)}>Reopen LunR Code</button></section></main>
   if (minimized) return <main className="ide window-minimized"><button onClick={()=>setMinimized(false)}><BrandLogo decorative /> LunR Code <span>Restore</span></button></main>
 
@@ -476,6 +480,8 @@ function App() {
 {/* Status bar: branding, branch, editor feedback, and location. */}
     <footer><span className="status-brand"><BrandLogo decorative />LunR Code</span><span>⎇ main</span><span>✓ 0 errors</span><span className="status-message" aria-live="polite">{status}</span><span className="right">Porac, Pampanga &nbsp; · &nbsp; Holy Angel University &nbsp; · &nbsp; Web Development</span></footer>
 {/* Help popups: About this Portfolio and keyboard shortcuts. */}
+    {/* Brief destination message while switching to Simple view or Code view. */}
+    {viewTransition && <ViewTransition {...viewTransition} />}
     {/* Centered instructions with a blurred backdrop; opening this preserves editor state. */}
     {guideOpen && <WebsiteGuide onClose={closeGuide} />}
     {aboutOpen && <AboutPortfolio onClose={closeAbout} />}    {helpOpen && <div className="help-backdrop" onMouseDown={e=>{if(e.target===e.currentTarget)setHelpOpen(false)}}><section className="help-dialog" role="dialog" aria-modal="true" aria-labelledby="help-title"><button className="help-close" onClick={()=>setHelpOpen(false)} aria-label="Close help">×</button><h2 id="help-title">Portfolio shortcuts</h2><p><kbd>Ctrl</kbd> + <kbd>A</kbd> Select all editor text</p><p><kbd>Ctrl</kbd> + <kbd>Z</kbd> Undo · <kbd>Ctrl</kbd> + <kbd>Y</kbd> Redo</p><p><kbd>Ctrl</kbd> + <kbd>X</kbd> Cut · <kbd>Ctrl</kbd> + <kbd>C</kbd> Copy · <kbd>Ctrl</kbd> + <kbd>V</kbd> Paste</p><p><kbd>Alt</kbd> + <kbd>Z</kbd> Toggle word wrap</p><small>All edits are local to this page. Reload restores the original portfolio information.</small></section></div>}

@@ -26,6 +26,7 @@ Open this folder in VS Code: WebPortfolio. Start with this guide, then open the 
 | Portrait | public/images/jireh-portrait.jpg | Portrait blocks in src/SimpleView.css and src/HomeWorkspace.css |
 | LunR Code logo | src/BrandLogo.jsx, public/lunr-code.svg | src/BrandLogo.css |
 | Browser-tab favicon | public/favicon.svg; link in both HTML files | SVG colors inside the file |
+| View-switch loading message and animation | src/ViewTransition.jsx, src/useViewTransition.js | src/ViewTransition.css |
 | Default Code/Simple mode and saved selection | src/useViewMode.js | The selected view uses its own CSS |
 | Standalone view menu retained for reuse; not displayed in current gallery | src/ViewModeMenu.jsx | src/ViewModeMenu.css |
 | Global background, fonts, and minimum page width | src/index.css | Same file |
