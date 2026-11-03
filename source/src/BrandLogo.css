@@ -1,3 +1,4 @@
+/* Reusable LunR Code logo sizing and colors. */
 .brand-logo{display:inline-block;width:32px;height:32px;object-fit:contain;vertical-align:middle;flex-shrink:0;user-select:none}
 .ide .titlebar-brand{display:flex;align-items:center;justify-content:center;gap:7px;min-width:0}
 .titlebar-brand>.brand-logo{width:20px;height:20px}

@@ -1,3 +1,4 @@
+// Skills catalog: names, groups, and icon identifiers used across the website.
 export const skillGroups = [
   { title: 'Languages & styling', skills: [
     { id: 'html', name: 'HTML5', color: '#ee9776' },

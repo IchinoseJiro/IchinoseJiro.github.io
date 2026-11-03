@@ -1,3 +1,4 @@
+// Help > About this Portfolio popup: photo, branding, biography, and progress note.
 import { useEffect } from 'react'
 import BrandLogo from './BrandLogo.jsx'
 

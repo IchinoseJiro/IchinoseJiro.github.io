@@ -1,3 +1,4 @@
+// Standalone view dropdown retained for reuse; the current gallery does not display it.
 import { useEffect, useRef, useState } from 'react'
 import './ViewModeMenu.css'
 

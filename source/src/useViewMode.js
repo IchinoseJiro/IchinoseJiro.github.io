@@ -1,3 +1,4 @@
+// Shared view preference: Code view on refresh, with selection remembered during navigation.
 import { useEffect, useState } from 'react'
 
 const storageKey = 'lunr-code:view-mode'

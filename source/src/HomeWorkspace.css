@@ -1,3 +1,4 @@
+/* Fixed Code view workspace, internal scrolling, and responsive sizing. */
 body.home-workspace-page,body.home-workspace-page #root{height:100dvh;overflow:hidden}
 .home-workspace-page .about-dialog{width:min(660px,100%);padding:28px;max-height:calc(100dvh - 40px);overflow-y:auto}
 .about-identity{display:grid;grid-template-columns:154px minmax(0,1fr);align-items:center;gap:24px;text-align:left;margin-bottom:18px}

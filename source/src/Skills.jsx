@@ -1,7 +1,9 @@
+// Skills display components: vector icons, compact sidebar toolbox, and full skills grid.
 import './Skills.css'
 
 import { skillGroups } from './skillsData.js'
 
+// SVG shapes for skill logos.
 function IconShape({ id }) {
   switch (id) {
     case 'html': return <><path d="M10 7h28l-3 31-11 4-11-4Z" /><path d="M31 15H18l1 8h11l-1 8-5 2-5-2" /><text x="24" y="6" fontSize="5">HTML</text></>
@@ -26,10 +28,12 @@ function IconShape({ id }) {
   }
 }
 
+// Individual accessible skill icon.
 export function SkillIcon({ skill }) {
   return <svg className="skill-vector" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" style={{ color: skill.color }} aria-hidden="true" focusable="false"><IconShape id={skill.id} /></svg>
 }
 
+// Compact skill toolbox in the Explorer sidebars.
 export function SkillsSidebar() {
   const all = skillGroups.flatMap(group => group.skills)
   const priority = ['html', 'css', 'javascript', 'python', 'mysql', 'java']
@@ -37,6 +41,7 @@ export function SkillsSidebar() {
   return <section className="skills-sidebar" aria-label="Skills toolbox"><h3>SKILLS / TOOLBOX</h3><div className="skills-mini-grid">{ordered.map(skill => <a key={skill.id} className="skill-mini" href={`/portfolio.html#skill-${skill.id}`} title={skill.name} aria-label={skill.name}><SkillIcon skill={skill} /><span>{skill.short ?? skill.name}</span></a>)}</div><a className="skills-see-all" href="/portfolio.html#skills">Explore all skills ↗</a></section>
 }
 
+// Full grouped skill cards for Simple view and the gallery.
 export function SkillsSection({ plain = false }) {
   return <section className="skills-section" id="skills" aria-labelledby="skills-title"><p className="skills-eyebrow">{plain ? "SKILLS & TOOLS" : "// SKILLS.JSON"}</p><h2 id="skills-title">My toolbox, always growing.</h2><p className="skills-intro">The languages, frameworks, databases, and practical IT skills listed in my portfolio.</p>{skillGroups.map(group => <div className="skills-group" key={group.title}><h3><span aria-hidden="true">⌄</span> {group.title}</h3><div className="skills-card-grid">{group.skills.map(skill => <article className="skill-card" id={`skill-${skill.id}`} key={skill.id} style={{ '--skill-accent': skill.color }}><SkillIcon skill={skill} /><h4>{skill.name}</h4></article>)}</div></div>)}</section>
 }

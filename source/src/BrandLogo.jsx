@@ -1,3 +1,4 @@
+// Reusable LunR Code logo shown in headers, panels, and branding areas.
 import './BrandLogo.css'
 
 export default function BrandLogo({ decorative = false, className = '' }) {

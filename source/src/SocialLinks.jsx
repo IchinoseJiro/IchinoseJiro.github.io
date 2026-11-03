@@ -1,3 +1,4 @@
+// Reusable LinkedIn and GitHub profile links that open in new tabs.
 import './SocialLinks.css'
 import { contact } from './profileContent.js'
 

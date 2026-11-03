@@ -1,3 +1,4 @@
+// Code view home page: editor window, navigation, tabs, terminal, and introduction panel.
 import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 import './HomeWorkspace.css'
@@ -10,8 +11,10 @@ import BrandLogo from './BrandLogo.jsx'
 import SocialLinks from './SocialLinks.jsx'
 import { SkillsSidebar } from './Skills.jsx'
 
+// Responsive rules and top menu names.
 const compactLayoutQuery = '(max-width: 1100px), (pointer: coarse) and (max-width: 1366px)'
 const menuNames = ['File', 'Edit', 'Selection', 'View', 'Go', 'Run', 'Terminal', 'Help']
+// Syntax highlighting for comments, strings, keywords, and punctuation.
 const codeTokenPattern = /\/\/[^^\n]*|\/\*[\s\S]*?\*\/|'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`|\b\d+(?:\.\d+)?\b|\b[A-Za-z_$][\w$]*\b|[{}()[\].,:;]|=>|[=+*/<>!-]+/g
 const codeKeywords = new Set(['const','let','var','function','return','export','default','import','from','if','else','new','true','false','null','undefined','async','await'])
 function highlightCode(source) {
@@ -36,6 +39,7 @@ function highlightCode(source) {
 }
 
 function App() {
+// View, editor, sidebar, popup, and terminal state, preserved while switching views.
   const [viewMode, setViewMode] = useViewMode()
   const isSimple = viewMode === 'simple'
   const [active, setActive] = useState('about.jsx')
@@ -65,6 +69,7 @@ function App() {
   const [minimized, setMinimized] = useState(false)
   const [maximized, setMaximized] = useState(false)
   const [closed, setClosed] = useState(false)
+// DOM references and per-file undo/redo history.
   const editorRef = useRef(null)
   const terminalOutputRef = useRef(null)
   const highlightRef = useRef(null)
@@ -74,6 +79,7 @@ function App() {
   const historyRef = useRef(Object.fromEntries(files.map(file => [file, { past: [], future: [] }])))
   const currentText = documents[active] ?? ''
 
+// Apply the scrolling layout for the selected home-page view.
   useEffect(() => {
     document.body.classList.toggle('home-workspace-page', !isSimple)
     document.body.classList.toggle('simple-view-page', isSimple)
@@ -115,6 +121,7 @@ function App() {
     }
   }, [])
 
+// Top menu positioning and keyboard navigation.
   const toggleMenu = (name, event) => {
     const rect = event.currentTarget.getBoundingClientRect()
     const width = Math.min(288, window.innerWidth - 16)
@@ -124,6 +131,7 @@ function App() {
     if (openMenu !== name) requestAnimationFrame(() => document.querySelector('#application-dropdown [aria-checked="true"], #application-dropdown button')?.focus())
   }
 
+// Shared menu rendered in both home-page views.
   const applicationMenuKeys = event => {
     if (event.key === 'Escape') {
       event.preventDefault(); event.stopPropagation()
@@ -142,6 +150,7 @@ function App() {
   useEffect(() => {
     if (terminalOpen && terminalOutputRef.current) terminalOutputRef.current.scrollTop = terminalOutputRef.current.scrollHeight
   }, [terminalLines, terminalText, terminalOpen, viewMode])
+// File tabs, active file selection, and split-editor navigation.
   const setFile = (file) => {
     setIntroOpen(false)
     if (compactLayout) setSidebar(false)
@@ -177,6 +186,7 @@ function App() {
     if (secondaryFile === file) setSecondaryFile('')
     setStatus('Closed ' + file)
   }
+// Orange Reload control: restore original information and editor state.
   const reload = () => {
     setNavigationVisible(true)
     setSidebar(true)
@@ -191,6 +201,7 @@ function App() {
     setOpenMenu('')
     setStatus('Portfolio information restored to its original content')
   }
+// Introduction popup dragging and position handling.
   const startIntroDrag = event => {
     if (event.button !== 0) return
     const panel = event.currentTarget.closest('.intro-panel')
@@ -213,6 +224,7 @@ function App() {
   const stopIntroDrag = event => {
     if (introDragRef.current?.pointerId === event.pointerId) introDragRef.current = null
   }
+// Typing, range edits, undo/redo, and editor clipboard actions.
   const updateDocument = (file, value) => {
     const before = documents[file] ?? ''
     if (before !== value) {
@@ -273,6 +285,7 @@ function App() {
       editor.focus()
     }
   }
+// Selection menu commands for editor text.
   const selectLine = () => {
     const editor = editorRef.current
     if (!editor) return
@@ -308,6 +321,7 @@ function App() {
     const transformed = line.split('\n').map(row => commented ? row.replace(/^(\s*)\/\/ ?/, '$1') : row.replace(/^(\s*)/, '$1// ')).join('\n')
     editRange(start, end, transformed, commented ? 'Uncommented selection' : 'Commented selection')
   }
+// Go menu navigation and home-page view switching.
   const goTo = label => {
     if (isSimple) document.getElementById(`simple-${label.toLowerCase()}`)?.scrollIntoView({ block: 'start' })
     else setFile(sectionForFile[label])
@@ -318,6 +332,7 @@ function App() {
     setSidebar(!navigationVisible)
     if (compactLayout && !navigationVisible) setIntroOpen(false)
   }
+// Commands for File, Edit, Selection, View, Go, Run, Terminal, and Help.
   const menuActions = {
     File: [
       ['Portfolio', 'projects ↗', () => { window.location.assign('/portfolio.html') }],
@@ -357,6 +372,7 @@ function App() {
     ],
   }
   const runMenuAction = action => { action(); setOpenMenu('') }
+// Copy email or phone and show a temporary confirmation.
   const copyContact = async (key, value) => {
     let success = false
     try { await navigator.clipboard.writeText(value); success = true } catch {
@@ -372,11 +388,13 @@ function App() {
     </div>)}</nav>
     {openMenu && <div id="application-dropdown" className="dropdown menu-root" role="menu" aria-label={openMenu} style={menuAnchor} onKeyDown={applicationMenuKeys}>{menuActions[openMenu].map(([label, shortcut, action]) => <button type="button" role={openMenu==='View' && ['Simple view','Code view'].includes(label) ? 'menuitemradio' : 'menuitem'} aria-checked={openMenu==='View' && ['Simple view','Code view'].includes(label) ? viewMode===label.split(' ')[0].toLowerCase() : undefined} className="dropdown-item" key={`${openMenu}-${label}`} onClick={() => runMenuAction(action)}><span>{label}</span><small>{shortcut}</small></button>)}</div>}  </>
 
+// Render Simple view while retaining the Code view state in App.
   if (isSimple) return <><SimpleView menu={applicationMenu} copyButton={copyButton} onAbout={()=>setAboutOpen(true)} />{aboutOpen && <AboutPortfolio onClose={closeAbout} />}</>
   if (closed) return <main className="ide window-closed"><section><BrandLogo /><h2>LunR Code window closed</h2><p>This closes the portfolio view here. Your browser stays open.</p><button onClick={()=>setClosed(false)}>Reopen LunR Code</button></section></main>
   if (minimized) return <main className="ide window-minimized"><button onClick={()=>setMinimized(false)}><BrandLogo decorative /> LunR Code <span>Restore</span></button></main>
 
   return <main className={`ide${maximized?' maximized':''}${navigationVisible?'':' navigation-hidden'}`}>
+{/* Top window bar: Reload, branding, and window controls. */}
     <header className="titlebar">
       <button className="titlebar-reload-left" type="button" onClick={reload}>↻ Reload</button>
       <div className="titlebar-brand"><BrandLogo decorative /><span>LunR Code <span className="brand-owner">— Jireh Chantengco</span></span></div>
@@ -386,7 +404,9 @@ function App() {
         <button className="window-close" type="button" aria-label="Close portfolio window" title="Close" onClick={()=>setClosed(true)}>×</button>
       </div>
     </header>
+{/* Top application menus. */}
     {applicationMenu}
+{/* Workspace: left icons, Explorer sidebar, and editor. */}
     <div className="workspace">
       {navigationVisible && <aside className="activity">{['▤','⌕','⑂','▷','▦'].map((icon,i)=><button aria-label={['Explorer','Search','Source Control','Run','Extensions'][i]} title={['Explorer','Search','Source Control','Run','Extensions'][i]} className={['Explorer','Search','Source Control','Run','Extensions'][i]===section?'chosen':''} key={i} onClick={()=>{if(compactLayout)setIntroOpen(false);setSection(['Explorer','Search','Source Control','Run','Extensions'][i]);setSidebar(current => section === ['Explorer','Search','Source Control','Run','Extensions'][i] ? !current : true)}}>{icon}</button>)}</aside>}
       {navigationVisible && compactLayout && sidebar && <button className="sidebar-backdrop" aria-label="Close file explorer" onClick={()=>setSidebar(false)} />}
@@ -401,6 +421,7 @@ function App() {
         {section==='Explorer' && <SkillsSidebar />}
         <div className="side-foot" aria-label="Workspace sections"><div className="side-foot-row"><span aria-hidden="true">›</span>Outline</div><div className="side-foot-row"><span aria-hidden="true">›</span>Timeline</div></div>
       </aside>}
+{/* File tabs, close buttons, split control, and introduction toggle. */}
       <section className="editor-area">
         <div className="tabs" ref={toolbarRef}>
           <div className="tab-list" role="tablist" aria-label="Open portfolio files">{openTabs.map(file=><div className="tab-item" key={file}>
@@ -409,6 +430,7 @@ function App() {
           </div>)}</div>
           <div className="tab-actions"><button type="button" className="split-toggle" title={secondaryFile?"Close split editor":"Split editor"} aria-label={secondaryFile?"Close split editor":"Open split editor"} onClick={()=>{if(secondaryFile)setSecondaryFile("");else openSplit()}}>{secondaryFile?"▣":"◫"}</button><button className="intro-brand-toggle" aria-label="Toggle LunR Code introduction panel" aria-expanded={introOpen} title="LunR Code · Introduction" onClick={()=>{if(compactLayout)setSidebar(false);setIntroOpen(open=>!open)}}><BrandLogo decorative /></button></div>
         </div>
+{/* Selected file: breadcrumb, syntax highlighting, and editable text. */}
         {active ? <><div className="crumb">src &nbsp;›&nbsp; {active} <span className="edit-hint">Editable · changes are temporary until Reload</span></div>
         <div className={'overview-grid '+(secondaryFile?'split-open':'')}>
           <div className={'editor-column'+(active==='contact.jsx'?' contact-active':'')}>
@@ -421,6 +443,7 @@ function App() {
             </div>
             {active==='contact.jsx' && <div className="contact-panel"><p>Copy a contact detail or open a profile in a new tab.</p>{copyButton('email','EMAIL','ljp.chantengco@gmail.com')}{copyButton('phone','PHONE','+63 919 387 2346')}<SocialLinks /></div>}
           </div>
+{/* Optional second editor pane and file drop target. */}
           {secondaryFile && <section className="secondary-editor" onDragOver={event=>{event.preventDefault();event.dataTransfer.dropEffect='copy'}} onDrop={handleSecondaryDrop} aria-label="Second editor pane">
             <div className="secondary-toolbar"><label htmlFor="secondary-file">SECOND EDITOR</label><select id="secondary-file" value={secondaryFile} onChange={event=>openSecondary(event.target.value)}>{files.filter(file=>file!==active).map(file=><option key={file} value={file}>{file}</option>)}</select><button type="button" onClick={()=>setSecondaryFile('')} aria-label="Close second editor">×</button></div>
             <div className="secondary-editor-surface">
@@ -431,6 +454,7 @@ function App() {
           </section>}
         </div>
         </> : <div className="empty-editor" aria-label="No file open"><span className="empty-logo"><BrandLogo /></span></div>}
+{/* Bottom terminal: typing-only command history and input. */}
         {terminalOpen && <section className="terminal-panel" aria-label="Typing-only terminal">
           <div className="terminal-heading"><strong>TERMINAL</strong><small>CMD STYLE · INPUT ONLY</small><button type="button" onClick={()=>setTerminalOpen(false)} aria-label="Close terminal">×</button></div>
           <div className="terminal-output" aria-live="polite" ref={terminalOutputRef}>{terminalText && <pre className="terminal-entry">{terminalText}</pre>}{terminalLines.map((line,index)=><pre className="terminal-entry" key={index}><span className="terminal-prompt">C:\Portfolio&gt;</span> {line}</pre>)}</div>
@@ -440,8 +464,11 @@ function App() {
         </section>}
       </section>
     </div>
+{/* Draggable introduction panel with profile and quick navigation. */}
     {introOpen && <aside className="intro-panel" aria-label="Portfolio introduction" style={introPosition ? { left: introPosition.left, top: introPosition.top, right: 'auto' } : undefined} onPointerMove={moveIntroPanel} onPointerUp={stopIntroDrag} onPointerCancel={stopIntroDrag}><button className="intro-close" type="button" aria-label="Close introduction" onClick={()=>setIntroOpen(false)}>×</button><div className="intro-body"><small className="intro-drag-handle" onPointerDown={startIntroDrag} title="Drag to move this panel">⠿ &nbsp; HELLO, WORLD <span>DRAG TO MOVE</span></small><h1>I'm <em>Jireh</em>.</h1><h2>Web developer & lifelong learner.</h2><p>I am Lowell Jireh P. Chantengco, an Information Technology graduate specializing in web development. I enjoy creating responsive websites and solving practical technical problems.</p><div className="cta-row"><button onClick={()=>setFile('experience.jsx')}>My experience ↗</button><button className="secondary" onClick={()=>setFile('contact.jsx')}>Get in touch</button></div><div className="intro-profile"><div className="monogram"><BrandLogo /></div><div><strong>Lowell Jireh P. Chantengco</strong><span>🟢 Open to opportunities</span><small>WEB DEVELOPER · IT SUPPORT</small></div></div></div></aside>}
+{/* Status bar: branding, branch, editor feedback, and location. */}
     <footer><span className="status-brand"><BrandLogo decorative />LunR Code</span><span>⎇ main</span><span>✓ 0 errors</span><span className="status-message" aria-live="polite">{status}</span><span className="right">Porac, Pampanga &nbsp; · &nbsp; Holy Angel University &nbsp; · &nbsp; Web Development</span></footer>
+{/* Help popups: About this Portfolio and keyboard shortcuts. */}
     {aboutOpen && <AboutPortfolio onClose={closeAbout} />}    {helpOpen && <div className="help-backdrop" onMouseDown={e=>{if(e.target===e.currentTarget)setHelpOpen(false)}}><section className="help-dialog" role="dialog" aria-modal="true" aria-labelledby="help-title"><button className="help-close" onClick={()=>setHelpOpen(false)} aria-label="Close help">×</button><h2 id="help-title">Portfolio shortcuts</h2><p><kbd>Ctrl</kbd> + <kbd>A</kbd> Select all editor text</p><p><kbd>Ctrl</kbd> + <kbd>Z</kbd> Undo · <kbd>Ctrl</kbd> + <kbd>Y</kbd> Redo</p><p><kbd>Ctrl</kbd> + <kbd>X</kbd> Cut · <kbd>Ctrl</kbd> + <kbd>C</kbd> Copy · <kbd>Ctrl</kbd> + <kbd>V</kbd> Paste</p><p><kbd>Alt</kbd> + <kbd>Z</kbd> Toggle word wrap</p><small>All edits are local to this page. Reload restores the original portfolio information.</small></section></div>}
   </main>
 }
