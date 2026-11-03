@@ -1,3 +1,7 @@
+# Portfolio source guide
+
+See [FILE_GUIDE.md](FILE_GUIDE.md) for the file map and explanations of each website section.
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.

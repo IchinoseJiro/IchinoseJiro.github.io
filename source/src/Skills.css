@@ -1,10 +1,392 @@
+/* FILE GUIDE: Skills.css
+   Each labeled block controls the selectors listed below it.
+   Inside a block: color = text, background = surface, padding = inner spacing,
+   margin = outer spacing, gap = space between items.
+   Read matching rules from top to bottom: later rules can override earlier ones.
+   @media blocks adapt the design to smaller screens or accessibility preferences.
+*/
+
 /* Skills toolbox, grouped cards, and responsive layouts. */
-.skill-vector{display:block;width:42px;height:42px;flex:none}.skill-vector text{fill:currentColor;stroke:none;text-anchor:middle;font-family:Consolas,'Courier New',monospace;font-weight:700}
-.skills-sidebar{flex-shrink:0}.pg-tabbar>a:first-child{display:flex;align-items:center;align-self:stretch;padding:0 20px;border-top:2px solid #7dcfff;background:#1b1d21;font:12px Consolas,monospace}.pg-tabbar>a:first-child span{display:flex;align-items:center;gap:9px}.pg-tabbar>a:first-child i{font-style:normal;color:#7dcfff}
-.skills-sidebar{margin:6px 12px 24px;padding:16px 0 0;border-top:1px solid #383d44;min-width:0}.skills-sidebar h3{margin:0 0 14px;color:#8c9ba9;font:9px 'Segoe UI',sans-serif;letter-spacing:1.3px}.skills-mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px 4px}.skills-sidebar .skill-mini{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;min-width:0;min-height:58px;padding:7px 2px;color:#a7b0bc;text-decoration:none;border:1px solid transparent;border-radius:4px;transition:background .2s,border-color .2s}.skill-mini .skill-vector{width:25px;height:25px;opacity:.8;transition:opacity .2s,transform .2s}.skill-mini span{font:8px/1.4 'Segoe UI',sans-serif;text-align:center;overflow-wrap:anywhere}.skills-sidebar .skill-mini:hover{background:#ffffff07;border-color:#46515d}.skill-mini:hover .skill-vector{opacity:1;transform:translateY(-2px)}.skills-sidebar a:focus-visible{outline:2px solid #7dcfff;outline-offset:2px}.skills-sidebar .skills-see-all{display:block;min-height:40px;padding:12px 0 4px;color:#8db7d0;font:10px/1.5 'Segoe UI',sans-serif;text-decoration:none}.skills-see-all:hover{text-decoration:underline}
-.skills-section{margin-top:54px;padding-top:38px;border-top:1px solid #3a424e;scroll-margin-top:64px}.skills-eyebrow{color:#82b994;font:11px Consolas,monospace;letter-spacing:1.5px;margin:0 0 14px}.skills-section>h2{margin:0 0 12px;color:#e2e5eb;font-size:clamp(26px,3vw,40px);font-weight:600;letter-spacing:-1px;line-height:1.2}.skills-intro{margin:0 0 30px;color:#a3aebb;font-size:14px;line-height:1.8;max-width:560px}.skills-group{margin-top:26px}.skills-group>h3{margin:0 0 14px;font:12px Consolas,monospace;color:#c1ccd8}.skills-group>h3>span{color:#718397;margin-right:6px}.skills-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}.skill-card{display:flex;align-items:center;gap:14px;min-width:0;min-height:98px;padding:18px;background:#22262d;border:1px solid #373f4a;border-radius:6px;scroll-margin-top:72px;transition:border-color .2s,transform .2s,background .2s}.skill-card:hover{border-color:var(--skill-accent);background:#272d35;transform:translateY(-3px)}.skill-card:target{border-color:var(--skill-accent);background:#2a323c}.skill-card h4{font:12px/1.6 'Segoe UI',sans-serif;font-weight:500;overflow-wrap:anywhere;margin:0;color:#ccd6e3}.skill-card .skill-vector{width:34px;height:34px}
-.pg-explorer .skills-sidebar{margin:26px 12px 20px}.pg-tabbar .pg-skills-tab{display:flex;align-items:center;min-height:42px;padding:0 18px;color:#a7c8df;border-left:1px solid #343a44;border-right:1px solid #343a44;font:12px Consolas,monospace;background:#20242b}.pg-skills-tab:hover{background:#2c3540}.pg-tabbar{position:sticky;top:0;z-index:5}.pg-tabbar>small{margin-left:auto}.pg-explorer .pg-skills-link{color:#a7c8df}
-@media(max-width:1200px){.skills-mini-grid{gap:7px 1px}.skill-mini span{font-size:8px}.skills-card-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
-@media(max-width:900px){.pg-explorer .skills-sidebar{display:none}.skills-section{margin-top:36px;padding-top:28px}.skills-intro{font-size:13px}}
-@media(max-width:520px){.skills-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.skill-card{flex-direction:column;align-items:flex-start;justify-content:flex-start;padding:14px;gap:10px;min-height:110px}.skill-card h4{font-size:12px}.skill-card .skill-vector{width:30px;height:30px}.pg-tabbar .pg-skills-tab{font-size:11px;padding:0 14px}.skills-section>h2{font-size:28px}.skills-eyebrow{font-size:10px}.skills-sidebar .skill-mini{min-height:62px}.skill-mini span{font-size:9px}}
-@media(prefers-reduced-motion:reduce){.skill-mini,.skill-vector,.skill-card{transition:none!important}.skill-card:hover,.skill-mini:hover .skill-vector{transform:none}}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skill-vector */
+.skill-vector {
+  display: block;
+  width: 42px;
+  height: 42px;
+  flex: none;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skill-vector text */
+.skill-vector text {
+  fill: currentColor;
+  stroke: none;
+  text-anchor: middle;
+  font-family: Consolas,'Courier New',monospace;
+  font-weight: 700;
+}
+
+/* Code view left icons and Explorer sidebar. Selectors: .skills-sidebar */
+.skills-sidebar {
+  flex-shrink: 0;
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>a:first-child */
+.pg-tabbar>a:first-child {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  padding: 0 20px;
+  border-top: 2px solid #7dcfff;
+  background: #1b1d21;
+  font: 12px Consolas,monospace;
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>a:first-child span */
+.pg-tabbar>a:first-child span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>a:first-child i */
+.pg-tabbar>a:first-child i {
+  font-style: normal;
+  color: #7dcfff;
+}
+
+/* Code view left icons and Explorer sidebar. Selectors: .skills-sidebar */
+.skills-sidebar {
+  margin: 6px 12px 24px;
+  padding: 16px 0 0;
+  border-top: 1px solid #383d44;
+  min-width: 0;
+}
+
+/* Code view left icons and Explorer sidebar. Selectors: .skills-sidebar h3 */
+.skills-sidebar h3 {
+  margin: 0 0 14px;
+  color: #8c9ba9;
+  font: 9px 'Segoe UI',sans-serif;
+  letter-spacing: 1.3px;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skills-mini-grid */
+.skills-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 7px 4px;
+}
+
+/* Code view left icons and Explorer sidebar. Selectors: .skills-sidebar .skill-mini */
+.skills-sidebar .skill-mini {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  min-width: 0;
+  min-height: 58px;
+  padding: 7px 2px;
+  color: #a7b0bc;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: background .2s,border-color .2s;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skill-mini .skill-vector */
+.skill-mini .skill-vector {
+  width: 25px;
+  height: 25px;
+  opacity: .8;
+  transition: opacity .2s,transform .2s;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skill-mini span */
+.skill-mini span {
+  font: 8px/1.4 'Segoe UI',sans-serif;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* Code view left icons and Explorer sidebar — mouse hover feedback. Selectors: .skills-sidebar .skill-mini:hover */
+.skills-sidebar .skill-mini:hover {
+  background: #ffffff07;
+  border-color: #46515d;
+}
+
+/* Skills icons, toolbox, and grouped cards — mouse hover feedback. Selectors: .skill-mini:hover .skill-vector */
+.skill-mini:hover .skill-vector {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* Code view left icons and Explorer sidebar — keyboard focus indicator. Selectors: .skills-sidebar a:focus-visible */
+.skills-sidebar a:focus-visible {
+  outline: 2px solid #7dcfff;
+  outline-offset: 2px;
+}
+
+/* Code view left icons and Explorer sidebar. Selectors: .skills-sidebar .skills-see-all */
+.skills-sidebar .skills-see-all {
+  display: block;
+  min-height: 40px;
+  padding: 12px 0 4px;
+  color: #8db7d0;
+  font: 10px/1.5 'Segoe UI',sans-serif;
+  text-decoration: none;
+}
+
+/* Skills icons, toolbox, and grouped cards — mouse hover feedback. Selectors: .skills-see-all:hover */
+.skills-see-all:hover {
+  text-decoration: underline;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skills-section */
+.skills-section {
+  margin-top: 54px;
+  padding-top: 38px;
+  border-top: 1px solid #3a424e;
+  scroll-margin-top: 64px;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skills-eyebrow */
+.skills-eyebrow {
+  color: #82b994;
+  font: 11px Consolas,monospace;
+  letter-spacing: 1.5px;
+  margin: 0 0 14px;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skills-section>h2 */
+.skills-section>h2 {
+  margin: 0 0 12px;
+  color: #e2e5eb;
+  font-size: clamp(26px,3vw,40px);
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skills-intro */
+.skills-intro {
+  margin: 0 0 30px;
+  color: #a3aebb;
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 560px;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skills-group */
+.skills-group {
+  margin-top: 26px;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skills-group>h3 */
+.skills-group>h3 {
+  margin: 0 0 14px;
+  font: 12px Consolas,monospace;
+  color: #c1ccd8;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skills-group>h3>span */
+.skills-group>h3>span {
+  color: #718397;
+  margin-right: 6px;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skills-card-grid */
+.skills-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+  gap: 12px;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skill-card */
+.skill-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  min-height: 98px;
+  padding: 18px;
+  background: #22262d;
+  border: 1px solid #373f4a;
+  border-radius: 6px;
+  scroll-margin-top: 72px;
+  transition: border-color .2s,transform .2s,background .2s;
+}
+
+/* Skills icons, toolbox, and grouped cards — mouse hover feedback. Selectors: .skill-card:hover */
+.skill-card:hover {
+  border-color: var(--skill-accent);
+  background: #272d35;
+  transform: translateY(-3px);
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skill-card:target */
+.skill-card:target {
+  border-color: var(--skill-accent);
+  background: #2a323c;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skill-card h4 */
+.skill-card h4 {
+  font: 12px/1.6 'Segoe UI',sans-serif;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  margin: 0;
+  color: #ccd6e3;
+}
+
+/* Skills icons, toolbox, and grouped cards. Selectors: .skill-card .skill-vector */
+.skill-card .skill-vector {
+  width: 34px;
+  height: 34px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer .skills-sidebar */
+.pg-explorer .skills-sidebar {
+  margin: 26px 12px 20px;
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar .pg-skills-tab */
+.pg-tabbar .pg-skills-tab {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 18px;
+  color: #a7c8df;
+  border-left: 1px solid #343a44;
+  border-right: 1px solid #343a44;
+  font: 12px Consolas,monospace;
+  background: #20242b;
+}
+
+/* Gallery Portfolio and Skills tabs — mouse hover feedback. Selectors: .pg-skills-tab:hover */
+.pg-skills-tab:hover {
+  background: #2c3540;
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar */
+.pg-tabbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>small */
+.pg-tabbar>small {
+  margin-left: auto;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-skills-link */
+.pg-explorer .pg-skills-link {
+  color: #a7c8df;
+}
+
+/* Screen-size or user-preference adjustment: (max-width:1200px) */
+@media (max-width:1200px) {
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skills-mini-grid */
+  .skills-mini-grid {
+    gap: 7px 1px;
+  }
+
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skill-mini span */
+  .skill-mini span {
+    font-size: 8px;
+  }
+
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skills-card-grid */
+  .skills-card-grid {
+    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+  }
+}
+
+/* Screen-size or user-preference adjustment: (max-width:900px) */
+@media (max-width:900px) {
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer .skills-sidebar */
+  .pg-explorer .skills-sidebar {
+    display: none;
+  }
+
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skills-section */
+  .skills-section {
+    margin-top: 36px;
+    padding-top: 28px;
+  }
+
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skills-intro */
+  .skills-intro {
+    font-size: 13px;
+  }
+}
+
+/* Screen-size or user-preference adjustment: (max-width:520px) */
+@media (max-width:520px) {
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skills-card-grid */
+  .skills-card-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 9px;
+  }
+
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skill-card */
+  .skill-card {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 14px;
+    gap: 10px;
+    min-height: 110px;
+  }
+
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skill-card h4 */
+  .skill-card h4 {
+    font-size: 12px;
+  }
+
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skill-card .skill-vector */
+  .skill-card .skill-vector {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar .pg-skills-tab */
+  .pg-tabbar .pg-skills-tab {
+    font-size: 11px;
+    padding: 0 14px;
+  }
+
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skills-section>h2 */
+  .skills-section>h2 {
+    font-size: 28px;
+  }
+
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skills-eyebrow */
+  .skills-eyebrow {
+    font-size: 10px;
+  }
+
+  /* Code view left icons and Explorer sidebar. Selectors: .skills-sidebar .skill-mini */
+  .skills-sidebar .skill-mini {
+    min-height: 62px;
+  }
+
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skill-mini span */
+  .skill-mini span {
+    font-size: 9px;
+  }
+}
+
+/* Screen-size or user-preference adjustment: (prefers-reduced-motion:reduce) */
+@media (prefers-reduced-motion:reduce) {
+  /* Skills icons, toolbox, and grouped cards. Selectors: .skill-mini,.skill-vector,.skill-card */
+  .skill-mini,.skill-vector,.skill-card {
+    transition: none !important;
+  }
+
+  /* Skills icons, toolbox, and grouped cards — mouse hover feedback. Selectors: .skill-card:hover,.skill-mini:hover .skill-vector */
+  .skill-card:hover,.skill-mini:hover .skill-vector {
+    transform: none;
+  }
+}

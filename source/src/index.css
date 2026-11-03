@@ -1,2 +1,33 @@
+/* FILE GUIDE: index.css
+   Each labeled block controls the selectors listed below it.
+   Inside a block: color = text, background = surface, padding = inner spacing,
+   margin = outer spacing, gap = space between items.
+   Read matching rules from top to bottom: later rules can override earlier ones.
+   @media blocks adapt the design to smaller screens or accessibility preferences.
+*/
+
 /* Global page defaults shared by home and gallery. */
-*{box-sizing:border-box}html,body,#root{margin:0;min-width:320px;min-height:100%;font-family:'Segoe UI',Arial,sans-serif}body{min-height:100vh;background:#1e1e1e}button{font:inherit}
+
+/* Shared page styling. Selectors: * */
+* {
+  box-sizing: border-box;
+}
+
+/* Shared page styling. Selectors: html,body,#root */
+html,body,#root {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100%;
+  font-family: 'Segoe UI',Arial,sans-serif;
+}
+
+/* Shared page styling. Selectors: body */
+body {
+  min-height: 100vh;
+  background: #1e1e1e;
+}
+
+/* Shared page styling. Selectors: button */
+button {
+  font: inherit;
+}

@@ -1,36 +1,1573 @@
+/* FILE GUIDE: Portfolio.css
+   Each labeled block controls the selectors listed below it.
+   Inside a block: color = text, background = surface, padding = inner spacing,
+   margin = outer spacing, gap = space between items.
+   Read matching rules from top to bottom: later rules can override earlier ones.
+   @media blocks adapt the design to smaller screens or accessibility preferences.
+*/
+
 /* Gallery Explorer, featured current project, college cards, and screenshot dialog. */
-.pg-shell{--pg-bg:#1b1d21;--pg-border:#33363d;--pg-muted:#999fa9;--pg-cyan:#7dcfff;background:var(--pg-bg);color:#e2e5eb;min-height:100dvh;font:14px/1.6 'Segoe UI',Arial,sans-serif}
-.pg-shell a{color:inherit;text-decoration:none}.pg-shell button{cursor:pointer}.pg-shell :is(a,button):focus-visible{outline:2px solid var(--pg-cyan);outline-offset:4px}.pg-skip{position:fixed;top:0;left:16px;padding:10px;background:#007acc;z-index:200;transform:translateY(-110%)}.pg-skip:focus{transform:none}
+
+/* Shared page styling. Selectors: .pg-shell */
+.pg-shell {
+  --pg-bg: #1b1d21;
+  --pg-border: #33363d;
+  --pg-muted: #999fa9;
+  --pg-cyan: #7dcfff;
+  background: var(--pg-bg);
+  color: #e2e5eb;
+  min-height: 100dvh;
+  font: 14px/1.6 'Segoe UI',Arial,sans-serif;
+}
+
+/* Shared page styling. Selectors: .pg-shell a */
+.pg-shell a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Shared page styling. Selectors: .pg-shell button */
+.pg-shell button {
+  cursor: pointer;
+}
+
+/* Shared page styling — keyboard focus indicator. Selectors: .pg-shell :is(a,button):focus-visible */
+.pg-shell :is(a,button):focus-visible {
+  outline: 2px solid var(--pg-cyan);
+  outline-offset: 4px;
+}
+
+/* Shared page styling. Selectors: .pg-skip */
+.pg-skip {
+  position: fixed;
+  top: 0;
+  left: 16px;
+  padding: 10px;
+  background: #007acc;
+  z-index: 200;
+  transform: translateY(-110%);
+}
+
+/* Shared page styling — keyboard focus indicator. Selectors: .pg-skip:focus */
+.pg-skip:focus {
+  transform: none;
+}
 
 /* Gallery header */
-.pg-titlebar{min-height:62px;padding:10px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:#161719;border-bottom:1px solid var(--pg-border)}.pg-brand{display:flex;align-items:center;gap:12px;font-size:13px}.pg-brand>b{display:grid;place-items:center;width:32px;height:32px;border:1px solid #4d6475;color:var(--pg-cyan);font:15px Consolas,monospace;border-radius:7px}.pg-brand i{font-style:normal;color:var(--pg-muted)}.pg-home{font-size:12px;border:1px solid #3d424c;border-radius:5px;padding:8px 13px;min-height:40px;display:inline-flex;align-items:center;transition:background .2s,border-color .2s}.pg-home:hover{background:#27313b;border-color:#7dcfff}
+
+/* Gallery header and home link. Selectors: .pg-titlebar */
+.pg-titlebar {
+  min-height: 62px;
+  padding: 10px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #161719;
+  border-bottom: 1px solid var(--pg-border);
+}
+
+/* Gallery header and home link. Selectors: .pg-brand */
+.pg-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+/* Gallery header and home link. Selectors: .pg-brand>b */
+.pg-brand>b {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #4d6475;
+  color: var(--pg-cyan);
+  font: 15px Consolas,monospace;
+  border-radius: 7px;
+}
+
+/* Gallery header and home link. Selectors: .pg-brand i */
+.pg-brand i {
+  font-style: normal;
+  color: var(--pg-muted);
+}
+
+/* Gallery header and home link. Selectors: .pg-home */
+.pg-home {
+  font-size: 12px;
+  border: 1px solid #3d424c;
+  border-radius: 5px;
+  padding: 8px 13px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  transition: background .2s,border-color .2s;
+}
+
+/* Gallery header and home link — mouse hover feedback. Selectors: .pg-home:hover */
+.pg-home:hover {
+  background: #27313b;
+  border-color: #7dcfff;
+}
 
 /* Explorer and activity rail */
-.pg-layout{display:grid;grid-template-columns:48px 210px minmax(0,1fr);min-height:calc(100dvh - 90px)}.pg-rail{background:#17181b;border-right:1px solid #2b2d32;display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:12px;color:#7f8794}.pg-rail>a,.pg-rail>span{width:100%;min-height:42px;display:grid;place-items:center;font:22px Consolas,monospace}.pg-rail a:hover{color:#fff;background:#ffffff08}.pg-rail .pg-rail-active{color:var(--pg-cyan);border-left:2px solid var(--pg-cyan);background:#7dcfff08}.pg-rail .pg-rail-bottom{margin-top:auto;font-size:12px;padding-bottom:18px;color:#616974}
-.pg-explorer{background:#202227;border-right:1px solid var(--pg-border);padding:20px 0;position:relative}.pg-explorer-title{display:flex;justify-content:space-between;padding:0 18px;font-size:10px;letter-spacing:1.7px;color:#b3b8c1}.pg-explorer-title span{font-size:16px}.pg-explorer>p{margin:27px 0 9px;padding:0 12px;font:10px Consolas,monospace;font-weight:700;letter-spacing:.7px}.pg-explorer>a{display:flex;align-items:center;gap:9px;padding:11px 15px 11px 23px;font:12px Consolas,monospace;min-height:42px;transition:background .2s}.pg-explorer>a:hover{background:#30343d}.pg-explorer .pg-readme{background:#2b3039;color:#d8e7f2;border-left:2px solid var(--pg-cyan);padding-left:21px}.pg-readme span{color:var(--pg-cyan)}.pg-explorer-note{margin:48px 16px 0;padding-top:18px;border-top:1px solid var(--pg-border);color:var(--pg-muted);font-size:11px}.pg-explorer-note>span{font-size:9px;letter-spacing:1.2px}.pg-explorer-note p{line-height:1.9}.pg-explorer-note code{font-size:10px;color:#7d9b89}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-layout */
+.pg-layout {
+  display: grid;
+  grid-template-columns: 48px 210px minmax(0,1fr);
+  min-height: calc(100dvh - 90px);
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-rail */
+.pg-rail {
+  background: #17181b;
+  border-right: 1px solid #2b2d32;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 14px;
+  gap: 12px;
+  color: #7f8794;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-rail>a,.pg-rail>span */
+.pg-rail>a,.pg-rail>span {
+  width: 100%;
+  min-height: 42px;
+  display: grid;
+  place-items: center;
+  font: 22px Consolas,monospace;
+}
+
+/* Gallery left navigation and Explorer — mouse hover feedback. Selectors: .pg-rail a:hover */
+.pg-rail a:hover {
+  color: #fff;
+  background: #ffffff08;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-rail .pg-rail-active */
+.pg-rail .pg-rail-active {
+  color: var(--pg-cyan);
+  border-left: 2px solid var(--pg-cyan);
+  background: #7dcfff08;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-rail .pg-rail-bottom */
+.pg-rail .pg-rail-bottom {
+  margin-top: auto;
+  font-size: 12px;
+  padding-bottom: 18px;
+  color: #616974;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer */
+.pg-explorer {
+  background: #202227;
+  border-right: 1px solid var(--pg-border);
+  padding: 20px 0;
+  position: relative;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer-title */
+.pg-explorer-title {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 18px;
+  font-size: 10px;
+  letter-spacing: 1.7px;
+  color: #b3b8c1;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer-title span */
+.pg-explorer-title span {
+  font-size: 16px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer>p */
+.pg-explorer>p {
+  margin: 27px 0 9px;
+  padding: 0 12px;
+  font: 10px Consolas,monospace;
+  font-weight: 700;
+  letter-spacing: .7px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer>a */
+.pg-explorer>a {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 15px 11px 23px;
+  font: 12px Consolas,monospace;
+  min-height: 42px;
+  transition: background .2s;
+}
+
+/* Gallery left navigation and Explorer — mouse hover feedback. Selectors: .pg-explorer>a:hover */
+.pg-explorer>a:hover {
+  background: #30343d;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-readme */
+.pg-explorer .pg-readme {
+  background: #2b3039;
+  color: #d8e7f2;
+  border-left: 2px solid var(--pg-cyan);
+  padding-left: 21px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-readme span */
+.pg-readme span {
+  color: var(--pg-cyan);
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer-note */
+.pg-explorer-note {
+  margin: 48px 16px 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--pg-border);
+  color: var(--pg-muted);
+  font-size: 11px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer-note>span */
+.pg-explorer-note>span {
+  font-size: 9px;
+  letter-spacing: 1.2px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer-note p */
+.pg-explorer-note p {
+  line-height: 1.9;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer-note code */
+.pg-explorer-note code {
+  font-size: 10px;
+  color: #7d9b89;
+}
 
 /* Tabs and introduction */
-.pg-main{min-width:0}.pg-tabbar{height:42px;border-bottom:1px solid var(--pg-border);display:flex;justify-content:space-between;align-items:center;background:#181a1e}.pg-tabbar>span{height:100%;display:flex;align-items:center;gap:9px;padding:0 20px;background:var(--pg-bg);border-top:2px solid #7dcfff;font:12px Consolas,monospace}.pg-tabbar i{font-style:normal;color:var(--pg-cyan)}.pg-tabbar b{color:#667787;font-size:8px;margin-left:18px}.pg-tabbar>small{padding-right:28px;letter-spacing:1.7px;font-size:9px;color:#777f8b}.pg-content{max-width:1440px;margin:auto;padding:54px clamp(22px,4vw,72px) 28px}.pg-hero{position:relative;padding:0 0 40px}.pg-eyebrow{font:11px Consolas,monospace;letter-spacing:2px;color:#82b994;margin:0 0 20px}.pg-hero h1{font-size:clamp(36px,4.3vw,68px);font-weight:600;line-height:1.12;letter-spacing:-2px;margin:0 0 22px}.pg-hero h1>span{color:var(--pg-cyan)}.pg-hero h1>i{display:inline-block;height:.8em;width:3px;background:#7dcfff;margin-left:7px;animation:pg-cursor 1.3s steps(1) 4}.pg-intro{font-size:15px;line-height:1.8;color:#aab1bc;max-width:540px;margin:0}.pg-meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:24px;font:11px Consolas,monospace;color:#939da9}.pg-meta>span+span{padding-left:18px;border-left:1px solid #3b424c}.pg-meta b{color:#e5ebf4;font-weight:400}
+
+/* Shared page styling. Selectors: .pg-main */
+.pg-main {
+  min-width: 0;
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar */
+.pg-tabbar {
+  height: 42px;
+  border-bottom: 1px solid var(--pg-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #181a1e;
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>span */
+.pg-tabbar>span {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 20px;
+  background: var(--pg-bg);
+  border-top: 2px solid #7dcfff;
+  font: 12px Consolas,monospace;
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar i */
+.pg-tabbar i {
+  font-style: normal;
+  color: var(--pg-cyan);
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar b */
+.pg-tabbar b {
+  color: #667787;
+  font-size: 8px;
+  margin-left: 18px;
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>small */
+.pg-tabbar>small {
+  padding-right: 28px;
+  letter-spacing: 1.7px;
+  font-size: 9px;
+  color: #777f8b;
+}
+
+/* Shared page styling. Selectors: .pg-content */
+.pg-content {
+  max-width: 1440px;
+  margin: auto;
+  padding: 54px clamp(22px,4vw,72px) 28px;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-hero */
+.pg-hero {
+  position: relative;
+  padding: 0 0 40px;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-eyebrow */
+.pg-eyebrow {
+  font: 11px Consolas,monospace;
+  letter-spacing: 2px;
+  color: #82b994;
+  margin: 0 0 20px;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-hero h1 */
+.pg-hero h1 {
+  font-size: clamp(36px,4.3vw,68px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -2px;
+  margin: 0 0 22px;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-hero h1>span */
+.pg-hero h1>span {
+  color: var(--pg-cyan);
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-hero h1>i */
+.pg-hero h1>i {
+  display: inline-block;
+  height: .8em;
+  width: 3px;
+  background: #7dcfff;
+  margin-left: 7px;
+  animation: pg-cursor 1.3s steps(1) 4;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-intro */
+.pg-intro {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #aab1bc;
+  max-width: 540px;
+  margin: 0;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-meta */
+.pg-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin-top: 24px;
+  font: 11px Consolas,monospace;
+  color: #939da9;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-meta>span+span */
+.pg-meta>span+span {
+  padding-left: 18px;
+  border-left: 1px solid #3b424c;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-meta b */
+.pg-meta b {
+  color: #e5ebf4;
+  font-weight: 400;
+}
 
 /* College project cards */
-.pg-projects{display:grid;gap:32px}.pg-card{border:1px solid #3b3f48;border-radius:9px;overflow:hidden;scroll-margin-top:24px;background:#202329;box-shadow:0 12px 34px #0002;animation:pg-enter .65s both;animation-delay:var(--entry-delay);transition:border-color .2s,box-shadow .2s}.pg-card:hover{border-color:var(--project-accent);box-shadow:0 15px 38px #0004}.pg-card-bar{padding:12px 17px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #3b3f48;background:#272a31;font:11px Consolas,monospace;color:#b0b6c0}.pg-card-bar>span{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.pg-card-bar b{font-weight:400;color:var(--project-accent)}.pg-card-bar i{font-style:normal;color:#626b79}.pg-card-bar>small{font-size:9px;letter-spacing:1px;white-space:nowrap;color:#8993a2}.pg-card-body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}.pg-image-area{min-width:0;padding:24px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(ellipse at 50% 30%,#353b46,#242830 72%);border-right:1px solid #343a44}.pg-image-button{width:100%;padding:0;background:#101215;border:1px solid #535763;border-radius:5px;overflow:hidden;display:block;box-shadow:0 14px 26px #0005;transition:transform .3s,border-color .3s;color:#e5ebf4;text-align:left}.pg-image-button:hover{transform:translateY(-4px);border-color:var(--project-accent)}.pg-image-button img{display:block;width:100%;height:auto}.pg-image-button>span{display:block;font:11px Consolas,monospace;padding:11px 13px;color:#afbdcd;background:#1d2128;border-top:1px solid #3b414b}.pg-image-area>p{margin:18px 0 0;color:#7e8999;letter-spacing:1.5px;font-size:8px;text-align:center}
-.pg-project-info{padding:clamp(22px,2.5vw,38px);min-width:0}.pg-project-number{font:10px Consolas,monospace;letter-spacing:1.7px;color:var(--project-accent)}.pg-project-info h2{font-size:clamp(24px,2.4vw,34px);font-weight:600;letter-spacing:-.8px;line-height:1.2;margin:14px 0 8px;overflow-wrap:anywhere}.pg-course{color:var(--project-accent);font-size:12px;margin:0 0 23px}.pg-description{color:#adb5c1;font-size:14px;line-height:1.8;margin:0 0 22px}.pg-tags{display:flex;flex-wrap:wrap;gap:7px}.pg-tags>span{padding:4px 9px;border:1px solid #45505e;background:#28313c;border-radius:4px;color:#c8d7e5;font:10px/1.5 Consolas,monospace}.pg-code-note{margin-top:25px;border-left:2px solid #3d4857;padding:0 0 0 14px;font:11px/1.9 Consolas,monospace;color:#a5c5e1;overflow-wrap:anywhere}.pg-code-note>span{color:#c7a5e6}.pg-code-note b{color:#d6ac95;font-weight:400}.pg-preview-button{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:44px;margin-top:26px;padding:10px 0;color:#dce7f1;background:none;border:0;border-top:1px solid #3c424c;text-align:left;font-size:12px}.pg-preview-button>span{color:var(--project-accent);font-size:20px;transition:transform .2s}.pg-preview-button:hover>span{transform:translate(3px,-3px)}
-.pg-endnote{display:flex;align-items:center;gap:16px;padding:40px 0 10px}.pg-endnote>span{font:26px Consolas,monospace;color:#57788d}.pg-endnote h2{font-size:14px;font-weight:500;margin:0 0 4px}.pg-endnote p{font-size:12px;color:#8b95a3;margin:0}.pg-endnote a{font-size:11px;color:var(--pg-cyan);margin-left:auto;min-height:44px;display:flex;align-items:center;white-space:nowrap}.pg-endnote a:hover{text-decoration:underline}.pg-status{display:flex;justify-content:space-between;gap:20px;padding:5px 15px;background:#075c89;color:#dcebf5;font:10px/1.8 Consolas,monospace}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-projects */
+.pg-projects {
+  display: grid;
+  gap: 32px;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-card */
+.pg-card {
+  border: 1px solid #3b3f48;
+  border-radius: 9px;
+  overflow: hidden;
+  scroll-margin-top: 24px;
+  background: #202329;
+  box-shadow: 0 12px 34px #0002;
+  animation: pg-enter .65s both;
+  animation-delay: var(--entry-delay);
+  transition: border-color .2s,box-shadow .2s;
+}
+
+/* College project cards, screenshots, and descriptions — mouse hover feedback. Selectors: .pg-card:hover */
+.pg-card:hover {
+  border-color: var(--project-accent);
+  box-shadow: 0 15px 38px #0004;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-card-bar */
+.pg-card-bar {
+  padding: 12px 17px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #3b3f48;
+  background: #272a31;
+  font: 11px Consolas,monospace;
+  color: #b0b6c0;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-card-bar>span */
+.pg-card-bar>span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-card-bar b */
+.pg-card-bar b {
+  font-weight: 400;
+  color: var(--project-accent);
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-card-bar i */
+.pg-card-bar i {
+  font-style: normal;
+  color: #626b79;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-card-bar>small */
+.pg-card-bar>small {
+  font-size: 9px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  color: #8993a2;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-card-body */
+.pg-card-body {
+  display: grid;
+  grid-template-columns: minmax(0,1.35fr) minmax(0,1fr);
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-image-area */
+.pg-image-area {
+  min-width: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 30%,#353b46,#242830 72%);
+  border-right: 1px solid #343a44;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-image-button */
+.pg-image-button {
+  width: 100%;
+  padding: 0;
+  background: #101215;
+  border: 1px solid #535763;
+  border-radius: 5px;
+  overflow: hidden;
+  display: block;
+  box-shadow: 0 14px 26px #0005;
+  transition: transform .3s,border-color .3s;
+  color: #e5ebf4;
+  text-align: left;
+}
+
+/* College project cards, screenshots, and descriptions — mouse hover feedback. Selectors: .pg-image-button:hover */
+.pg-image-button:hover {
+  transform: translateY(-4px);
+  border-color: var(--project-accent);
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-image-button img */
+.pg-image-button img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-image-button>span */
+.pg-image-button>span {
+  display: block;
+  font: 11px Consolas,monospace;
+  padding: 11px 13px;
+  color: #afbdcd;
+  background: #1d2128;
+  border-top: 1px solid #3b414b;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-image-area>p */
+.pg-image-area>p {
+  margin: 18px 0 0;
+  color: #7e8999;
+  letter-spacing: 1.5px;
+  font-size: 8px;
+  text-align: center;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-project-info */
+.pg-project-info {
+  padding: clamp(22px,2.5vw,38px);
+  min-width: 0;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-project-number */
+.pg-project-number {
+  font: 10px Consolas,monospace;
+  letter-spacing: 1.7px;
+  color: var(--project-accent);
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-project-info h2 */
+.pg-project-info h2 {
+  font-size: clamp(24px,2.4vw,34px);
+  font-weight: 600;
+  letter-spacing: -.8px;
+  line-height: 1.2;
+  margin: 14px 0 8px;
+  overflow-wrap: anywhere;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-course */
+.pg-course {
+  color: var(--project-accent);
+  font-size: 12px;
+  margin: 0 0 23px;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-description */
+.pg-description {
+  color: #adb5c1;
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 0 0 22px;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-tags */
+.pg-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-tags>span */
+.pg-tags>span {
+  padding: 4px 9px;
+  border: 1px solid #45505e;
+  background: #28313c;
+  border-radius: 4px;
+  color: #c8d7e5;
+  font: 10px/1.5 Consolas,monospace;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-code-note */
+.pg-code-note {
+  margin-top: 25px;
+  border-left: 2px solid #3d4857;
+  padding: 0 0 0 14px;
+  font: 11px/1.9 Consolas,monospace;
+  color: #a5c5e1;
+  overflow-wrap: anywhere;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-code-note>span */
+.pg-code-note>span {
+  color: #c7a5e6;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-code-note b */
+.pg-code-note b {
+  color: #d6ac95;
+  font-weight: 400;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-preview-button */
+.pg-preview-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 26px;
+  padding: 10px 0;
+  color: #dce7f1;
+  background: none;
+  border: 0;
+  border-top: 1px solid #3c424c;
+  text-align: left;
+  font-size: 12px;
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-preview-button>span */
+.pg-preview-button>span {
+  color: var(--project-accent);
+  font-size: 20px;
+  transition: transform .2s;
+}
+
+/* College project cards, screenshots, and descriptions — mouse hover feedback. Selectors: .pg-preview-button:hover>span */
+.pg-preview-button:hover>span {
+  transform: translate(3px,-3px);
+}
+
+/* Gallery closing message and status bar. Selectors: .pg-endnote */
+.pg-endnote {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 0 10px;
+}
+
+/* Gallery closing message and status bar. Selectors: .pg-endnote>span */
+.pg-endnote>span {
+  font: 26px Consolas,monospace;
+  color: #57788d;
+}
+
+/* Gallery closing message and status bar. Selectors: .pg-endnote h2 */
+.pg-endnote h2 {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 4px;
+}
+
+/* Gallery closing message and status bar. Selectors: .pg-endnote p */
+.pg-endnote p {
+  font-size: 12px;
+  color: #8b95a3;
+  margin: 0;
+}
+
+/* Gallery closing message and status bar. Selectors: .pg-endnote a */
+.pg-endnote a {
+  font-size: 11px;
+  color: var(--pg-cyan);
+  margin-left: auto;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Gallery closing message and status bar — mouse hover feedback. Selectors: .pg-endnote a:hover */
+.pg-endnote a:hover {
+  text-decoration: underline;
+}
+
+/* Gallery closing message and status bar. Selectors: .pg-status */
+.pg-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 5px 15px;
+  background: #075c89;
+  color: #dcebf5;
+  font: 10px/1.8 Consolas,monospace;
+}
 
 /* Screenshot popup */
-.pg-dialog{padding:0;border:1px solid #546678;border-radius:8px;background:#1c2026;color:#e2e8f0;width:min(1200px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 40px);overflow:hidden;box-shadow:0 24px 80px #000a}.pg-dialog::backdrop{background:#080b10d9;backdrop-filter:blur(7px)}.pg-dialog-bar{min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:5px 10px 5px 20px;border-bottom:1px solid #3a4654}.pg-dialog-bar h2{font-size:13px;font-weight:500;margin:0;overflow-wrap:anywhere}.pg-dialog-bar h2 span{font:11px Consolas,monospace;color:#8c9aaa}.pg-dialog-bar button{min-width:44px;min-height:44px;border:0;background:transparent;color:#d4dfe9;font-size:25px;border-radius:3px}.pg-dialog-bar button:hover{background:#ffffff12}.pg-dialog-image{max-height:calc(100dvh - 100px);overflow:auto;overscroll-behavior:contain;scrollbar-color:#52616c #20272d;scrollbar-width:thin}.pg-dialog-image img{display:block;width:100%;height:auto}
-@keyframes pg-enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}@keyframes pg-cursor{0%,49%{opacity:1}50%,100%{opacity:0}}
-@media(max-width:1200px){.pg-layout{grid-template-columns:44px 180px minmax(0,1fr)}.pg-explorer>a{font-size:11px;padding-left:14px}.pg-explorer .pg-readme{padding-left:12px}.pg-card-body{grid-template-columns:minmax(0,1fr)}.pg-image-area{border-right:0;border-bottom:1px solid #343a44;padding:22px}.pg-project-info{padding:26px}.pg-code-note{display:none}.pg-content{padding-top:36px}.pg-project-info h2{font-size:30px}}
-@media(max-width:900px){.pg-layout{grid-template-columns:42px minmax(0,1fr)}.pg-rail{grid-column:1;grid-row:1 / 3}.pg-explorer{grid-column:2;grid-row:1;display:flex;align-items:center;gap:4px;overflow-x:auto;padding:4px 8px;border-right:0;border-bottom:1px solid #343a44;scrollbar-width:thin}.pg-explorer-title,.pg-explorer>p,.pg-explorer-note{display:none}.pg-explorer>a{flex:none;font-size:11px;min-height:44px;padding:10px 12px;border:0;border-radius:4px}.pg-explorer .pg-readme{padding-left:12px;border:0}.pg-main{grid-column:2;grid-row:2}.pg-explorer .pg-readme{background:transparent}.pg-tabbar>small{font-size:8px;padding-right:15px;letter-spacing:1px}.pg-content{padding:32px 20px 22px}.pg-hero h1{font-size:clamp(34px,7vw,54px)}.pg-intro{font-size:14px}.pg-endnote{flex-wrap:wrap}.pg-endnote a{margin-left:42px}.pg-status>span:nth-child(2){display:none}.pg-titlebar{padding:10px 16px}}
-@media(max-width:520px){.pg-titlebar{padding:8px 10px;min-height:58px;gap:8px}.pg-brand{gap:8px;font-size:11px}.pg-brand i{display:none}.pg-brand>b{width:28px;height:28px;font-size:13px}.pg-home{padding:8px;font-size:10px}.pg-layout{grid-template-columns:minmax(0,1fr)}.pg-rail{display:none}.pg-explorer,.pg-main{grid-column:1}.pg-explorer>a{font-size:10px;padding:10px}.pg-tabbar>small{display:none}.pg-content{padding:28px 14px 18px}.pg-hero{padding-bottom:28px}.pg-eyebrow{font-size:9px;letter-spacing:1.6px;margin-bottom:17px}.pg-hero h1{font-size:clamp(33px,9vw,44px);letter-spacing:-1.5px;margin-bottom:18px}.pg-intro{font-size:13px;line-height:1.75}.pg-meta{gap:10px 14px;font-size:10px}.pg-meta>span+span{padding-left:10px}.pg-projects{gap:22px}.pg-card-bar{padding:12px;font-size:9px}.pg-card-bar>span{gap:6px}.pg-card-bar>small{display:none}.pg-image-area{padding:14px}.pg-image-area>p{font-size:7px;letter-spacing:1px;margin-top:13px}.pg-project-info{padding:22px 18px 16px}.pg-project-info h2{font-size:28px}.pg-description{font-size:13px}.pg-course{font-size:11px;margin-bottom:16px}.pg-preview-button{margin-top:20px}.pg-endnote{padding-top:30px;gap:12px}.pg-endnote>span{display:none}.pg-endnote h2{font-size:13px}.pg-endnote a{margin-left:0}.pg-status{padding:6px 10px;font-size:9px;gap:10px}.pg-dialog{width:calc(100vw - 16px);max-height:calc(100dvh - 24px)}.pg-dialog-bar{padding-left:12px}.pg-dialog-bar h2 span{display:none}.pg-dialog-image{max-height:calc(100dvh - 84px)}}
-@media(prefers-reduced-motion:reduce){.pg-shell *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-.pg-image-area>.pg-project-note{margin:14px 0 0;padding:10px 12px;border-left:2px solid var(--project-accent);border-radius:0 4px 4px 0;background:#ffffff05;color:#bdc6d2;font-size:12px;line-height:1.7;letter-spacing:0;text-align:left;overflow-wrap:anywhere}
-.pg-layout{align-items:start}.pg-rail,.pg-explorer{position:sticky;top:0;height:100dvh;max-height:100dvh;min-height:0;align-self:start;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#425563 #202227}.pg-explorer{display:flex;flex-direction:column;padding:16px 0 12px}.pg-explorer>p{margin:18px 0 7px;flex:none}.pg-explorer>a{min-height:34px;padding-top:8px;padding-bottom:8px;flex:none}.pg-explorer .skills-sidebar{margin:16px 12px 12px;padding-top:12px}.pg-explorer .skills-mini-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.pg-explorer .skill-mini{min-height:30px;padding:4px 1px;gap:0}.pg-explorer .skill-mini .skill-vector{width:20px;height:20px}.pg-explorer .skill-mini span{display:none}.pg-explorer .skills-see-all{min-height:26px;padding-top:8px;font-size:9px}.pg-explorer .pg-explorer-note{margin: auto 12px 0;padding-top:12px;flex:none}.pg-explorer-note p{margin:8px 0;line-height:1.7}@media(max-width:900px){.pg-explorer{height:52px;min-height:52px;max-height:none;flex-direction:row;top:0;z-index:20;overflow-x:auto;overflow-y:hidden;padding:4px 8px}.pg-explorer>a{min-height:44px}.pg-tabbar{top:52px}.pg-rail{top:0;height:100dvh}.pg-explorer .skills-sidebar{display:none}}
-.pg-explorer .skills-sidebar .skill-mini{min-height:32px}
-@media(min-width:901px) and (max-height:660px){.pg-explorer>p{margin:12px 0 6px}.pg-explorer>a{min-height:30px;padding-top:6px;padding-bottom:6px}.pg-explorer .skills-sidebar{margin:10px 12px 6px;padding-top:8px}.pg-explorer .skills-sidebar h3{margin-bottom:8px}.pg-explorer .pg-explorer-note{padding-top:8px;font-size:10px}.pg-explorer-note p{margin:6px 0}}
 
+/* Gallery enlarged screenshot popup. Selectors: .pg-dialog */
+.pg-dialog {
+  padding: 0;
+  border: 1px solid #546678;
+  border-radius: 8px;
+  background: #1c2026;
+  color: #e2e8f0;
+  width: min(1200px,calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 40px);
+  overflow: hidden;
+  box-shadow: 0 24px 80px #000a;
+}
+
+/* Gallery enlarged screenshot popup. Selectors: .pg-dialog::backdrop */
+.pg-dialog::backdrop {
+  background: #080b10d9;
+  backdrop-filter: blur(7px);
+}
+
+/* Gallery enlarged screenshot popup. Selectors: .pg-dialog-bar */
+.pg-dialog-bar {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 5px 10px 5px 20px;
+  border-bottom: 1px solid #3a4654;
+}
+
+/* Gallery enlarged screenshot popup. Selectors: .pg-dialog-bar h2 */
+.pg-dialog-bar h2 {
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Gallery enlarged screenshot popup. Selectors: .pg-dialog-bar h2 span */
+.pg-dialog-bar h2 span {
+  font: 11px Consolas,monospace;
+  color: #8c9aaa;
+}
+
+/* Gallery enlarged screenshot popup. Selectors: .pg-dialog-bar button */
+.pg-dialog-bar button {
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: #d4dfe9;
+  font-size: 25px;
+  border-radius: 3px;
+}
+
+/* Gallery enlarged screenshot popup — mouse hover feedback. Selectors: .pg-dialog-bar button:hover */
+.pg-dialog-bar button:hover {
+  background: #ffffff12;
+}
+
+/* Gallery enlarged screenshot popup. Selectors: .pg-dialog-image */
+.pg-dialog-image {
+  max-height: calc(100dvh - 100px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: #52616c #20272d;
+  scrollbar-width: thin;
+}
+
+/* Gallery enlarged screenshot popup. Selectors: .pg-dialog-image img */
+.pg-dialog-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Animation steps for pg-enter */
+@keyframes pg-enter {
+  /* Shared page styling. Selectors: from */
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  /* Shared page styling. Selectors: to */
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Animation steps for pg-cursor */
+@keyframes pg-cursor {
+  /* Shared page styling. Selectors: 0%,49% */
+  0%,49% {
+    opacity: 1;
+  }
+
+  /* Shared page styling. Selectors: 50%,100% */
+  50%,100% {
+    opacity: 0;
+  }
+}
+
+/* Screen-size or user-preference adjustment: (max-width:1200px) */
+@media (max-width:1200px) {
+  /* Gallery left navigation and Explorer. Selectors: .pg-layout */
+  .pg-layout {
+    grid-template-columns: 44px 180px minmax(0,1fr);
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer>a */
+  .pg-explorer>a {
+    font-size: 11px;
+    padding-left: 14px;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-readme */
+  .pg-explorer .pg-readme {
+    padding-left: 12px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-card-body */
+  .pg-card-body {
+    grid-template-columns: minmax(0,1fr);
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-image-area */
+  .pg-image-area {
+    border-right: 0;
+    border-bottom: 1px solid #343a44;
+    padding: 22px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-project-info */
+  .pg-project-info {
+    padding: 26px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-code-note */
+  .pg-code-note {
+    display: none;
+  }
+
+  /* Shared page styling. Selectors: .pg-content */
+  .pg-content {
+    padding-top: 36px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-project-info h2 */
+  .pg-project-info h2 {
+    font-size: 30px;
+  }
+}
+
+/* Screen-size or user-preference adjustment: (max-width:900px) */
+@media (max-width:900px) {
+  /* Gallery left navigation and Explorer. Selectors: .pg-layout */
+  .pg-layout {
+    grid-template-columns: 42px minmax(0,1fr);
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-rail */
+  .pg-rail {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer */
+  .pg-explorer {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 4px 8px;
+    border-right: 0;
+    border-bottom: 1px solid #343a44;
+    scrollbar-width: thin;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer-title,.pg-explorer>p,.pg-explorer-note */
+  .pg-explorer-title,.pg-explorer>p,.pg-explorer-note {
+    display: none;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer>a */
+  .pg-explorer>a {
+    flex: none;
+    font-size: 11px;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 4px;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-readme */
+  .pg-explorer .pg-readme {
+    padding-left: 12px;
+    border: 0;
+  }
+
+  /* Shared page styling. Selectors: .pg-main */
+  .pg-main {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-readme */
+  .pg-explorer .pg-readme {
+    background: transparent;
+  }
+
+  /* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>small */
+  .pg-tabbar>small {
+    font-size: 8px;
+    padding-right: 15px;
+    letter-spacing: 1px;
+  }
+
+  /* Shared page styling. Selectors: .pg-content */
+  .pg-content {
+    padding: 32px 20px 22px;
+  }
+
+  /* Gallery headings and project summaries. Selectors: .pg-hero h1 */
+  .pg-hero h1 {
+    font-size: clamp(34px,7vw,54px);
+  }
+
+  /* Gallery headings and project summaries. Selectors: .pg-intro */
+  .pg-intro {
+    font-size: 14px;
+  }
+
+  /* Gallery closing message and status bar. Selectors: .pg-endnote */
+  .pg-endnote {
+    flex-wrap: wrap;
+  }
+
+  /* Gallery closing message and status bar. Selectors: .pg-endnote a */
+  .pg-endnote a {
+    margin-left: 42px;
+  }
+
+  /* Gallery closing message and status bar. Selectors: .pg-status>span:nth-child(2) */
+  .pg-status>span:nth-child(2) {
+    display: none;
+  }
+
+  /* Gallery header and home link. Selectors: .pg-titlebar */
+  .pg-titlebar {
+    padding: 10px 16px;
+  }
+}
+
+/* Screen-size or user-preference adjustment: (max-width:520px) */
+@media (max-width:520px) {
+  /* Gallery header and home link. Selectors: .pg-titlebar */
+  .pg-titlebar {
+    padding: 8px 10px;
+    min-height: 58px;
+    gap: 8px;
+  }
+
+  /* Gallery header and home link. Selectors: .pg-brand */
+  .pg-brand {
+    gap: 8px;
+    font-size: 11px;
+  }
+
+  /* Gallery header and home link. Selectors: .pg-brand i */
+  .pg-brand i {
+    display: none;
+  }
+
+  /* Gallery header and home link. Selectors: .pg-brand>b */
+  .pg-brand>b {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+  }
+
+  /* Gallery header and home link. Selectors: .pg-home */
+  .pg-home {
+    padding: 8px;
+    font-size: 10px;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-layout */
+  .pg-layout {
+    grid-template-columns: minmax(0,1fr);
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-rail */
+  .pg-rail {
+    display: none;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer,.pg-main */
+  .pg-explorer,.pg-main {
+    grid-column: 1;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer>a */
+  .pg-explorer>a {
+    font-size: 10px;
+    padding: 10px;
+  }
+
+  /* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>small */
+  .pg-tabbar>small {
+    display: none;
+  }
+
+  /* Shared page styling. Selectors: .pg-content */
+  .pg-content {
+    padding: 28px 14px 18px;
+  }
+
+  /* Gallery headings and project summaries. Selectors: .pg-hero */
+  .pg-hero {
+    padding-bottom: 28px;
+  }
+
+  /* Gallery headings and project summaries. Selectors: .pg-eyebrow */
+  .pg-eyebrow {
+    font-size: 9px;
+    letter-spacing: 1.6px;
+    margin-bottom: 17px;
+  }
+
+  /* Gallery headings and project summaries. Selectors: .pg-hero h1 */
+  .pg-hero h1 {
+    font-size: clamp(33px,9vw,44px);
+    letter-spacing: -1.5px;
+    margin-bottom: 18px;
+  }
+
+  /* Gallery headings and project summaries. Selectors: .pg-intro */
+  .pg-intro {
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  /* Gallery headings and project summaries. Selectors: .pg-meta */
+  .pg-meta {
+    gap: 10px 14px;
+    font-size: 10px;
+  }
+
+  /* Gallery headings and project summaries. Selectors: .pg-meta>span+span */
+  .pg-meta>span+span {
+    padding-left: 10px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-projects */
+  .pg-projects {
+    gap: 22px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-card-bar */
+  .pg-card-bar {
+    padding: 12px;
+    font-size: 9px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-card-bar>span */
+  .pg-card-bar>span {
+    gap: 6px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-card-bar>small */
+  .pg-card-bar>small {
+    display: none;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-image-area */
+  .pg-image-area {
+    padding: 14px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-image-area>p */
+  .pg-image-area>p {
+    font-size: 7px;
+    letter-spacing: 1px;
+    margin-top: 13px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-project-info */
+  .pg-project-info {
+    padding: 22px 18px 16px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-project-info h2 */
+  .pg-project-info h2 {
+    font-size: 28px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-description */
+  .pg-description {
+    font-size: 13px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-course */
+  .pg-course {
+    font-size: 11px;
+    margin-bottom: 16px;
+  }
+
+  /* College project cards, screenshots, and descriptions. Selectors: .pg-preview-button */
+  .pg-preview-button {
+    margin-top: 20px;
+  }
+
+  /* Gallery closing message and status bar. Selectors: .pg-endnote */
+  .pg-endnote {
+    padding-top: 30px;
+    gap: 12px;
+  }
+
+  /* Gallery closing message and status bar. Selectors: .pg-endnote>span */
+  .pg-endnote>span {
+    display: none;
+  }
+
+  /* Gallery closing message and status bar. Selectors: .pg-endnote h2 */
+  .pg-endnote h2 {
+    font-size: 13px;
+  }
+
+  /* Gallery closing message and status bar. Selectors: .pg-endnote a */
+  .pg-endnote a {
+    margin-left: 0;
+  }
+
+  /* Gallery closing message and status bar. Selectors: .pg-status */
+  .pg-status {
+    padding: 6px 10px;
+    font-size: 9px;
+    gap: 10px;
+  }
+
+  /* Gallery enlarged screenshot popup. Selectors: .pg-dialog */
+  .pg-dialog {
+    width: calc(100vw - 16px);
+    max-height: calc(100dvh - 24px);
+  }
+
+  /* Gallery enlarged screenshot popup. Selectors: .pg-dialog-bar */
+  .pg-dialog-bar {
+    padding-left: 12px;
+  }
+
+  /* Gallery enlarged screenshot popup. Selectors: .pg-dialog-bar h2 span */
+  .pg-dialog-bar h2 span {
+    display: none;
+  }
+
+  /* Gallery enlarged screenshot popup. Selectors: .pg-dialog-image */
+  .pg-dialog-image {
+    max-height: calc(100dvh - 84px);
+  }
+}
+
+/* Screen-size or user-preference adjustment: (prefers-reduced-motion:reduce) */
+@media (prefers-reduced-motion:reduce) {
+  /* Shared page styling. Selectors: .pg-shell * */
+  .pg-shell * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .pg-image-area>.pg-project-note */
+.pg-image-area>.pg-project-note {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-left: 2px solid var(--project-accent);
+  border-radius: 0 4px 4px 0;
+  background: #ffffff05;
+  color: #bdc6d2;
+  font-size: 12px;
+  line-height: 1.7;
+  letter-spacing: 0;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-layout */
+.pg-layout {
+  align-items: start;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-rail,.pg-explorer */
+.pg-rail,.pg-explorer {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 0;
+  align-self: start;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #425563 #202227;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer */
+.pg-explorer {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0 12px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer>p */
+.pg-explorer>p {
+  margin: 18px 0 7px;
+  flex: none;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer>a */
+.pg-explorer>a {
+  min-height: 34px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  flex: none;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer .skills-sidebar */
+.pg-explorer .skills-sidebar {
+  margin: 16px 12px 12px;
+  padding-top: 12px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer .skills-mini-grid */
+.pg-explorer .skills-mini-grid {
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 4px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer .skill-mini */
+.pg-explorer .skill-mini {
+  min-height: 30px;
+  padding: 4px 1px;
+  gap: 0;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer .skill-mini .skill-vector */
+.pg-explorer .skill-mini .skill-vector {
+  width: 20px;
+  height: 20px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer .skill-mini span */
+.pg-explorer .skill-mini span {
+  display: none;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer .skills-see-all */
+.pg-explorer .skills-see-all {
+  min-height: 26px;
+  padding-top: 8px;
+  font-size: 9px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-explorer-note */
+.pg-explorer .pg-explorer-note {
+  margin: auto 12px 0;
+  padding-top: 12px;
+  flex: none;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer-note p */
+.pg-explorer-note p {
+  margin: 8px 0;
+  line-height: 1.7;
+}
+
+/* Screen-size or user-preference adjustment: (max-width:900px) */
+@media (max-width:900px) {
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer */
+  .pg-explorer {
+    height: 52px;
+    min-height: 52px;
+    max-height: none;
+    flex-direction: row;
+    top: 0;
+    z-index: 20;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 8px;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer>a */
+  .pg-explorer>a {
+    min-height: 44px;
+  }
+
+  /* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar */
+  .pg-tabbar {
+    top: 52px;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-rail */
+  .pg-rail {
+    top: 0;
+    height: 100dvh;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer .skills-sidebar */
+  .pg-explorer .skills-sidebar {
+    display: none;
+  }
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-explorer .skills-sidebar .skill-mini */
+.pg-explorer .skills-sidebar .skill-mini {
+  min-height: 32px;
+}
+
+/* Screen-size or user-preference adjustment: (min-width:901px) and (max-height:660px) */
+@media (min-width:901px) and (max-height:660px) {
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer>p */
+  .pg-explorer>p {
+    margin: 12px 0 6px;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer>a */
+  .pg-explorer>a {
+    min-height: 30px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer .skills-sidebar */
+  .pg-explorer .skills-sidebar {
+    margin: 10px 12px 6px;
+    padding-top: 8px;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer .skills-sidebar h3 */
+  .pg-explorer .skills-sidebar h3 {
+    margin-bottom: 8px;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-explorer-note */
+  .pg-explorer .pg-explorer-note {
+    padding-top: 8px;
+    font-size: 10px;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-explorer-note p */
+  .pg-explorer-note p {
+    margin: 6px 0;
+  }
+}
 
 /* Featured current project */
-.pg-current{scroll-margin-top:72px;margin:0 0 48px}.pg-section-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.pg-section-heading .pg-eyebrow{margin-bottom:10px}.pg-section-heading h2{font-size:clamp(24px,3vw,34px);font-weight:500;letter-spacing:-.8px;margin:0}.pg-section-heading>div>p:last-child:not(.pg-eyebrow){font-size:13px;color:#aab1bc;max-width:520px;margin-bottom:0}.pg-progress-badge{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:7px 11px;border:1px solid #4a786b;border-radius:20px;background:#203e35;color:#b6edcc;font:11px/1.5 Consolas,monospace}.pg-progress-badge:before{content:'';width:6px;height:6px;border-radius:50%;background:#9ce3b6}.pg-current-card{border:1px solid #52798e;border-top:3px solid #7dcfff;border-radius:9px;overflow:hidden;background:linear-gradient(130deg,#233443,#20252d);box-shadow:0 14px 40px #0003;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}.pg-current-image{padding:26px;display:flex;align-items:center;min-width:0;background:#12212b66}.pg-current-info{min-width:0;padding:30px}.pg-current-info .pg-eyebrow{font-size:9px;line-height:1.8;letter-spacing:1.3px;color:#9ad6f5;margin:0 0 12px}.pg-current-info h3{font-size:clamp(27px,3vw,38px);line-height:1.15;letter-spacing:-1px;margin:0 0 10px}.pg-current-info>p,.pg-current-info li{color:#bac7d2;font-size:13px;line-height:1.85}.pg-current-info .pg-current-focus{color:#a8dfff;font-size:15px;margin:0 0 18px}.pg-current-info ul{padding-left:18px;margin:18px 0}.pg-current-info li+li{margin-top:5px}.pg-current-visit{display:inline-flex;align-items:center;justify-content:center;gap:24px;margin-top:24px;min-height:44px;padding:9px 16px;border-radius:5px;background:#18749d;border:1px solid #499fc4;font-size:12px}.pg-current-visit:hover{background:#2186b2}.pg-current-info .pg-current-note{font-size:11px;color:#93a8b9;margin:14px 0 0}.pg-current-link{color:#a8dfff!important;flex-wrap:wrap}.pg-current-link small{font:8px/1.6 Consolas,monospace;color:#ade1bb;letter-spacing:.6px}.pg-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-@media(max-width:1200px){.pg-current-card{grid-template-columns:minmax(0,1fr)}.pg-current-image{padding:22px}.pg-current-info{padding:26px}.pg-current-link small{display:none}}
-@media(max-width:520px){.pg-section-heading{gap:10px;align-items:flex-start}.pg-progress-badge{font-size:9px;padding:6px 8px}.pg-current-image{padding:14px}.pg-current-info{padding:22px 18px}.pg-current{margin-bottom:36px}.pg-current-visit{width:100%}.pg-current .pg-section-heading h2{font-size:24px}}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current */
+.pg-current {
+  scroll-margin-top: 72px;
+  margin: 0 0 48px;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-section-heading */
+.pg-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-section-heading .pg-eyebrow */
+.pg-section-heading .pg-eyebrow {
+  margin-bottom: 10px;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-section-heading h2 */
+.pg-section-heading h2 {
+  font-size: clamp(24px,3vw,34px);
+  font-weight: 500;
+  letter-spacing: -.8px;
+  margin: 0;
+}
+
+/* Gallery headings and project summaries. Selectors: .pg-section-heading>div>p:last-child:not(.pg-eyebrow) */
+.pg-section-heading>div>p:last-child:not(.pg-eyebrow) {
+  font-size: 13px;
+  color: #aab1bc;
+  max-width: 520px;
+  margin-bottom: 0;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-progress-badge */
+.pg-progress-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  padding: 7px 11px;
+  border: 1px solid #4a786b;
+  border-radius: 20px;
+  background: #203e35;
+  color: #b6edcc;
+  font: 11px/1.5 Consolas,monospace;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-progress-badge:before */
+.pg-progress-badge:before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #9ce3b6;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-card */
+.pg-current-card {
+  border: 1px solid #52798e;
+  border-top: 3px solid #7dcfff;
+  border-radius: 9px;
+  overflow: hidden;
+  background: linear-gradient(130deg,#233443,#20252d);
+  box-shadow: 0 14px 40px #0003;
+  display: grid;
+  grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-image */
+.pg-current-image {
+  padding: 26px;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  background: #12212b66;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info */
+.pg-current-info {
+  min-width: 0;
+  padding: 30px;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info .pg-eyebrow */
+.pg-current-info .pg-eyebrow {
+  font-size: 9px;
+  line-height: 1.8;
+  letter-spacing: 1.3px;
+  color: #9ad6f5;
+  margin: 0 0 12px;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info h3 */
+.pg-current-info h3 {
+  font-size: clamp(27px,3vw,38px);
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin: 0 0 10px;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info>p,.pg-current-info li */
+.pg-current-info>p,.pg-current-info li {
+  color: #bac7d2;
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+/* Featured ongoing Re-spawnpoint project — keyboard focus indicator. Selectors: .pg-current-info .pg-current-focus */
+.pg-current-info .pg-current-focus {
+  color: #a8dfff;
+  font-size: 15px;
+  margin: 0 0 18px;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info ul */
+.pg-current-info ul {
+  padding-left: 18px;
+  margin: 18px 0;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info li+li */
+.pg-current-info li+li {
+  margin-top: 5px;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-visit */
+.pg-current-visit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+  min-height: 44px;
+  padding: 9px 16px;
+  border-radius: 5px;
+  background: #18749d;
+  border: 1px solid #499fc4;
+  font-size: 12px;
+}
+
+/* Featured ongoing Re-spawnpoint project — mouse hover feedback. Selectors: .pg-current-visit:hover */
+.pg-current-visit:hover {
+  background: #2186b2;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info .pg-current-note */
+.pg-current-info .pg-current-note {
+  font-size: 11px;
+  color: #93a8b9;
+  margin: 14px 0 0;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-link */
+.pg-current-link {
+  color: #a8dfff !important;
+  flex-wrap: wrap;
+}
+
+/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-link small */
+.pg-current-link small {
+  font: 8px/1.6 Consolas,monospace;
+  color: #ade1bb;
+  letter-spacing: .6px;
+}
+
+/* Shared page styling. Selectors: .pg-sr-only */
+.pg-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* Screen-size or user-preference adjustment: (max-width:1200px) */
+@media (max-width:1200px) {
+  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-card */
+  .pg-current-card {
+    grid-template-columns: minmax(0,1fr);
+  }
+
+  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-image */
+  .pg-current-image {
+    padding: 22px;
+  }
+
+  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info */
+  .pg-current-info {
+    padding: 26px;
+  }
+
+  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-link small */
+  .pg-current-link small {
+    display: none;
+  }
+}
+
+/* Screen-size or user-preference adjustment: (max-width:520px) */
+@media (max-width:520px) {
+  /* Gallery headings and project summaries. Selectors: .pg-section-heading */
+  .pg-section-heading {
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-progress-badge */
+  .pg-progress-badge {
+    font-size: 9px;
+    padding: 6px 8px;
+  }
+
+  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-image */
+  .pg-current-image {
+    padding: 14px;
+  }
+
+  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info */
+  .pg-current-info {
+    padding: 22px 18px;
+  }
+
+  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current */
+  .pg-current {
+    margin-bottom: 36px;
+  }
+
+  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-visit */
+  .pg-current-visit {
+    width: 100%;
+  }
+
+  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current .pg-section-heading h2 */
+  .pg-current .pg-section-heading h2 {
+    font-size: 24px;
+  }
+}

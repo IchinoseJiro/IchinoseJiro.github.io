@@ -21,6 +21,7 @@ export default function ViewModeMenu({ mode, onChange }) {
     window.addEventListener('resize', close)
     return () => { document.removeEventListener('pointerdown', closeOutside); document.removeEventListener('scroll', scroll, true); document.removeEventListener('keydown', escape); window.removeEventListener('resize', close) }
   }, [])
+// Position the dropdown below the button and keep it inside the viewport.
   const toggle = () => {
     const rect = triggerRef.current.getBoundingClientRect()
     const width = Math.min(250, window.innerWidth - 16)
@@ -28,6 +29,7 @@ export default function ViewModeMenu({ mode, onChange }) {
     setAnchor({ top, left: Math.max(8, Math.min(rect.left, window.innerWidth - width - 8)), width, maxHeight: Math.max(80, window.innerHeight - top - 8) })
     setOpen(current => !current)
   }
+// Keyboard navigation between menu choices using arrows, Home, and End.
   const keys = event => {
     if (!['ArrowDown','ArrowUp','Home','End'].includes(event.key)) return
     event.preventDefault()
