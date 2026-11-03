@@ -42,7 +42,9 @@ body.guide-open { overflow: hidden; }
 .website-guide-header small { color: #91cceb; font: 9px/1.5 Consolas, monospace; letter-spacing: 1.7px; }
 .website-guide-header h2 { margin: 3px 0 0; font-size: 22px; line-height: 1.3; font-weight: 500; }
 .website-guide button { cursor: pointer; font: inherit; }
-.website-guide-close { flex: none; margin-left: auto; width: 44px; height: 44px; padding: 0; border: 1px solid transparent; border-radius: 6px; background: transparent; color: #c9d9e6; font-size: 26px!important; }
+.website-guide-close { display: grid; place-items: center; line-height: 1; flex: none; margin-left: auto; width: 44px; height: 44px; padding: 0; border: 1px solid transparent; border-radius: 6px; background: transparent; color: #c9d9e6; font-size: 26px!important; }
+/* Fixed-size vector keeps the X visually centered, including on hover. */
+.website-guide-close svg { display: block; width: 16px; height: 16px; }
 .website-guide-close:hover { background: #334858; }
 .website-guide :is(button,a):focus-visible { outline: 2px solid #8bd8ff; outline-offset: 3px; }
 /* Guide content: introduction, view choices, and navigation instructions. */

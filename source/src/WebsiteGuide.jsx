@@ -16,7 +16,7 @@ export default function WebsiteGuide({ onClose }) {
 
   return <dialog ref={dialogRef} className="website-guide" aria-labelledby="website-guide-title" aria-describedby="website-guide-description" onClose={onClose} onClick={event => { if (event.target === event.currentTarget) onClose() }}>
     {/* Header: LunR Code branding and an always-reachable close control. */}
-    <header className="website-guide-header"><BrandLogo decorative /><div><small>A QUICK TOUR</small><h2 id="website-guide-title">Welcome to LunR Code</h2></div><button type="button" autoFocus className="website-guide-close" aria-label="Close website guide" onClick={onClose}>×</button></header>
+    <header className="website-guide-header"><BrandLogo decorative /><div><small>A QUICK TOUR</small><h2 id="website-guide-title">Welcome to LunR Code</h2></div><button type="button" autoFocus className="website-guide-close" aria-label="Close website guide" onClick={onClose}><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m3 3 10 10M13 3 3 13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg></button></header>
     <div className="website-guide-content">
       {/* Explain the portfolio and the reason for its editor-inspired appearance. */}
       <p id="website-guide-description">This is Jireh’s personal portfolio: a place to explore my background, skills, experience, and projects. Its design is inspired by <strong>Visual Studio Code</strong>, the coding software developers use to write and edit code.</p>
