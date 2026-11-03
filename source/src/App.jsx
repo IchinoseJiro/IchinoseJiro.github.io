@@ -6,6 +6,7 @@ import SimpleView from './SimpleView.jsx'
 import useViewMode from './useViewMode.js'
 import NavigationHint from './NavigationHint.jsx'
 import AboutPortfolio from './AboutPortfolio.jsx'
+import WebsiteGuide from './WebsiteGuide.jsx'
 import { initialDocuments, files, sectionForFile } from './profileContent.js'
 import BrandLogo from './BrandLogo.jsx'
 import SocialLinks from './SocialLinks.jsx'
@@ -62,6 +63,9 @@ function App() {
   const [terminalText, setTerminalText] = useState('Portfolio terminal ready. Typing only — commands are not executed.')
   const [terminalInput, setTerminalInput] = useState('')
   const [terminalLines, setTerminalLines] = useState([])
+  // Introduction > How to use: centered website instructions, also available from Help.
+  const [guideOpen, setGuideOpen] = useState(false)
+  const closeGuide = useCallback(() => setGuideOpen(false), [])
   const [aboutOpen, setAboutOpen] = useState(false)
   const closeAbout = useCallback(() => setAboutOpen(false), [])
   const [helpOpen, setHelpOpen] = useState(false)
@@ -105,9 +109,9 @@ function App() {
   useEffect(() => {
     const close = event => {
       if (!event.target.closest?.('.menu-root')) setOpenMenu('')
-      if (!event.target.closest?.('.intro-panel, .intro-brand-toggle')) setIntroOpen(false)
+      if (!event.target.closest?.('.intro-panel, .intro-brand-toggle, .website-guide')) setIntroOpen(false)
     }
-    const escape = event => { if (event.key === 'Escape') { setOpenMenu(''); setIntroOpen(false) } }
+    const escape = event => { if (event.key === 'Escape' && !event.target.closest?.('.website-guide')) { setOpenMenu(''); setIntroOpen(false) } }
     const closeOnScroll = event => {
       if (!event.target.closest?.('.dropdown')) setOpenMenu('')
     }
@@ -124,11 +128,13 @@ function App() {
 // Top menu positioning and keyboard navigation.
   const toggleMenu = (name, event) => {
     const rect = event.currentTarget.getBoundingClientRect()
-    const width = Math.min(288, window.innerWidth - 16)
+    // Use the usable viewport width, excluding the page scrollbar in Simple view.
+    const viewportWidth = document.documentElement.clientWidth
+    const width = Math.min(288, viewportWidth - 16)
     const top = rect.bottom + 4
-    setMenuAnchor({ top, left: Math.max(8, Math.min(rect.left, window.innerWidth - width - 8)), width, maxHeight: Math.max(80, window.innerHeight - top - 8) })
+    setMenuAnchor({ top, left: Math.max(8, Math.min(rect.left, viewportWidth - width - 8)), width, maxHeight: Math.max(80, window.innerHeight - top - 8) })
     setOpenMenu(current => current === name ? '' : name)
-    if (openMenu !== name) requestAnimationFrame(() => document.querySelector('#application-dropdown [aria-checked="true"], #application-dropdown button')?.focus())
+    if (openMenu !== name) requestAnimationFrame(() => document.querySelector('#application-dropdown [aria-checked="true"], #application-dropdown button')?.focus({ preventScroll: true }))
   }
 
 // Shared menu rendered in both home-page views.
@@ -368,6 +374,7 @@ function App() {
       ['Clear Terminal', '', () => { setTerminalText(''); setTerminalLines([]); setStatus('Terminal cleared') }], ['Close Terminal', '', () => setTerminalOpen(false)],
     ],
     Help: [
+      ['Website guide', '', () => setGuideOpen(true)],
       ...(!isSimple ? [['Keyboard Shortcuts', '', () => setHelpOpen(true)]] : []), ['About this Portfolio', '', () => setAboutOpen(true)],
     ],
   }
@@ -389,7 +396,7 @@ function App() {
     {openMenu && <div id="application-dropdown" className="dropdown menu-root" role="menu" aria-label={openMenu} style={menuAnchor} onKeyDown={applicationMenuKeys}>{menuActions[openMenu].map(([label, shortcut, action]) => <button type="button" role={openMenu==='View' && ['Simple view','Code view'].includes(label) ? 'menuitemradio' : 'menuitem'} aria-checked={openMenu==='View' && ['Simple view','Code view'].includes(label) ? viewMode===label.split(' ')[0].toLowerCase() : undefined} className="dropdown-item" key={`${openMenu}-${label}`} onClick={() => runMenuAction(action)}><span>{label}</span><small>{shortcut}</small></button>)}</div>}  </>
 
 // Render Simple view while retaining the Code view state in App.
-  if (isSimple) return <><SimpleView menu={applicationMenu} copyButton={copyButton} onAbout={()=>setAboutOpen(true)} />{aboutOpen && <AboutPortfolio onClose={closeAbout} />}</>
+  if (isSimple) return <><SimpleView menu={applicationMenu} copyButton={copyButton} onAbout={()=>setAboutOpen(true)} />{guideOpen && <WebsiteGuide onClose={closeGuide} />}{aboutOpen && <AboutPortfolio onClose={closeAbout} />}</>
   if (closed) return <main className="ide window-closed"><section><BrandLogo /><h2>LunR Code window closed</h2><p>This closes the portfolio view here. Your browser stays open.</p><button onClick={()=>setClosed(false)}>Reopen LunR Code</button></section></main>
   if (minimized) return <main className="ide window-minimized"><button onClick={()=>setMinimized(false)}><BrandLogo decorative /> LunR Code <span>Restore</span></button></main>
 
@@ -465,10 +472,12 @@ function App() {
       </section>
     </div>
 {/* Draggable introduction panel with profile and quick navigation. */}
-    {introOpen && <aside className="intro-panel" aria-label="Portfolio introduction" style={introPosition ? { left: introPosition.left, top: introPosition.top, right: 'auto' } : undefined} onPointerMove={moveIntroPanel} onPointerUp={stopIntroDrag} onPointerCancel={stopIntroDrag}><button className="intro-close" type="button" aria-label="Close introduction" onClick={()=>setIntroOpen(false)}>×</button><div className="intro-body"><small className="intro-drag-handle" onPointerDown={startIntroDrag} title="Drag to move this panel">⠿ &nbsp; HELLO, WORLD <span>DRAG TO MOVE</span></small><h1>I'm <em>Jireh</em>.</h1><h2>Web developer & lifelong learner.</h2><p>I am Lowell Jireh P. Chantengco, an Information Technology graduate specializing in web development. I enjoy creating responsive websites and solving practical technical problems.</p><div className="cta-row"><button onClick={()=>setFile('experience.jsx')}>My experience ↗</button><button className="secondary" onClick={()=>setFile('contact.jsx')}>Get in touch</button></div><div className="intro-profile"><div className="monogram"><BrandLogo /></div><div><strong>Lowell Jireh P. Chantengco</strong><span>🟢 Open to opportunities</span><small>WEB DEVELOPER · IT SUPPORT</small></div></div></div></aside>}
+    {introOpen && <aside className="intro-panel" aria-label="Portfolio introduction" style={introPosition ? { left: introPosition.left, top: introPosition.top, right: 'auto' } : undefined} onPointerMove={moveIntroPanel} onPointerUp={stopIntroDrag} onPointerCancel={stopIntroDrag}><button className="intro-close" type="button" aria-label="Close introduction" onClick={()=>setIntroOpen(false)}>×</button><div className="intro-body"><small className="intro-drag-handle" onPointerDown={startIntroDrag} title="Drag to move this panel">⠿ &nbsp; HELLO, WORLD <span>DRAG TO MOVE</span></small><h1>I'm <em>Jireh</em>.</h1><h2>Web developer & lifelong learner.</h2><p>I am Lowell Jireh P. Chantengco, an Information Technology graduate specializing in web development. I enjoy creating responsive websites and solving practical technical problems.</p><div className="cta-row"><button onClick={()=>setFile('experience.jsx')}>My experience ↗</button><button className="secondary" onClick={()=>setFile('contact.jsx')}>Get in touch</button></div><button type="button" className="intro-guide-button" onClick={()=>setGuideOpen(true)}><span aria-hidden="true">ⓘ</span> How to use this website</button><div className="intro-profile"><div className="monogram"><BrandLogo /></div><div><strong>Lowell Jireh P. Chantengco</strong><span>🟢 Open to opportunities</span><small>WEB DEVELOPER · IT SUPPORT</small></div></div></div></aside>}
 {/* Status bar: branding, branch, editor feedback, and location. */}
     <footer><span className="status-brand"><BrandLogo decorative />LunR Code</span><span>⎇ main</span><span>✓ 0 errors</span><span className="status-message" aria-live="polite">{status}</span><span className="right">Porac, Pampanga &nbsp; · &nbsp; Holy Angel University &nbsp; · &nbsp; Web Development</span></footer>
 {/* Help popups: About this Portfolio and keyboard shortcuts. */}
+    {/* Centered instructions with a blurred backdrop; opening this preserves editor state. */}
+    {guideOpen && <WebsiteGuide onClose={closeGuide} />}
     {aboutOpen && <AboutPortfolio onClose={closeAbout} />}    {helpOpen && <div className="help-backdrop" onMouseDown={e=>{if(e.target===e.currentTarget)setHelpOpen(false)}}><section className="help-dialog" role="dialog" aria-modal="true" aria-labelledby="help-title"><button className="help-close" onClick={()=>setHelpOpen(false)} aria-label="Close help">×</button><h2 id="help-title">Portfolio shortcuts</h2><p><kbd>Ctrl</kbd> + <kbd>A</kbd> Select all editor text</p><p><kbd>Ctrl</kbd> + <kbd>Z</kbd> Undo · <kbd>Ctrl</kbd> + <kbd>Y</kbd> Redo</p><p><kbd>Ctrl</kbd> + <kbd>X</kbd> Cut · <kbd>Ctrl</kbd> + <kbd>C</kbd> Copy · <kbd>Ctrl</kbd> + <kbd>V</kbd> Paste</p><p><kbd>Alt</kbd> + <kbd>Z</kbd> Toggle word wrap</p><small>All edits are local to this page. Reload restores the original portfolio information.</small></section></div>}
   </main>
 }

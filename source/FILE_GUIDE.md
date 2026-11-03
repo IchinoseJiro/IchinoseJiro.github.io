@@ -21,6 +21,7 @@ Open this folder in VS Code: WebPortfolio. Start with this guide, then open the 
 | Skills vectors, sidebar toolbox, and full cards | src/Skills.jsx | src/Skills.css |
 | LinkedIn and GitHub links | src/SocialLinks.jsx; addresses in src/profileContent.js | src/SocialLinks.css |
 | Orange project/view instruction box | src/NavigationHint.jsx | Hint blocks in src/App.css and src/SimpleView.css |
+| Introduction > How to use this website; Help > Website guide | src/WebsiteGuide.jsx | src/WebsiteGuide.css |
 | Help > About this Portfolio popup | src/AboutPortfolio.jsx | About blocks in src/App.css, src/HomeWorkspace.css, src/SimpleView.css |
 | Portrait | public/images/jireh-portrait.jpg | Portrait blocks in src/SimpleView.css and src/HomeWorkspace.css |
 | LunR Code logo | src/BrandLogo.jsx, public/lunr-code.svg | src/BrandLogo.css |
