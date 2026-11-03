@@ -14,11 +14,11 @@ export default function useViewTransition(viewMode, commitMode) {
       commitMode(target)
       setTransition({ mode: target, phase: 'ready' })
       window.scrollTo({ top: 0, behavior: 'instant' })
-    }, reducedMotion ? 80 : 420)
+    }, reducedMotion ? 80 : 1420)
     const finishTimer = window.setTimeout(() => {
       setTransition(null)
       requestAnimationFrame(() => document.querySelector('[data-menu-name="View"]')?.focus({ preventScroll: true }))
-    }, reducedMotion ? 160 : 760)
+    }, reducedMotion ? 160 : 1760)
     return () => { window.clearTimeout(revealTimer); window.clearTimeout(finishTimer) }
   }, [target, commitMode])
 

@@ -43,7 +43,7 @@
 .view-transition-preview-simple span:first-child { grid-column: 1 / -1; background: #75c5ed; width: 65%; }
 /* Decorative progress line represents the transition, not a network download. */
 .view-transition-progress { height: 3px; margin-top: 20px; border-radius: 3px; overflow: hidden; background: #3a4c5c; }
-.view-transition-progress>span { display: block; width: 100%; height: 100%; background: #7dcfff; transform-origin: left; animation: view-progress 420ms ease-out both; }
+.view-transition-progress>span { display: block; width: 100%; height: 100%; background: #7dcfff; transform-origin: left; animation: view-progress 1420ms ease-out both; }
 /* Fade away after the destination is mounted beneath the overlay. */
 .view-transition-ready { animation: view-card-out 300ms ease-in both; }
 .view-transition-ready::backdrop { animation: view-backdrop-out 300ms ease-in both; }
