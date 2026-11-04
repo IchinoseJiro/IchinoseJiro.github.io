@@ -1,0 +1,73 @@
+/* Shared skill controls, anchored detail windows, and the 0–10 proficiency chart. */
+.skills-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.skills-chart-button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 46px; padding: 11px 16px; border: 1px solid #91d8ff; border-radius: 7px; background: #176f9e; color: #fff; font: 600 13px/1.5 'Segoe UI',sans-serif; box-shadow: 0 0 0 4px #7dcfff12, 0 8px 24px #0003; cursor: pointer; }
+.skills-chart-button:hover { background: #2488bd; border-color: #c5ecff; }
+.skills-chart-button>span { font-size: 20px; }
+.skills-section .skill-card { display: grid; grid-template-columns: 34px minmax(0,1fr); gap: 7px 12px; width: 100%; text-align: left; color: #d4e0ea; cursor: pointer; font: 13px/1.5 'Segoe UI',sans-serif; }
+.skill-card-name { min-width: 0; overflow-wrap: anywhere; font-weight: 500; }
+.skill-card-score { grid-column: 2; display: flex; flex-wrap: wrap; gap: 5px 12px; color: #95bdd5; font-size: 11px; }
+.skill-card-score small { color: #849baa; font-size: 10px; }
+.skills-sidebar button.skill-mini { font: inherit; background: transparent; cursor: pointer; width: 100%; }
+.skills-sidebar button.skills-see-all { width: 100%; text-align: left; border: 0; background: none; cursor: pointer; }
+:is(.skills-section,.skills-sidebar) :is(button,a):focus-visible { outline: 2px solid #9cdeff; outline-offset: 3px; }
+/* Both detail and chart dialogs use a light blur, rather than the heavier About backdrop. */
+body.skills-dialog-open { overflow: hidden; }
+.skill-dialog { box-sizing: border-box; padding: 0; border: 1px solid #57768a; border-top: 2px solid #85cfff; border-radius: 10px; background: #202b35; color: #d8e6ef; box-shadow: 0 18px 64px #0006; max-width: none; max-height: calc(100dvh - 24px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #617b8d #202b35; font: 14px/1.7 'Segoe UI',Arial,sans-serif; }
+.skill-dialog * { box-sizing: border-box; }
+.skill-dialog::backdrop { background: #07111b42; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+.skill-detail-dialog { position: fixed; width: min(350px,calc(100vw - 24px)); margin: 0; }
+.skill-chart-dialog { width: min(820px,calc(100vw - 28px)); margin: auto; }
+.skill-dialog-header { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border-bottom: 1px solid #425565; background: #202b35f5; }
+.skill-dialog-header small { color: #92cbe8; font: 9px/1.5 Consolas,monospace; letter-spacing: 1.4px; }
+.skill-dialog-header h2 { margin: 4px 0 0; font-size: 18px; font-weight: 500; line-height: 1.35; overflow-wrap: anywhere; }
+.skill-dialog-close { flex: none; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid transparent; border-radius: 5px; color: #dbebf5; background: transparent; cursor: pointer; }
+.skill-dialog-close svg { display: block; width: 16px; height: 16px; }
+.skill-dialog-close:hover { background: #3a5264; }
+.skill-dialog button:focus-visible { outline: 2px solid #9cdeff; outline-offset: 2px; }
+.skill-detail-body { padding: 20px; }
+.skill-detail-body>.skill-vector { width: 48px; height: 48px; margin-bottom: 14px; }
+.skill-detail-body p { margin: 0 0 20px; color: #b9cbd8; font-size: 13px; }
+.skill-rating-label { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 5px 12px; font-size: 11px; color: #a3bfd2; }
+.skill-rating-label strong { font-size: 16px; color: #daf2ff; }
+.skill-detail-meter { display: block; width: 100%; height: 14px; margin: 9px 0; accent-color: #83cfff; }
+.skill-detail-meter::-webkit-meter-bar { background: #3b4e5e; border: 0; border-radius: 9px; }
+.skill-detail-meter::-webkit-meter-optimum-value { background: #83cfff; border-radius: 9px; }
+.skill-rating-note { display: block; color: #93aabc; font-size: 10px; }
+/* Accessible horizontal bars: labels and exact scores remain visible as text. */
+.skill-chart-content { padding: 20px 24px; }
+.skill-chart-content>p { margin: 0 0 18px; color: #a9becd; font-size: 12px; }
+.skill-chart-axis { display: flex; justify-content: space-between; margin: 0 46px 14px 244px; color: #91aec2; font: 10px Consolas,monospace; border-bottom: 1px solid #4a6174; padding-bottom: 6px; }
+.skill-chart-group { margin-bottom: 24px; }
+.skill-chart-group h3 { color: #acd9ef; font-size: 13px; font-weight: 500; margin: 0 0 10px; }
+.skill-chart-group ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 5px; }
+.skill-chart-row { display: grid; grid-template-columns: 230px minmax(0,1fr) 32px; align-items: center; gap: 14px; padding: 5px 0; }
+.skill-chart-name { display: flex; align-items: center; gap: 10px; color: #d2e0ea; font-size: 12px; min-width: 0; }
+.skill-chart-name .skill-vector { width: 24px; height: 24px; }
+.skill-chart-track { display: block; height: 10px; border-radius: 5px; background: repeating-linear-gradient(to right,#3b4d5d 0,#3b4d5d calc(50% - 1px),#597184 50%); overflow: hidden; }
+.skill-chart-track>span { display: block; height: 100%; border-radius: 5px; }
+.skill-chart-value { color: #e1edf6; font: 12px Consolas,monospace; text-align: right; }
+.skill-chart-content .skill-chart-footnote { border-top: 1px solid #425565; padding-top: 14px; margin-bottom: 0; }
+.skill-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media(max-width:600px) {
+  .skills-section-heading { gap: 12px; }
+  .skills-chart-button { width: 100%; }
+  .skills-section .skill-card { padding: 14px; gap: 6px 9px; }
+  .skill-chart-content { padding: 16px; }
+  .skill-chart-axis { margin: 0 38px 14px 0; }
+  .skill-chart-row { grid-template-columns: minmax(0,1fr) 30px; gap: 6px 8px; padding: 7px 0; }
+  .skill-chart-name { grid-column: 1/-1; }
+  .skill-chart-track { grid-column: 1; }
+  .skill-chart-value { grid-column: 2; }
+  .skill-dialog-header { padding: 12px 14px; }
+  .skill-dialog-header h2 { font-size: 16px; }
+}
+@media(prefers-reduced-motion:reduce) { .skills-chart-button,.skills-section .skill-card { animation: none; transition: none; } }
+
+/* Give skill names enough space on desktop; stack icon and label on narrow cards. */
+.skills-section .skills-card-grid { grid-template-columns: repeat(auto-fit,minmax(min(100%,190px),1fr)); }
+@media(max-width:600px) {
+  .skills-section .skills-card-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .skills-section .skill-card { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
+  .skill-card-score { display: block; }
+  .skill-card-score small { display: block; margin-top: 3px; }
+}

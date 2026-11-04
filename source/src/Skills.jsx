@@ -1,9 +1,11 @@
-// Skills display components: vector icons, compact sidebar toolbox, and full skills grid.
+// Shared skills UI. All category and item ordering comes directly from skillsData.js.
+import { createContext, useCallback, useContext, useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { allSkills, skillGroups } from './skillsData.js'
 import './Skills.css'
+import './SkillsInteractions.css'
 
-import { skillGroups } from './skillsData.js'
-
-// SVG shapes for skill logos.
+// Simple vectors for the toolbox and full cards, tinted by the shared skill record.
 function IconShape({ id }) {
   switch (id) {
     case 'html': return <><path d="M10 7h28l-3 31-11 4-11-4Z" /><path d="M31 15H18l1 8h11l-1 8-5 2-5-2" /><text x="24" y="6" fontSize="5">HTML</text></>
@@ -23,6 +25,15 @@ function IconShape({ id }) {
     case 'pc': return <><rect x="5" y="8" width="28" height="23" rx="2" /><path d="M19 31v8m-8 0h16" /><rect x="37" y="8" width="7" height="31" rx="1" /><path d="M39 14h3m-3 5h3" /></>
     case 'diagnostics': return <><rect x="11" y="11" width="26" height="26" rx="3" /><path d="M18 3v8m12-8v8M18 37v8m12-8v8M3 18h8m-8 12h8m26-12h8m-8 12h8M17 25h4l3-7 4 13 3-6" /></>
     case 'network': return <><rect x="16" y="4" width="16" height="11" rx="2" /><path d="M24 15v9M8 33v-9h32v9" /><rect x="2" y="33" width="12" height="10" rx="2" /><rect x="18" y="33" width="12" height="10" rx="2" /><rect x="34" y="33" width="12" height="10" rx="2" /><path d="M24 24v9" /></>
+    case 'typescript': return <><rect x="7" y="7" width="34" height="34" rx="4" /><text x="24" y="31" fontSize="18">TS</text></>
+    case 'php': return <><ellipse cx="24" cy="24" rx="21" ry="14" /><text x="24" y="29" fontSize="13">php</text></>
+    case 'c': case 'csharp': return <><path d="m24 4 18 10v20L24 44 6 34V14Z" /><text x="24" y="30" fontSize="18">{id==='c'?'C':'C#'}</text></>
+    case 'next': return <><circle cx="24" cy="24" r="20" /><path d="M16 34V14l20 28M32 14v17" /></>
+    case 'tailwind': return <><path d="M4 21c4-12 14-12 20-5s16 7 20-5c-4 17-15 18-22 10s-14-7-18 0Zm0 13c4-12 14-12 20-5s16 7 20-5c-4 17-15 18-22 10s-14-7-18 0Z" /></>
+    case 'postgres': return <><ellipse cx="24" cy="11" rx="16" ry="7" /><path d="M8 11v24c0 10 32 10 32 0V11M8 23c0 9 32 9 32 0" /><text x="24" y="35" fontSize="10">PG</text></>
+    case 'canva': return <><circle cx="24" cy="24" r="20" /><text x="24" y="33" fontSize="26" fontStyle="italic">C</text></>
+    case 'figma': return <><rect x="10" y="4" width="14" height="14" rx="7" /><rect x="24" y="4" width="14" height="14" rx="7" /><rect x="10" y="18" width="14" height="14" rx="7" /><circle cx="31" cy="25" r="7" /><path d="M24 32H17a7 7 0 1 0 7 7Z" /></>
+    case 'github': return <><path d="M18 43V34c-9 2-9-5-12-6m24 15V33c6-2 9-6 9-13 0-3-1-5-3-7 1-3 0-6-1-8l-8 4h-6l-8-4c-2 2-2 6-1 8-2 2-3 4-3 7 0 7 3 11 9 13" /></>
     case 'ethernet': return <><path d="M14 5h20v16l-4 4v7H18v-7l-4-4ZM20 5v11m4-11v11m4-11v11M24 32v8a4 4 0 0 0 8 0v-3" /></>
     default: return <><path d="M27 7a11 11 0 0 0-12 14L5 31a6 6 0 0 0 9 9l10-10A11 11 0 0 0 39 17l-7 7-8-8 7-8Z" /><circle cx="10" cy="35" r="1" fill="currentColor" /></>
   }
@@ -33,15 +44,78 @@ export function SkillIcon({ skill }) {
   return <svg className="skill-vector" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" style={{ color: skill.color }} aria-hidden="true" focusable="false"><IconShape id={skill.id} /></svg>
 }
 
-// Compact skill toolbox in the Explorer sidebars.
-export function SkillsSidebar() {
-  const all = skillGroups.flatMap(group => group.skills)
-  const priority = ['html', 'css', 'javascript', 'python', 'mysql', 'java']
-  const ordered = [...priority.map(id => all.find(skill => skill.id === id)), ...all.filter(skill => !priority.includes(skill.id))]
-  return <section className="skills-sidebar" aria-label="Skills toolbox"><h3>SKILLS / TOOLBOX</h3><div className="skills-mini-grid">{ordered.map(skill => <a key={skill.id} className="skill-mini" href={`/portfolio.html#skill-${skill.id}`} title={skill.name} aria-label={skill.name}><SkillIcon skill={skill} /><span>{skill.short ?? skill.name}</span></a>)}</div><a className="skills-see-all" href="/portfolio.html#skills">Explore all skills ↗</a></section>
+
+const SkillsContext = createContext(null)
+
+// Share a single skill popup or chart between the gallery sidebar and skills section.
+export function SkillsProvider({ children }) {
+  const [panel, setPanel] = useState(null)
+  const close = useCallback(() => setPanel(null), [])
+  const openSkill = (skill, event) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    setPanel({ type: 'detail', skill, anchor: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom } })
+  }
+  const openChart = () => setPanel({ type: 'chart' })
+  return <SkillsContext.Provider value={{ openSkill, openChart }}>{children}{panel && createPortal(<SkillDialog panel={panel} onClose={close} />, document.body)}</SkillsContext.Provider>
 }
 
-// Full grouped skill cards for Simple view and the gallery.
-export function SkillsSection({ plain = false }) {
-  return <section className="skills-section" id="skills" aria-labelledby="skills-title"><p className="skills-eyebrow">{plain ? "SKILLS & TOOLS" : "// SKILLS.JSON"}</p><h2 id="skills-title">My toolbox, always growing.</h2><p className="skills-intro">The languages, frameworks, databases, and practical IT skills listed in my portfolio.</p>{skillGroups.map(group => <div className="skills-group" key={group.title}><h3><span aria-hidden="true">⌄</span> {group.title}</h3><div className="skills-card-grid">{group.skills.map(skill => <article className="skill-card" id={`skill-${skill.id}`} key={skill.id} style={{ '--skill-accent': skill.color }}><SkillIcon skill={skill} /><h4>{skill.name}</h4></article>)}</div></div>)}</section>
+// Native modal provides background inertness, Escape handling, and keyboard focus containment.
+// Position compact details near their trigger, clamped to the viewport; center on phones.
+function SkillDialog({ panel, onClose }) {
+  const ref = useRef(null)
+  const chart = panel.type === 'chart'
+  useLayoutEffect(() => {
+    const dialog = ref.current
+    const previous = document.activeElement
+    if (!dialog.open) dialog.showModal()
+    document.body.classList.add('skills-dialog-open')
+    const position = () => {
+      if (chart) return
+      const width = document.documentElement.clientWidth
+      const height = window.innerHeight
+      const rect = dialog.getBoundingClientRect()
+      const anchor = panel.anchor
+      const left = width <= 600 ? (width - rect.width) / 2 : Math.min(width - rect.width - 12, Math.max(12, anchor.right + 12))
+      const top = width <= 600 ? (height - rect.height) / 2 : Math.min(height - rect.height - 12, Math.max(12, anchor.top))
+      dialog.style.left = left + 'px'
+      dialog.style.top = top + 'px'
+    }
+    position()
+    window.addEventListener('resize', position)
+    return () => {
+      document.body.classList.remove('skills-dialog-open')
+      window.removeEventListener('resize', position)
+      if (previous?.isConnected) previous.focus({ preventScroll: true })
+    }
+  }, [chart, panel])
+  const outside = event => {
+    if (event.target !== event.currentTarget) return
+    const rect = event.currentTarget.getBoundingClientRect()
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose()
+  }
+  return <dialog ref={ref} className={'skill-dialog ' + (chart ? 'skill-chart-dialog' : 'skill-detail-dialog')} aria-labelledby="skill-dialog-title" onClose={onClose} onClick={outside}>
+    <header className="skill-dialog-header"><div>{chart ? <><small>MY TOOLBOX</small><h2 id="skill-dialog-title">Self-assessed skill proficiency</h2></> : <><small>SKILL / TOOL</small><h2 id="skill-dialog-title">{panel.skill.name} proficiency</h2></>}</div><button autoFocus type="button" className="skill-dialog-close" aria-label={chart?'Close proficiency chart':'Close skill details'} onClick={onClose}><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 3 10 10M13 3 3 13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg></button></header>
+    {chart ? <ProficiencyChart /> : <div className="skill-detail-body"><SkillIcon skill={panel.skill} /><p>{panel.skill.description}</p><div className="skill-rating-label"><span>Self-assessed proficiency</span><strong>{panel.skill.score} / 10</strong></div><meter className="skill-detail-meter" min="0" max="10" value={panel.skill.score} aria-label={panel.skill.name+' self-assessed proficiency'}>{panel.skill.score} out of 10</meter><small className="skill-rating-note">A personal rating, rather than a verified test result.</small></div>}
+  </dialog>
+}
+
+// All 28 values remain numeric and visible; CSS bars use a fixed 0–10 scale.
+function ProficiencyChart() {
+  return <div className="skill-chart-content"><p>My personal ratings on a scale from 0 to 10. These are self-assessments, not verified test results.</p><div className="skill-chart-axis" aria-hidden="true"><span>0</span><span>5</span><span>10</span></div>{skillGroups.map(group => <section className="skill-chart-group" key={group.title} aria-label={group.title}><h3>{group.title}</h3><ul>{group.skills.map(skill => <li className="skill-chart-row" key={skill.id} data-skill-id={skill.id}><span className="skill-chart-name"><SkillIcon skill={skill} />{skill.name}</span><span className="skill-chart-track" aria-hidden="true"><span style={{ width: skill.score*10+'%', background: skill.color }} /></span><span className="skill-chart-value">{skill.score}<span className="skill-sr-only"> / 10</span></span></li>)}</ul></section>)}<p className="skill-chart-footnote">{allSkills.length} skills · Category order matches the toolbox.</p></div>
+}
+
+// Preserve the same flat dataset order in every toolbox, with no priority reshuffling.
+export function SkillsSidebar() {
+  const context = useContext(SkillsContext)
+  return <section className="skills-sidebar" aria-label="Skills toolbox"><h3>SKILLS / TOOLBOX</h3><div className="skills-mini-grid">{allSkills.map(skill => context ? <button type="button" key={skill.id} className="skill-mini" title={skill.name} aria-label={skill.name} aria-haspopup="dialog" onClick={event=>context.openSkill(skill,event)}><SkillIcon skill={skill} /><span>{skill.name}</span></button> : <a key={skill.id} className="skill-mini" href={'/portfolio.html#skill-'+skill.id} title={skill.name} aria-label={skill.name}><SkillIcon skill={skill} /><span>{skill.name}</span></a>)}</div>{context ? <button type="button" className="skills-see-all" onClick={context.openChart}>View proficiency chart ↗</button> : <a className="skills-see-all" href="/portfolio.html#skills">Explore all skills ↗</a>}</section>
+}
+
+// Simple view uses its own provider; the gallery shares one with its Explorer toolbox.
+export function SkillsSection(props) {
+  const context = useContext(SkillsContext)
+  return context ? <SkillsGrid {...props} /> : <SkillsProvider><SkillsGrid {...props} /></SkillsProvider>
+}
+function SkillsGrid({ plain = false }) {
+  const { openSkill, openChart } = useContext(SkillsContext)
+  return <section className="skills-section" id="skills" aria-labelledby="skills-title"><div className="skills-section-heading"><div><p className="skills-eyebrow">{plain ? 'SKILLS & TOOLS' : '// SKILLS.JSON'}</p><h2 id="skills-title">My toolbox, always growing.</h2></div><button type="button" className="skills-chart-button" onClick={openChart} aria-haspopup="dialog"><span aria-hidden="true">▥</span> View proficiency chart</button></div><p className="skills-intro">Select a skill for its description and self-assessed proficiency.</p>{skillGroups.map(group => <div className="skills-group" key={group.title}><h3><span aria-hidden="true">⌄</span> {group.title}</h3><div className="skills-card-grid">{group.skills.map(skill => <button type="button" className="skill-card" id={'skill-'+skill.id} key={skill.id} style={{ '--skill-accent': skill.color }} onClick={event=>openSkill(skill,event)} aria-haspopup="dialog" aria-label={'View '+skill.name+' proficiency details'}><SkillIcon skill={skill} /><span className="skill-card-name">{skill.name}</span><span className="skill-card-score">{skill.score} / 10 <small>Details ↗</small></span></button>)}</div></div>)}</section>
 }

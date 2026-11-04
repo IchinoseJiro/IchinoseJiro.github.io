@@ -65,3 +65,13 @@ package.json, package-lock.json, and .oxlintrc.json are JSON. Adding // comments
 Edit these source files, then run npm run build. Do not manually edit dist or bundled assets: rebuilding replaces them. The GitHub repository stores editable files under source/ and serves the production build from its root.
 
 VS Code can restore an old unsaved tab after restarting. If a tab has a dot, do not blindly save or discard it. Compare its unsaved contents with the saved file first using File: Compare Active File with Saved from the Command Palette. The website and browser editor are different from these real source files.
+
+## Skill proficiency and certificate update
+
+- src/skillsData.js is the canonical ordered list of all 28 skills. Each record has id, name, score (including decimals), color, and description. Do not alphabetize or rank by score. PC Assembly includes Ethernet crimping; network troubleshooting follows network configuration.
+- src/Skills.jsx renders the toolbox, full cards, anchored detail popup, and proficiency chart from that dataset. SkillsProvider shares popup state between gallery sections.
+- src/SkillsInteractions.css styles skill buttons, lightly blurred native dialogs, numeric meters, and the fixed-scale horizontal chart.
+- src/PortfolioEnhancements.css controls bottom toolbox placement, emphasized home/live-preview buttons, certificate link styles, and enlarged instructions.
+- src/profileContent.js contains certificationDetails (direct certificate destinations) and generates the Code view skill content and certificate navigation note.
+- src/SimpleView.jsx renders direct certificate links and the LinkedIn note for the two certificates without direct URLs.
+- src/useViewTransition.js now uses 3660ms to reveal the destination and 4000ms total. The matching progress animation is 3660ms in src/ViewTransition.css. Reduced-motion timing stays brief.

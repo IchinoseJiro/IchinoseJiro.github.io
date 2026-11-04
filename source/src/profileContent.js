@@ -23,7 +23,13 @@ export const experience = [
   ] },
 ]
 // Certification names shown with Experience.
-export const certifications = ['Agile Project Management', 'AI for Beginners', 'JavaScript Algorithms & Data Structures', 'Responsive Web Design']
+export const certificationDetails = [
+  { name: 'Agile Project Management', url: null },
+  { name: 'AI for Beginners', url: null },
+  { name: 'JavaScript Algorithms and Data Structures', url: 'https://www.freecodecamp.org/certification/jirehchantengco/javascript-algorithms-and-data-structures-v8' },
+  { name: 'Responsive Web Design', url: 'https://www.freecodecamp.org/certification/jirehchantengco/responsive-web-design' },
+]
+export const certifications = certificationDetails.map(certificate => certificate.name)
 // Contact details and social profile addresses.
 export const contact = {
   email: 'ljp.chantengco@gmail.com', phone: '+63 919 387 2346', location: profile.location,
@@ -33,12 +39,10 @@ export const contact = {
 export const files = ['about.jsx', 'experience.jsx', 'skills.jsx', 'contact.jsx']
 export const sectionForFile = { About: files[0], Experience: files[1], Skills: files[2], Contact: files[3] }
 const format = value => JSON.stringify(value, null, 2)
-const web = skillGroups.filter(group => group.title !== 'Hands-on IT').flatMap(group => group.skills.map(skill => skill.name))
-const IT = skillGroups.find(group => group.title === 'Hands-on IT').skills.map(skill => skill.name)
 // Website editor content strings; these are displayed to visitors, not executed.
 export const initialDocuments = {
   'about.jsx': `// A little about me\nconst developer = ${format(profile)}\n\nexport default developer`,
-  'experience.jsx': `// Work experience & certifications\nconst experience = ${format(experience)}\n\nconst certifications = ${format(certifications)}\n\nexport default { experience, certifications }`,
-  'skills.jsx': `// Web development & technical skills\nconst web = ${format(web)}\n\nconst IT = ${format(IT)}\n\nexport default { web, IT }`,
+  'experience.jsx': `// Work experience & certifications\n// To open certificate links, choose View → Simple view, then find Certifications under Experience. Certificate links open in a new tab.\nconst experience = ${format(experience)}\n\nconst certifications = ${format(certifications)}\n\nexport default { experience, certifications }`,
+  'skills.jsx': `// Self-assessed proficiency, on a scale of 1–10\n// Categories and skills follow the same order as the toolbox and chart.\nconst skills = ${format(skillGroups.map(group => ({ category: group.title, skills: group.skills.map(({ name, score, description }) => ({ name, proficiency: score, description })) })))}\n\nexport default skills`,
   'contact.jsx': `// Contact details\nconst contact = ${format(contact)}\n\nexport default contact`,
 }

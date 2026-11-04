@@ -3,8 +3,9 @@ import { useEffect, useRef, useState } from 'react'
 import './Portfolio.css'
 import BrandLogo from './BrandLogo.jsx'
 import SocialLinks from './SocialLinks.jsx'
-import { SkillsSection, SkillsSidebar } from './Skills.jsx'
+import { SkillsProvider, SkillsSection, SkillsSidebar } from './Skills.jsx'
 import useViewMode from './useViewMode.js'
+import './PortfolioEnhancements.css'
 
 // Current project: screenshot metadata and live Vercel address.
 const currentProject = {
@@ -53,7 +54,7 @@ export default function Portfolio() {
     if (preview && !dialogRef.current.open) dialogRef.current.showModal()
   }, [preview])
 
-  return <div className={'pg-shell'+(viewMode==='simple'?' gallery-simple':'')}>
+  return <SkillsProvider><div className={'pg-shell'+(viewMode==='simple'?' gallery-simple':'')}>
     <a className="pg-skip" href="#projects">Skip to projects</a>
 {/* Gallery header: branding and return-home link. */}
     <header className="pg-titlebar">
@@ -71,8 +72,8 @@ export default function Portfolio() {
         <a className="pg-current-link" href="#re-spawnpoint"><span>◉</span> Re-spawnpoint <small>IN PROGRESS</small></a>
         {projects.map(project => <a key={project.id} href={`#${project.id}`}><span style={{ color: project.accent }}>◇</span> {project.folder}</a>)}
         <a className="pg-skills-link" href="#skills"><span>⌘</span> Skills</a>
-        <SkillsSidebar />
         <div className="pg-explorer-note"><span>WORKSPACE NOTES</span><p>Building now.<br />Learning from what came before.</p><code>1 current · 2 college</code></div>
+        <SkillsSidebar />
       </nav>
       <main className="pg-main" id="projects">
 {/* Portfolio and Skills tab links. */}
@@ -118,5 +119,5 @@ export default function Portfolio() {
     <dialog ref={dialogRef} className="pg-dialog" aria-labelledby="pg-preview-title" onClose={() => setPreview(null)} onClick={event => { if (event.target === event.currentTarget) dialogRef.current.close() }}>
       {preview && <><div className="pg-dialog-bar"><h2 id="pg-preview-title">{preview.title} <span>/ screenshot.png</span></h2><button type="button" onClick={() => dialogRef.current.close()} aria-label="Close screenshot">×</button></div><div className="pg-dialog-image"><img src={preview.image} alt={preview.alt} width={preview.width} height={preview.height} /></div></>}
     </dialog>
-  </div>
+  </div></SkillsProvider>
 }

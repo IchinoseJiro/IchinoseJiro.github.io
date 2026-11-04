@@ -13,6 +13,8 @@ import { initialDocuments, files, sectionForFile } from './profileContent.js'
 import BrandLogo from './BrandLogo.jsx'
 import SocialLinks from './SocialLinks.jsx'
 import { SkillsSidebar } from './Skills.jsx'
+import { skillGroups } from './skillsData.js'
+import './PortfolioEnhancements.css'
 
 // Responsive rules and top menu names.
 const compactLayoutQuery = '(max-width: 1100px), (pointer: coarse) and (max-width: 1366px)'
@@ -427,7 +429,7 @@ function App() {
         {section==='Search' && <div className="side-content"><input aria-label="Search portfolio files" placeholder="Search files" value={query} onChange={e=>setQuery(e.target.value)}/>{files.filter(f=>f.toLowerCase().includes(query.toLowerCase())).map(f=><button className="file" key={f} onClick={()=>setFile(f)}>{f}</button>)}</div>}
         {section==='Source Control' && <div className="side-content"><b>PORTFOLIO FILES</b><p>Explore and edit the information files in Jireh’s portfolio.</p>{files.map(f=><button className="file" key={f} onClick={()=>setFile(f)}>＋ {f}</button>)}</div>}
         {section==='Run' && <div className="side-content"><b>QUICK NAVIGATION</b>{Object.entries(sectionForFile).map(([name,file])=><button className="file" key={name} onClick={()=>setFile(file)}>▷ {name}</button>)}<small>Use Run → Open Preview in New Tab to view the site.</small></div>}
-        {section==='Extensions' && <div className="side-content"><b>SKILLS & TOOLS</b><p>React · JavaScript · HTML · CSS</p><p>Vue · Angular · Node.js</p><p>Python · MySQL · MongoDB</p></div>}
+        {section==='Extensions' && <div className="side-content"><b>SKILLS & TOOLS</b>{skillGroups.map(group=><div key={group.title}><small>{group.title}</small><p>{group.skills.map(skill=>skill.name).join(' · ')}</p></div>)}</div>}
         {section==='Explorer' && <NavigationHint />}
         {section==='Explorer' && <SkillsSidebar />}
         <div className="side-foot" aria-label="Workspace sections"><div className="side-foot-row"><span aria-hidden="true">›</span>Outline</div><div className="side-foot-row"><span aria-hidden="true">›</span>Timeline</div></div>
