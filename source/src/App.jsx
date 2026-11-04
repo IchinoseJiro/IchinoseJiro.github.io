@@ -198,6 +198,12 @@ function App() {
     if (secondaryFile === file) setSecondaryFile('')
     setStatus('Closed ' + file)
   }
+// Edit menu: restore document text without changing tabs, layout, or intro visibility.
+  const restoreOriginalInformation = () => {
+    setDocuments({ ...initialDocuments })
+    historyRef.current = Object.fromEntries(files.map(file => [file, { past: [], future: [] }]))
+    setStatus('Original information restored; your workspace stays in place')
+  }
 // Orange Reload control: restore original information and editor state.
   const reload = () => {
     setNavigationVisible(true)
@@ -350,7 +356,7 @@ function App() {
       ['Portfolio', 'projects ↗', () => { window.location.assign('/portfolio.html') }],
     ],
     Edit: [
-      ['Reload original information', '↻', reload], ['Undo', 'Ctrl+Z', undo], ['Redo', 'Ctrl+Y', redo],
+      ['Reload original information', '↻', restoreOriginalInformation], ['Undo', 'Ctrl+Z', undo], ['Redo', 'Ctrl+Y', redo],
       ['Cut', 'Ctrl+X', () => clipboardAction('cut')], ['Copy', 'Ctrl+C', () => clipboardAction('copy')], ['Paste', 'Ctrl+V', () => clipboardAction('paste')],
     ],
     Selection: [
