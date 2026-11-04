@@ -83,7 +83,7 @@ body.guide-open { overflow: hidden; }
   .website-guide-footer button { width: 100%; }
 }
 
-/* Introduction actions: the solid-blue guide is above the light-blue Experience button. */
+/* Introduction actions: the solid-blue guide is above the softly outlined-blue Experience button. */
 .intro-panel .intro-body .intro-guide-button {
   display: flex;
   width: fit-content;
@@ -96,9 +96,9 @@ body.guide-open { overflow: hidden; }
 .intro-panel .intro-body .intro-guide-button:hover { background: #1594d7; border-color: #7ad3ff; }
 .intro-panel .intro-body .cta-row { margin-top: 10px; }
 .intro-panel .intro-body .cta-row button:not(.secondary) {
-  background: #8ed4f5;
-  border-color: #afe6ff;
-  color: #123246;
+  background: #293f50;
+  border-color: #527991;
+  color: #b7e5ff;
   font-weight: 600;
 }
-.intro-panel .intro-body .cta-row button:not(.secondary):hover { background: #afe5ff; border-color: #d2f2ff; }
+.intro-panel .intro-body .cta-row button:not(.secondary):hover { background: #335369; border-color: #7dcfff; }
