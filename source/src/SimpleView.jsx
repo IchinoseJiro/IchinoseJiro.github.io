@@ -10,13 +10,11 @@ import './PortfolioEnhancements.css'
 export default function SimpleView({ menu, copyButton, onAbout }) {
   return <div className="simple-shell">
     <a className="simple-skip" href="#simple-about">Skip to content</a>
-{/* Compact header: branding and File, View, Go, Help menus. */}
-    <header className="simple-header"><div className="simple-header-inner"><a className="simple-brand" href="#simple-top" aria-label="LunR Code home"><BrandLogo decorative /><span>LunR Code<small>Jireh Chantengco</small></span></a>{menu}</div></header>
+{/* Sticky header: logo, orange navigation instructions, and File/View/Go/Help menus. */}
+    <header className="simple-header"><div className="simple-header-inner"><a className="simple-brand" href="#simple-top" aria-label="LunR Code home"><BrandLogo decorative /><span>LunR Code<small>Jireh Chantengco</small></span></a><NavigationHint simple className="simple-hint simple-header-hint" />{menu}</div></header>
     <main className="simple-main" id="simple-top">
 {/* Introduction: greeting, professional focus, photo, and action links. */}
       <section className="simple-hero" aria-labelledby="simple-title"><div><p className="simple-eyebrow">WEB DEVELOPMENT · IT SUPPORT</p><h1 id="simple-title">Hello, world.<br />I’m <span>{profile.goesBy}.</span></h1><p className="simple-hero-description">An Information Technology graduate specializing in Web Development, based in {profile.location}.</p><div className="simple-actions"><a className="simple-primary" href="/portfolio.html">See my projects ↗</a><a className="simple-secondary" href="#simple-contact">Get in touch</a></div><p className="simple-availability"><span aria-hidden="true" /> Open to opportunities</p></div><figure className="simple-portrait"><img src="/images/jireh-portrait.jpg" width="1280" height="960" alt="Lowell Jireh P. Chantengco outdoors among trees" /><figcaption><BrandLogo decorative /><span>{profile.name}<small>{profile.role}</small></span></figcaption></figure></section>
-{/* Orange instructions for projects and Code view. */}
-      <NavigationHint simple className="simple-hint" />
 {/* Links to the five profile sections below. */}
       <nav className="simple-section-nav" aria-label="Profile sections">{['About','Experience','Education','Skills','Contact'].map(name=><a href={`#simple-${name.toLowerCase()}`} key={name}>{name}</a>)}</nav>
 {/* About: summary, location, and web development focus. */}

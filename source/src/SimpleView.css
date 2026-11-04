@@ -1285,3 +1285,43 @@ body.simple-view-page,body.simple-view-page #root {
     margin-left: 72px;
   }
 }
+
+/* Header instruction box: directly beside the LunR Code logo in Simple view. */
+.simple-header .simple-header-inner {
+  flex-wrap: nowrap;
+  gap: 16px;
+}
+.simple-header .simple-brand { flex: none; }
+.simple-header .simple-header-inner .simple-header-hint {
+  display: inline-grid;
+  grid-template-columns: max-content max-content;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  padding: 8px 12px;
+  gap: 0;
+  line-height: 1.4;
+  flex: none;
+}
+.simple-header .simple-header-hint p { display: block; margin: 0; padding: 0 12px 0 0; }
+.simple-header .simple-header-hint p+p { border-top: 0; border-left: 1px solid #80532d; padding: 0 0 0 12px; }
+.simple-header .simple-header-hint small { display: block; margin: 0 0 2px; font-size: 10px; line-height: 1.4; }
+.simple-header .simple-header-hint span { display: block; margin: 0; font-size: 11px; line-height: 1.5; }
+.simple-main,.simple-hero,.simple-section,.simple-section-nav,.simple-skills { scroll-margin-top: 105px; }
+/* Phones and smaller tablets: logo and instructions share the first row, menus the second. */
+@media(max-width:760px) {
+  .simple-header .simple-header-inner { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 6px 10px; padding: 8px 12px 4px; }
+  .simple-header .simple-header-inner .simple-header-hint { grid-template-columns: minmax(0,1fr); width: 100%; padding: 7px 10px; }
+  .simple-header .simple-header-hint p { display: block; padding: 0; }
+  .simple-header .simple-header-hint p+p { border: 0; padding: 5px 0 0; }
+  .simple-header .simple-header-hint small { display: inline; font-size: 10px; margin: 0 5px 0 0; }
+  .simple-header .simple-header-hint span { display: inline; font-size: 11px; }
+  .simple-header .simple-menubar { grid-column: 1/-1; justify-self: end; margin: 0; }
+  .simple-main,.simple-hero,.simple-section,.simple-section-nav,.simple-skills { scroll-margin-top: 165px; }
+}
+@media(max-width:420px) {
+  .simple-header .simple-header-inner { gap: 4px 8px; }
+  .simple-header .simple-header-inner .simple-header-hint { padding: 7px 8px; }
+  .simple-header .simple-header-hint small { display: block; margin: 0; font-size: 9px; }
+  .simple-header .simple-header-hint p+p { padding-top: 4px; }
+}
