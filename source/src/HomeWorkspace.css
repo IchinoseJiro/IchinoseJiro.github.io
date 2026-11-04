@@ -586,3 +586,21 @@ body.home-workspace-page,body.home-workspace-page #root {
   margin-top: 0;
   padding-bottom: 5px;
 }
+
+/* Code view discovery cues: only File and View match the orange instruction box. */
+.home-workspace-page .menubar .menu-trigger:is([data-menu-name="File"],[data-menu-name="View"]) {
+  border: 1px solid #80532d;
+  background: linear-gradient(135deg,#3c2b1e,#2d251f);
+  color: #ffc475;
+  font-weight: 600;
+}
+.home-workspace-page .menubar .menu-trigger:is([data-menu-name="File"],[data-menu-name="View"]):hover,
+.home-workspace-page .menubar .menu-trigger:is([data-menu-name="File"],[data-menu-name="View"])[aria-expanded="true"] {
+  background: #634021;
+  border-color: #f2994a;
+  color: #ffe0b0;
+}
+.home-workspace-page .menubar .menu-trigger:is([data-menu-name="File"],[data-menu-name="View"]):focus-visible {
+  outline: 2px solid #ffc475;
+  outline-offset: 2px;
+}
