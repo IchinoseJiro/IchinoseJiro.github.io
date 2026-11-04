@@ -82,3 +82,23 @@ body.guide-open { overflow: hidden; }
   .website-guide-footer { padding: 16px 18px; }
   .website-guide-footer button { width: 100%; }
 }
+
+/* Introduction actions: the solid-blue guide is above the light-blue Experience button. */
+.intro-panel .intro-body .intro-guide-button {
+  display: flex;
+  width: fit-content;
+  margin: 16px 0 0;
+  background: #087fc2;
+  border-color: #329dd0;
+  color: #fff;
+  font-weight: 600;
+}
+.intro-panel .intro-body .intro-guide-button:hover { background: #1594d7; border-color: #7ad3ff; }
+.intro-panel .intro-body .cta-row { margin-top: 10px; }
+.intro-panel .intro-body .cta-row button:not(.secondary) {
+  background: #8ed4f5;
+  border-color: #afe6ff;
+  color: #123246;
+  font-weight: 600;
+}
+.intro-panel .intro-body .cta-row button:not(.secondary):hover { background: #afe5ff; border-color: #d2f2ff; }
