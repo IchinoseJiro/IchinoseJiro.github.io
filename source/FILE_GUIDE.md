@@ -75,3 +75,11 @@ VS Code can restore an old unsaved tab after restarting. If a tab has a dot, do 
 - src/profileContent.js contains certificationDetails (direct certificate destinations) and generates the Code view skill content and certificate navigation note.
 - src/SimpleView.jsx renders direct certificate links and the LinkedIn note for the two certificates without direct URLs.
 - src/useViewTransition.js now uses 3660ms to reveal the destination and 4000ms total. The matching progress animation is 3660ms in src/ViewTransition.css. Reduced-motion timing stays brief.
+
+## Reliable gallery navigation and recovery
+
+- src/portfolioNavigation.js generates gallery links with the build's release ID. Use portfolioUrl() for new home-to-gallery links so cached HTML is not reused across releases.
+- vite.config.js generates the release ID each build.
+- src/PageErrorBoundary.jsx wraps both page entry points and offers a latest-version reload if rendering fails.
+- Keep the previous production assets when publishing; a browser with cached HTML may still request them. Copy the new dist files over the existing deployment without pruning old hashed assets during routine releases.
+- Simple view's sticky navigation remains usable during page scrolling. Code view still dismisses menus when its editor scrolls.

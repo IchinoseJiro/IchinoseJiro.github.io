@@ -1,3 +1,4 @@
+import { portfolioUrl } from './portfolioNavigation.js'
 // Code view home page: editor window, navigation, tabs, terminal, and introduction panel.
 import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
@@ -119,6 +120,8 @@ function App() {
     }
     const escape = event => { if (event.key === 'Escape' && !event.target.closest?.('.website-guide')) { setOpenMenu(''); setIntroOpen(false) } }
     const closeOnScroll = event => {
+      // Simple view has a sticky header: page scrolling must not dismiss its menu mid-click.
+      if (document.body.classList.contains('simple-view-page')) return
       if (!event.target.closest?.('.dropdown')) setOpenMenu('')
     }
     document.addEventListener('pointerdown', close)
@@ -353,7 +356,7 @@ function App() {
 // Commands for File, Edit, Selection, View, Go, Run, Terminal, and Help.
   const menuActions = {
     File: [
-      ['Portfolio', 'projects ↗', () => { window.location.assign('/portfolio.html') }],
+      ['Portfolio', 'projects ↗', () => { window.location.assign(portfolioUrl()) }],
     ],
     Edit: [
       ['Reload original information', '↻', restoreOriginalInformation], ['Undo', 'Ctrl+Z', undo], ['Redo', 'Ctrl+Y', redo],
