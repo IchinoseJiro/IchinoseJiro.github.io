@@ -83,3 +83,5 @@ VS Code can restore an old unsaved tab after restarting. If a tab has a dot, do 
 - src/PageErrorBoundary.jsx wraps both page entry points and offers a latest-version reload if rendering fails.
 - Keep the previous production assets when publishing; a browser with cached HTML may still request them. Copy the new dist files over the existing deployment without pruning old hashed assets during routine releases.
 - Simple view's sticky navigation remains usable during page scrolling. Code view still dismisses menus when its editor scrolls.
+
+Simple view’s highlighted toolbox link passes a validated skill ID in the details query parameter and a matching skill anchor. SkillsProvider opens that skill’s popup on arrival. Ordinary toolbox and Code-view links keep their existing behavior.

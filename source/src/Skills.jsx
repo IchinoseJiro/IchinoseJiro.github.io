@@ -66,7 +66,13 @@ export function SkillsProvider({ children }) {
   useEffect(() => {
     const revealHash = () => {
       const skill = allSkills.find(item => '#skill-' + item.id === window.location.hash)
-      if (skill) revealSkill(skill)
+      if (!skill) return
+      const card = revealSkill(skill)
+      // A Simple-view toolbox link explicitly requests this skill's details on arrival.
+      if (card && new URLSearchParams(window.location.search).get('details') === skill.id) {
+        const rect = card.getBoundingClientRect()
+        setPanel({ type: 'detail', skill, anchor: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom } })
+      }
     }
     const frame = requestAnimationFrame(revealHash)
     window.addEventListener('hashchange', revealHash)
@@ -162,6 +168,8 @@ function SkillsGrid({ plain = false, toolboxLink = false }) {
   useEffect(() => {
     if (!attentionSkill) return
     const dismiss = event => {
+      // Keep the selected destination intact until the link's navigation completes.
+      if (event.target.closest?.('.skills-toolbox-link') && gridRef.current?.contains(event.target)) return
       const card = event.target.closest?.('.skill-card')
       if (card && gridRef.current?.contains(card)) return
       setAttentionSkill('')
@@ -176,5 +184,5 @@ function SkillsGrid({ plain = false, toolboxLink = false }) {
   }, [attentionSkill])
   const { openSkill, openChart, selectedSkillId } = useContext(SkillsContext)
   const highlightedSkill = toolboxLink ? attentionSkill : selectedSkillId
-  return <section ref={gridRef} className={'skills-section' + (attentionSkill ? ' toolbox-attention-active' : '')} id="skills" aria-labelledby="skills-title"><div className="skills-section-heading"><div><p className="skills-eyebrow">{plain ? 'SKILLS & TOOLS' : '// SKILLS.JSON'}</p><h2 id="skills-title">My toolbox, always growing.</h2></div>{toolboxLink ? <a ref={toolboxButtonRef} key={toolboxClicks} className={'skills-chart-button skills-toolbox-link' + (attentionSkill ? ' is-highlighted' : '')} href={portfolioUrl('skills')}><span aria-hidden="true">↗</span> Explore full toolbox</a> : <button type="button" className="skills-chart-button" onClick={openChart} aria-haspopup="dialog"><span aria-hidden="true">▥</span> View proficiency chart</button>}</div><p className="skills-intro">{toolboxLink ? 'Select a skill to highlight it, then explore the full toolbox for details and the proficiency chart.' : 'Select a skill for its description and self-assessed proficiency.'}</p>{attentionSkill && createPortal(<div className="simple-toolbox-blur" aria-hidden="true" />, document.body)}{skillGroups.map(group => <div className="skills-group" key={group.title}><h3><span aria-hidden="true">⌄</span> {group.title}</h3><div className="skills-card-grid">{group.skills.map(skill => <button type="button" className={'skill-card' + (highlightedSkill === skill.id ? ' is-selected' : '')} id={'skill-'+skill.id} key={skill.id} style={{ '--skill-accent': skill.color }} onClick={event=>{ if (toolboxLink) { setToolboxClicks(count=>count+1); setAttentionSkill(skill.id) } else openSkill(skill,event) }} aria-haspopup={toolboxLink ? undefined : 'dialog'} aria-pressed={toolboxLink ? attentionSkill === skill.id : undefined} aria-label={toolboxLink ? 'Highlight '+skill.name+' and explore full toolbox' : 'View '+skill.name+' proficiency details'}><SkillIcon skill={skill} /><span className="skill-card-name">{skill.name}</span><span className="skill-card-score">{skill.score} / 10 <small>{toolboxLink ? (attentionSkill === skill.id ? 'Selected · Explore toolbox ↗' : 'Explore toolbox ↗') : (highlightedSkill === skill.id ? 'Selected · Details ↗' : 'Details ↗')}</small></span></button>)}</div></div>)}</section>
+  return <section ref={gridRef} className={'skills-section' + (attentionSkill ? ' toolbox-attention-active' : '')} id="skills" aria-labelledby="skills-title"><div className="skills-section-heading"><div><p className="skills-eyebrow">{plain ? 'SKILLS & TOOLS' : '// SKILLS.JSON'}</p><h2 id="skills-title">My toolbox, always growing.</h2></div>{toolboxLink ? <a ref={toolboxButtonRef} key={toolboxClicks} className={'skills-chart-button skills-toolbox-link' + (attentionSkill ? ' is-highlighted' : '')} href={portfolioUrl(attentionSkill ? 'skill-'+attentionSkill : 'skills', attentionSkill)}><span aria-hidden="true">↗</span> Explore full toolbox</a> : <button type="button" className="skills-chart-button" onClick={openChart} aria-haspopup="dialog"><span aria-hidden="true">▥</span> View proficiency chart</button>}</div><p className="skills-intro">{toolboxLink ? 'Select a skill to highlight it, then explore the full toolbox for details and the proficiency chart.' : 'Select a skill for its description and self-assessed proficiency.'}</p>{attentionSkill && createPortal(<div className="simple-toolbox-blur" aria-hidden="true" />, document.body)}{skillGroups.map(group => <div className="skills-group" key={group.title}><h3><span aria-hidden="true">⌄</span> {group.title}</h3><div className="skills-card-grid">{group.skills.map(skill => <button type="button" className={'skill-card' + (highlightedSkill === skill.id ? ' is-selected' : '')} id={'skill-'+skill.id} key={skill.id} style={{ '--skill-accent': skill.color }} onClick={event=>{ if (toolboxLink) { setToolboxClicks(count=>count+1); setAttentionSkill(skill.id) } else openSkill(skill,event) }} aria-haspopup={toolboxLink ? undefined : 'dialog'} aria-pressed={toolboxLink ? attentionSkill === skill.id : undefined} aria-label={toolboxLink ? 'Highlight '+skill.name+' and explore full toolbox' : 'View '+skill.name+' proficiency details'}><SkillIcon skill={skill} /><span className="skill-card-name">{skill.name}</span><span className="skill-card-score">{skill.score} / 10 <small>{toolboxLink ? (attentionSkill === skill.id ? 'Selected · Explore toolbox ↗' : 'Explore toolbox ↗') : (highlightedSkill === skill.id ? 'Selected · Details ↗' : 'Details ↗')}</small></span></button>)}</div></div>)}</section>
 }
