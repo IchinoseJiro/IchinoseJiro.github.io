@@ -68,7 +68,7 @@ VS Code can restore an old unsaved tab after restarting. If a tab has a dot, do 
 
 ## Skill proficiency and certificate update
 
-- src/skillsData.js is the canonical ordered list of all 28 skills. Each record has id, name, score (including decimals), color, and description. Do not alphabetize or rank by score. PC Assembly includes Ethernet crimping; network troubleshooting follows network configuration.
+- src/skillsData.js is the canonical ordered list of all 29 skills, including SEO under Web optimization. Each record has id, name, score (including decimals), color, and description. Do not alphabetize or rank by score. PC Assembly includes Ethernet crimping; network troubleshooting follows network configuration.
 - src/Skills.jsx renders the toolbox, full cards, anchored detail popup, and proficiency chart from that dataset. SkillsProvider shares popup state between gallery sections.
 - src/SkillsInteractions.css styles skill buttons, lightly blurred native dialogs, numeric meters, and the fixed-scale horizontal chart.
 - src/PortfolioEnhancements.css controls bottom toolbox placement, emphasized home/live-preview buttons, certificate link styles, and enlarged instructions.

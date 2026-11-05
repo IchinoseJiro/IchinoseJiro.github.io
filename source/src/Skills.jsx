@@ -34,6 +34,7 @@ function IconShape({ id }) {
     case 'canva': return <><circle cx="24" cy="24" r="20" /><text x="24" y="33" fontSize="26" fontStyle="italic">C</text></>
     case 'figma': return <><rect x="10" y="4" width="14" height="14" rx="7" /><rect x="24" y="4" width="14" height="14" rx="7" /><rect x="10" y="18" width="14" height="14" rx="7" /><circle cx="31" cy="25" r="7" /><path d="M24 32H17a7 7 0 1 0 7 7Z" /></>
     case 'github': return <><path d="M18 43V34c-9 2-9-5-12-6m24 15V33c6-2 9-6 9-13 0-3-1-5-3-7 1-3 0-6-1-8l-8 4h-6l-8-4c-2 2-2 6-1 8-2 2-3 4-3 7 0 7 3 11 9 13" /></>
+    case 'seo': return <><circle cx="20" cy="20" r="13" /><path d="m30 30 12 12M12 25l6-7 5 4 6-8m-6 0h6v6" /></>
     case 'ethernet': return <><path d="M14 5h20v16l-4 4v7H18v-7l-4-4ZM20 5v11m4-11v11m4-11v11M24 32v8a4 4 0 0 0 8 0v-3" /></>
     default: return <><path d="M27 7a11 11 0 0 0-12 14L5 31a6 6 0 0 0 9 9l10-10A11 11 0 0 0 39 17l-7 7-8-8 7-8Z" /><circle cx="10" cy="35" r="1" fill="currentColor" /></>
   }
@@ -99,7 +100,7 @@ function SkillDialog({ panel, onClose }) {
   </dialog>
 }
 
-// All 28 values remain numeric and visible; CSS bars use a fixed 0–10 scale.
+// All skill values remain numeric and visible; CSS bars use a fixed 0–10 scale.
 function ProficiencyChart() {
   return <div className="skill-chart-content"><p>My personal ratings on a scale from 0 to 10. These are self-assessments, not verified test results.</p><div className="skill-chart-axis" aria-hidden="true"><span>0</span><span>5</span><span>10</span></div>{skillGroups.map(group => <section className="skill-chart-group" key={group.title} aria-label={group.title}><h3>{group.title}</h3><ul>{group.skills.map(skill => <li className="skill-chart-row" key={skill.id} data-skill-id={skill.id}><span className="skill-chart-name"><SkillIcon skill={skill} />{skill.name}</span><span className="skill-chart-track" aria-hidden="true"><span style={{ width: skill.score*10+'%', background: skill.color }} /></span><span className="skill-chart-value">{skill.score}<span className="skill-sr-only"> / 10</span></span></li>)}</ul></section>)}<p className="skill-chart-footnote">{allSkills.length} skills · Category order matches the toolbox.</p></div>
 }

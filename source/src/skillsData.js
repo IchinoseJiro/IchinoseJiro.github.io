@@ -190,6 +190,18 @@ export const skillGroups = [
     ]
   },
   {
+    "title": "Web optimization",
+    "skills": [
+      {
+        "id": "seo",
+        "name": "SEO",
+        "score": 4,
+        "color": "#89d4bf",
+        "description": "Search engine optimization helps search engines understand web pages and people discover them through search, using clear content, page titles, metadata, and site structure."
+      }
+    ]
+  },
+  {
     "title": "Practical IT skills",
     "skills": [
       {
