@@ -20,7 +20,7 @@ export default function ViewTransition({ mode, phase }) {
       {/* Keep both layout previews decorative; the status below announces the destination. */}
       <div className={'view-transition-preview view-transition-preview-' + mode} aria-hidden="true">{mode === 'simple' ? <><span /><span /><span /></> : <><span>&lt;portfolio&gt;</span><span>&nbsp; const view = 'code';</span><span>&lt;/portfolio&gt;</span></>}</div>
       <p role="status" aria-live="polite" aria-atomic="true">{phase === 'ready' ? label + ' ready' : 'Switching to ' + label + '…'}</p>
-      <span className="view-transition-description">{mode === 'simple' ? 'Your portfolio, easy to explore.' : 'Back to the editor-inspired workspace.'}</span>
+      <span className="view-transition-description">{mode === 'simple' ? 'Jireh’s portfolio, easy to explore.' : 'Jireh’s editor-inspired workspace.'}</span>
       <div className="view-transition-progress" aria-hidden="true"><span /></div>
     </div>
   </dialog>
