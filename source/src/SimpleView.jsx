@@ -24,7 +24,7 @@ export default function SimpleView({ menu, copyButton, onAbout }) {
 {/* Education: HAU logo, degree, specialization, and graduation. */}
       <section className="simple-section" id="simple-education" aria-labelledby="simple-education-title"><p className="simple-eyebrow">MY FOUNDATION</p><h2 id="simple-education-title">Education</h2><div className="simple-education-card"><img className="simple-education-mark" src="/images/HAU-logo.png" alt="Holy Angel University seal" width="1670" height="1582" loading="lazy" /><div><h3>{profile.education}</h3><p>{profile.degree}</p><p>{profile.specialization} specialization</p></div><span className="simple-graduation">Graduated<br /><strong>{profile.graduated}</strong></span></div></section>
 {/* Skills cards and icons from the shared catalog. */}
-      <div id="simple-skills" className="simple-skills"><SkillsSection plain /></div>
+      <div id="simple-skills" className="simple-skills"><SkillsSection plain toolboxLink /></div>
 {/* Current and college project gallery callout. */}
       <section className="simple-section simple-project-callout" aria-labelledby="simple-project-title"><BrandLogo decorative /><div><p className="simple-eyebrow">CURRENT & COLLEGE PROJECTS</p><h2 id="simple-project-title">See what I’m building.</h2><p>Follow Re-spawnpoint, my current personal project, and explore COFFEEGO and Autoworld Carwash from college.</p></div><a className="simple-secondary" href="/portfolio.html">Open project gallery ↗</a></section>
 {/* Contact copy controls and LinkedIn/GitHub links. */}

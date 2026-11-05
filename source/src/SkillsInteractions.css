@@ -81,3 +81,18 @@ body.skills-dialog-open { overflow: hidden; }
   box-shadow: 0 0 0 7px #f3aa5d1a, 0 0 24px #7dcfff30;
 }
 .skills-section .skill-card.is-selected .skill-card-score small { color: #ffd29a; font-weight: 600; }
+
+/* Simple view links to the full gallery toolbox; skill clicks emphasize this route. */
+.skills-toolbox-link { text-decoration: none; }
+.skills-toolbox-link:focus-visible { outline: 3px solid #ffd29a; outline-offset: 4px; }
+.skills-toolbox-link.is-highlighted {
+  border: 2px solid #f3aa5d;
+  background: #29475b;
+  color: #ffe0b0;
+  box-shadow: 0 0 0 4px #f3aa5d25, 0 0 22px #f3aa5d40;
+  animation: toolbox-attention 1.2s ease-out 2;
+}
+@keyframes toolbox-attention {
+  50% { box-shadow: 0 0 0 8px #f3aa5d18, 0 0 30px #f3aa5d70; }
+}
+@media(prefers-reduced-motion:reduce) { .skills-toolbox-link.is-highlighted { animation: none; } }
