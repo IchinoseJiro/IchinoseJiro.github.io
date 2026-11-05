@@ -71,3 +71,13 @@ body.skills-dialog-open { overflow: hidden; }
   .skill-card-score { display: block; }
   .skill-card-score small { display: block; margin-top: 3px; }
 }
+
+/* Selected main-content skill stays easy to find after a toolbox link or popup. */
+.skills-section .skill-card.is-selected {
+  outline: 3px solid #f3aa5d;
+  outline-offset: 3px;
+  border-color: #f3aa5d;
+  background: linear-gradient(135deg, #29475b, #25333e);
+  box-shadow: 0 0 0 7px #f3aa5d1a, 0 0 24px #7dcfff30;
+}
+.skills-section .skill-card.is-selected .skill-card-score small { color: #ffd29a; font-weight: 600; }

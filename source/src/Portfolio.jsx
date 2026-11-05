@@ -46,7 +46,8 @@ export default function Portfolio() {
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
       const target = document.getElementById(window.location.hash.slice(1))
-      target?.scrollIntoView({ block: 'start' })
+      // SkillsProvider centers and highlights skill anchors; keep project anchors here.
+      if (!target?.classList.contains('skill-card')) target?.scrollIntoView({ block: 'start' })
     })
     return () => cancelAnimationFrame(frame)
   }, [])

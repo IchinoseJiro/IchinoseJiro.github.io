@@ -1,5 +1,5 @@
 // Shared skills UI. All category and item ordering comes directly from skillsData.js.
-import { createContext, useCallback, useContext, useLayoutEffect, useRef, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { allSkills, skillGroups } from './skillsData.js'
 import './Skills.css'
@@ -51,13 +51,37 @@ const SkillsContext = createContext(null)
 // Share a single skill popup or chart between the gallery sidebar and skills section.
 export function SkillsProvider({ children }) {
   const [panel, setPanel] = useState(null)
+  const [selectedSkillId, setSelectedSkillId] = useState('')
   const close = useCallback(() => setPanel(null), [])
-  const openSkill = (skill, event) => {
-    const rect = event.currentTarget.getBoundingClientRect()
+  // Code-view links and gallery toolbox clicks point to the same main-content card.
+  const revealSkill = useCallback(skill => {
+    const card = document.getElementById('skill-' + skill.id)
+    if (!card) return null
+    setSelectedSkillId(skill.id)
+    card.scrollIntoView({ block: 'center', behavior: 'instant' })
+    card.focus({ preventScroll: true })
+    return card
+  }, [])
+  useEffect(() => {
+    const revealHash = () => {
+      const skill = allSkills.find(item => '#skill-' + item.id === window.location.hash)
+      if (skill) revealSkill(skill)
+    }
+    const frame = requestAnimationFrame(revealHash)
+    window.addEventListener('hashchange', revealHash)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('hashchange', revealHash)
+    }
+  }, [revealSkill])
+  const openSkill = (skill, event, fromSidebar = false) => {
+    const target = fromSidebar ? revealSkill(skill) : event.currentTarget
+    setSelectedSkillId(skill.id)
+    const rect = (target || event.currentTarget).getBoundingClientRect()
     setPanel({ type: 'detail', skill, anchor: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom } })
   }
   const openChart = () => setPanel({ type: 'chart' })
-  return <SkillsContext.Provider value={{ openSkill, openChart }}>{children}{panel && createPortal(<SkillDialog panel={panel} onClose={close} />, document.body)}</SkillsContext.Provider>
+  return <SkillsContext.Provider value={{ openSkill, openChart, selectedSkillId }}>{children}{panel && createPortal(<SkillDialog panel={panel} onClose={close} />, document.body)}</SkillsContext.Provider>
 }
 
 // Native modal provides background inertness, Escape handling, and keyboard focus containment.
@@ -108,7 +132,7 @@ function ProficiencyChart() {
 // Preserve the same flat dataset order in every toolbox, with no priority reshuffling.
 export function SkillsSidebar() {
   const context = useContext(SkillsContext)
-  return <section className="skills-sidebar" aria-label="Skills toolbox"><h3>SKILLS / TOOLBOX</h3><div className="skills-mini-grid">{allSkills.map(skill => context ? <button type="button" key={skill.id} className="skill-mini" title={skill.name} aria-label={skill.name} aria-haspopup="dialog" onClick={event=>context.openSkill(skill,event)}><SkillIcon skill={skill} /><span>{skill.name}</span></button> : <a key={skill.id} className="skill-mini" href={'/portfolio.html#skill-'+skill.id} title={skill.name} aria-label={skill.name}><SkillIcon skill={skill} /><span>{skill.name}</span></a>)}</div>{context ? <button type="button" className="skills-see-all" onClick={context.openChart}>View proficiency chart ↗</button> : <a className="skills-see-all" href="/portfolio.html#skills">Explore all skills ↗</a>}</section>
+  return <section className="skills-sidebar" aria-label="Skills toolbox"><h3>SKILLS / TOOLBOX</h3><div className="skills-mini-grid">{allSkills.map(skill => context ? <button type="button" key={skill.id} className="skill-mini" title={skill.name} aria-label={skill.name} aria-haspopup="dialog" onClick={event=>context.openSkill(skill,event,true)}><SkillIcon skill={skill} /><span>{skill.name}</span></button> : <a key={skill.id} className="skill-mini" href={'/portfolio.html#skill-'+skill.id} title={skill.name} aria-label={skill.name}><SkillIcon skill={skill} /><span>{skill.name}</span></a>)}</div>{context ? <button type="button" className="skills-see-all" onClick={context.openChart}>View proficiency chart ↗</button> : <a className="skills-see-all" href="/portfolio.html#skills">Explore all skills ↗</a>}</section>
 }
 
 // Simple view uses its own provider; the gallery shares one with its Explorer toolbox.
@@ -117,6 +141,6 @@ export function SkillsSection(props) {
   return context ? <SkillsGrid {...props} /> : <SkillsProvider><SkillsGrid {...props} /></SkillsProvider>
 }
 function SkillsGrid({ plain = false }) {
-  const { openSkill, openChart } = useContext(SkillsContext)
-  return <section className="skills-section" id="skills" aria-labelledby="skills-title"><div className="skills-section-heading"><div><p className="skills-eyebrow">{plain ? 'SKILLS & TOOLS' : '// SKILLS.JSON'}</p><h2 id="skills-title">My toolbox, always growing.</h2></div><button type="button" className="skills-chart-button" onClick={openChart} aria-haspopup="dialog"><span aria-hidden="true">▥</span> View proficiency chart</button></div><p className="skills-intro">Select a skill for its description and self-assessed proficiency.</p>{skillGroups.map(group => <div className="skills-group" key={group.title}><h3><span aria-hidden="true">⌄</span> {group.title}</h3><div className="skills-card-grid">{group.skills.map(skill => <button type="button" className="skill-card" id={'skill-'+skill.id} key={skill.id} style={{ '--skill-accent': skill.color }} onClick={event=>openSkill(skill,event)} aria-haspopup="dialog" aria-label={'View '+skill.name+' proficiency details'}><SkillIcon skill={skill} /><span className="skill-card-name">{skill.name}</span><span className="skill-card-score">{skill.score} / 10 <small>Details ↗</small></span></button>)}</div></div>)}</section>
+  const { openSkill, openChart, selectedSkillId } = useContext(SkillsContext)
+  return <section className="skills-section" id="skills" aria-labelledby="skills-title"><div className="skills-section-heading"><div><p className="skills-eyebrow">{plain ? 'SKILLS & TOOLS' : '// SKILLS.JSON'}</p><h2 id="skills-title">My toolbox, always growing.</h2></div><button type="button" className="skills-chart-button" onClick={openChart} aria-haspopup="dialog"><span aria-hidden="true">▥</span> View proficiency chart</button></div><p className="skills-intro">Select a skill for its description and self-assessed proficiency.</p>{skillGroups.map(group => <div className="skills-group" key={group.title}><h3><span aria-hidden="true">⌄</span> {group.title}</h3><div className="skills-card-grid">{group.skills.map(skill => <button type="button" className={'skill-card' + (selectedSkillId === skill.id ? ' is-selected' : '')} id={'skill-'+skill.id} key={skill.id} style={{ '--skill-accent': skill.color }} onClick={event=>openSkill(skill,event)} aria-haspopup="dialog" aria-label={'View '+skill.name+' proficiency details'}><SkillIcon skill={skill} /><span className="skill-card-name">{skill.name}</span><span className="skill-card-score">{skill.score} / 10 <small>{selectedSkillId === skill.id ? 'Selected · Details ↗' : 'Details ↗'}</small></span></button>)}</div></div>)}</section>
 }
