@@ -97,7 +97,7 @@ body.skills-dialog-open { overflow: hidden; }
 }
 @media(prefers-reduced-motion:reduce) { .skills-toolbox-link.is-highlighted { animation: none; } }
 
-/* Non-blocking Simple-view spotlight: no skill popup, and clicks pass through the blur. */
-.simple-toolbox-blur { position: fixed; inset: 0; z-index: 50; pointer-events: none; background: #0b141c18; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+/* Keep the non-blocking skill spotlight below the sticky navigation (z-index 40). */
+.simple-toolbox-blur { position: fixed; inset: 0; z-index: 30; pointer-events: none; background: #0b141c18; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
 .toolbox-attention-active .skills-toolbox-link,
-.toolbox-attention-active .skill-card.is-selected { position: relative; z-index: 51; }
+.toolbox-attention-active .skill-card.is-selected { position: relative; z-index: 31; }
