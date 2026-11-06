@@ -1,0 +1,219 @@
+/* FILE GUIDE: ViewModeMenu.css
+   Each labeled block controls the selectors listed below it.
+   Inside a block: color = text, background = surface, padding = inner spacing,
+   margin = outer spacing, gap = space between items.
+   Read matching rules from top to bottom: later rules can override earlier ones.
+   @media blocks adapt the design to smaller screens or accessibility preferences.
+*/
+
+/* Reusable standalone view-dropdown styles. */
+
+/* Top navigation menu buttons and dropdowns. Selectors: .view-mode-menu */
+.view-mode-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Top navigation menu buttons and dropdowns. Selectors: .view-mode-menu>button */
+.view-mode-menu > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 66px;
+  min-height: 42px;
+  border: 1px solid #425567;
+  border-radius: 5px;
+  background: #22313e;
+  color: #d5e5f0;
+  cursor: pointer;
+  font:
+    12px 'Segoe UI',
+    sans-serif;
+}
+
+/* Top navigation menu buttons and dropdowns. Selectors: .view-mode-current */
+.view-mode-current {
+  font-size: 10px;
+  color: #91aec3;
+  white-space: nowrap;
+}
+
+/* Top navigation menu buttons and dropdowns — keyboard focus indicator. Selectors: .view-mode-menu button:focus-visible */
+.view-mode-menu button:focus-visible {
+  outline: 2px solid #7dcfff;
+  outline-offset: 3px;
+}
+
+/* Top navigation menu buttons and dropdowns. Selectors: .view-mode-dropdown */
+.view-mode-dropdown {
+  position: fixed;
+  z-index: 150;
+  padding: 5px;
+  border: 1px solid #4d6172;
+  border-radius: 6px;
+  background: #252c35;
+  color: #dce7f1;
+  overflow: auto;
+  box-shadow: 0 12px 32px #0008;
+}
+
+/* Top navigation menu buttons and dropdowns. Selectors: .view-mode-dropdown>button */
+.view-mode-dropdown > button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 12px;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-radius: 3px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* Top navigation menu buttons and dropdowns. Selectors: .view-mode-dropdown>button[aria-checked=true] */
+.view-mode-dropdown > button[aria-checked='true'] {
+  background: #274256;
+  color: #c8eeff;
+}
+
+/* Top navigation menu buttons and dropdowns — mouse hover feedback. Selectors: .view-mode-dropdown>button:hover */
+.view-mode-dropdown > button:hover {
+  background: #314658;
+}
+
+/* Top navigation menu buttons and dropdowns. Selectors: .view-mode-dropdown small */
+.view-mode-dropdown small {
+  font-size: 10px;
+  color: #8bd1fa;
+}
+
+/* Gallery header and home link. Selectors: .pg-header-actions */
+.pg-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+}
+
+/* Shared page styling. Selectors: .pg-shell */
+.pg-shell {
+  --gallery-chrome: 64px;
+}
+
+/* Gallery header and home link. Selectors: .pg-shell .pg-titlebar */
+.pg-shell .pg-titlebar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--gallery-chrome);
+  min-height: var(--gallery-chrome);
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* Gallery left navigation and Explorer. Selectors: .pg-shell .pg-rail,.pg-shell .pg-explorer */
+.pg-shell .pg-rail,
+.pg-shell .pg-explorer {
+  top: var(--gallery-chrome);
+  height: calc(100dvh - var(--gallery-chrome));
+  max-height: calc(100dvh - var(--gallery-chrome));
+}
+
+/* Gallery Portfolio and Skills tabs. Selectors: .pg-shell .pg-tabbar */
+.pg-shell .pg-tabbar {
+  top: var(--gallery-chrome);
+}
+
+/* College project cards, screenshots, and descriptions. Selectors: .gallery-simple .pg-code-note */
+.gallery-simple .pg-code-note {
+  display: none;
+}
+
+/* Gallery header and home link. Selectors: .pg-shell .pg-brand */
+.pg-shell .pg-brand {
+  min-width: 0;
+}
+
+/* Gallery header and home link. Selectors: .pg-shell .pg-brand>span */
+.pg-shell .pg-brand > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Screen-size or user-preference adjustment: (max-width:900px) */
+@media (max-width: 900px) {
+  /* Top navigation menu buttons and dropdowns. Selectors: .view-mode-current */
+  .view-mode-current {
+    display: none;
+  }
+
+  /* Gallery left navigation and Explorer. Selectors: .pg-shell .pg-explorer */
+  .pg-shell .pg-explorer {
+    height: 52px;
+    min-height: 52px;
+    max-height: 52px;
+  }
+
+  /* Gallery Portfolio and Skills tabs. Selectors: .pg-shell .pg-tabbar */
+  .pg-shell .pg-tabbar {
+    top: calc(var(--gallery-chrome) + 52px);
+  }
+}
+
+/* Screen-size or user-preference adjustment: (max-width:520px) */
+@media (max-width: 520px) {
+  /* Shared page styling. Selectors: .pg-shell */
+  .pg-shell {
+    --gallery-chrome: 58px;
+  }
+
+  /* Gallery header and home link. Selectors: .pg-header-actions */
+  .pg-header-actions {
+    gap: 7px;
+  }
+
+  /* Top navigation menu buttons and dropdowns. Selectors: .view-mode-menu>button */
+  .view-mode-menu > button {
+    min-width: 60px;
+    min-height: 40px;
+  }
+
+  /* Gallery header and home link. Selectors: .pg-shell .pg-titlebar */
+  .pg-shell .pg-titlebar {
+    gap: 8px;
+  }
+
+  /* Gallery header and home link. Selectors: .pg-shell .pg-home */
+  .pg-shell .pg-home {
+    font-size: 10px;
+    padding: 8px;
+    min-height: 40px;
+  }
+
+  /* Gallery header and home link. Selectors: .pg-shell .pg-brand */
+  .pg-shell .pg-brand {
+    gap: 7px;
+  }
+
+  /* Gallery header and home link. Selectors: .pg-shell .pg-brand>b,.pg-shell .pg-brand>b>.brand-logo */
+  .pg-shell .pg-brand > b,
+  .pg-shell .pg-brand > b > .brand-logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Gallery header and home link. Selectors: .pg-shell .pg-brand>span */
+  .pg-shell .pg-brand > span {
+    font-size: 11px;
+  }
+}

@@ -1,87 +1,117 @@
-# LunR Code: where to edit each part
+# LunR Code: where to edit what
 
-Open this folder in VS Code: WebPortfolio. Start with this guide, then open the matching file below.
+## How to navigate in VS Code
 
-## Find a website section
+1. Open the **WebPortfolio** folder, not only a single file.
+2. Use **Ctrl+P** and type a filename from the tables below.
+3. Use **Ctrl+Shift+F** to search text across the project.
+4. Use **Ctrl+Shift+O** to find a function/component in the current file.
+5. Open VS Code’s Outline to see the functions and components in that file.
 
-| What you want to change | Content / behavior | Appearance |
-| --- | --- | --- |
-| Code view window, Reload, menus, left icons, Explorer | src/App.jsx | src/App.css, src/HomeWorkspace.css |
-| Editable information shown to website visitors | src/profileContent.js | Editor rules in src/App.css |
-| File tabs, split editor, typing, undo/redo | src/App.jsx | src/App.css, src/HomeWorkspace.css |
-| Bottom typing-only terminal | src/App.jsx | Terminal blocks in src/App.css |
-| Draggable introduction popup | src/App.jsx | Intro blocks in src/App.css |
-| Simple view header and profile sections | src/SimpleView.jsx | src/SimpleView.css |
-| Name, About text, Education, work history, certifications | src/profileContent.js | src/SimpleView.css |
-| HAU logo in Education | src/SimpleView.jsx, public/images/HAU-logo.png | Education blocks in src/SimpleView.css |
-| Project gallery, current Re-spawnpoint project, and college cards | src/Portfolio.jsx | src/Portfolio.css |
-| Re-spawnpoint website link | currentProject.url in src/Portfolio.jsx | Live-preview button in src/Portfolio.css |
-| Project screenshots | public/projects/ | Image blocks in src/Portfolio.css |
-| Skills names, categories, and colors | src/skillsData.js | src/Skills.css |
-| Skills vectors, sidebar toolbox, and full cards | src/Skills.jsx | src/Skills.css |
-| LinkedIn and GitHub links | src/SocialLinks.jsx; addresses in src/profileContent.js | src/SocialLinks.css |
-| Orange project/view instruction box | src/NavigationHint.jsx | Hint blocks in src/App.css and src/SimpleView.css |
-| Introduction > How to use this website; Help > Website guide | src/WebsiteGuide.jsx | src/WebsiteGuide.css |
-| Help > About this Portfolio popup | src/AboutPortfolio.jsx | About blocks in src/App.css, src/HomeWorkspace.css, src/SimpleView.css |
-| Portrait | public/images/jireh-portrait.jpg | Portrait blocks in src/SimpleView.css and src/HomeWorkspace.css |
-| LunR Code logo | src/BrandLogo.jsx, public/lunr-code.svg | src/BrandLogo.css |
-| Browser-tab favicon | public/favicon.svg; link in both HTML files | SVG colors inside the file |
-| View-switch loading message and animation | src/ViewTransition.jsx, src/useViewTransition.js | src/ViewTransition.css |
-| Default Code/Simple mode and saved selection | src/useViewMode.js | The selected view uses its own CSS |
-| Standalone view menu retained for reuse; not displayed in current gallery | src/ViewModeMenu.jsx | src/ViewModeMenu.css |
-| Global background, fonts, and minimum page width | src/index.css | Same file |
+Start with [the source folder map](src/README.md). Each source file has comments explaining its responsibility.
 
-## HTML and startup files
+## Project layout
 
-- index.html: home-page browser title, favicon, search/social descriptions, mobile viewport, and React mount point.
-- src/main.jsx: starts the home-page React app. Its visible content lives in App.jsx and SimpleView.jsx.
-- portfolio.html: gallery browser title, description, favicon, viewport, and mount point.
-- src/portfolio-main.jsx: starts the gallery React app. Its visible content lives in Portfolio.jsx.
-- vite.config.js: build settings for the two HTML pages.
-- public/robots.txt: crawler instructions; this does not guarantee search indexing.
-- public/icons.svg: reusable SVG symbol collection. src/assets contains leftover starter assets; current branding uses public/lunr-code.svg.
+| Folder/file                | Responsibility                                                         |
+| -------------------------- | ---------------------------------------------------------------------- |
+| src/App.jsx                | Home-page coordinator: state, menu commands, feature composition       |
+| src/main.jsx               | Home HTML entry point                                                  |
+| src/portfolio-main.jsx     | Gallery HTML entry point                                               |
+| src/pages/simple/          | Readable Simple view layout and CSS                                    |
+| src/pages/portfolio/       | Current/college project gallery layout and CSS                         |
+| src/pages/code/            | Code workspace styling and responsive rules                            |
+| src/features/editor/       | Editable panes, syntax renderer, tabs, split editor, text/history hook |
+| src/features/workspace/    | Activity rail, Explorer, search, titlebar                              |
+| src/features/introduction/ | Moon-button popup and drag-position hook                               |
+| src/features/terminal/     | Typing-only CMD-style terminal                                         |
+| src/features/skills/       | Shared cards, icons, popups, chart, and toolbox selection behavior     |
+| src/components/branding/   | LunR Code logo and its styles                                          |
+| src/components/contact/    | Contact copy button and social links                                   |
+| src/components/navigation/ | Menus, orange hint, transition overlay                                 |
+| src/components/dialogs/    | About, website guide, keyboard help, page recovery                     |
+| src/data/                  | Profile, skills, project content shared across pages                   |
+| src/hooks/                 | View selection, transition timing, clipboard confirmation              |
+| src/utils/                 | Versioned gallery navigation and validated skill deep links            |
+| src/styles/                | Global reset and shared cross-page enhancements                        |
+| src/assets/                | Existing bundled assets retained from the project                      |
+| public/images/             | Profile photo and HAU logo                                             |
+| public/projects/           | Project screenshots                                                    |
+| tests/                     | Navigation/content regression checks                                   |
 
-## How to read the notes
+## Change your content
 
-- JavaScript uses // comments.
-- Inside React markup, comments use {/* ... */}.
-- CSS uses /* ... */. Each rule is now expanded with a label naming its website area and selectors.
-- HTML and SVG use <!-- ... --> comments.
-- CSS color changes text, background changes a surface, padding adds inner space, margin adds outer space, and gap separates flex/grid items.
-- A CSS @media block changes rules for a screen size or user preference. Later matching rules can override earlier rules; preserve their order.
-- Search a section label with Ctrl+F in the open file, or Ctrl+Shift+F across the project.
+- **Profile, jobs, education, contact information:** src/data/profileContent.js.
+- **Certificates:** certificationDetails in profileContent.js. Existing public links open in a new tab; certificates without links point visitors to LinkedIn.
+- **Skills:** src/data/skillsData.js. This single ordered dataset feeds Code view text, Simple view, toolbox icons, skill windows, and chart. Keep the existing category/item order rather than sorting by score or alphabetically.
+- **Skill icons:** src/features/skills/SkillIcon.jsx. Each vector matches the skill’s id.
+- **Projects:** src/data/projects.js. currentProject is the ongoing personal project; projects contains the college work and availability notes.
+- **Photo/logos/screenshots:** public/. Use a leading slash for public asset paths, such as /images/HAU-logo.png.
 
-## Configuration files that cannot contain comments
+PC Assembly includes Ethernet cable crimping in its description. System & Network Troubleshooting stays immediately after Network Device Configuration. The resume tab and downloadable PDF are intentionally absent.
 
-package.json, package-lock.json, and .oxlintrc.json are JSON. Adding // comments would break them, so their explanation belongs here:
+## Code view controls
 
-- package.json: project dependencies and scripts. npm run dev starts a local preview, npm run build creates the deployable dist folder, and npm run lint checks code.
-- package-lock.json: generated dependency versions. Let npm maintain this file.
-- .oxlintrc.json: lint rules used by npm run lint.
-- .gitignore: lists local files and generated folders that Git should ignore.
+- **Menu layout:** components/navigation/ApplicationMenu.jsx. The actions supplied to it live in App.jsx.
+- **Editor/history:** features/editor/usePortfolioDocuments.js. The Edit reset restores only document text/history; the orange Reload also resets the workspace and introduction.
+- **Primary pane:** features/editor/CodeEditor.jsx. It synchronizes the textarea, syntax overlay, and line numbers.
+- **Tabs/split pane:** features/editor/EditorTabs.jsx and SplitEditor.jsx.
+- **Syntax tokens:** features/editor/highlightCode.jsx. Token colors are in pages/code/CodeView.css.
+- **Sidebar/activity icons:** features/workspace/WorkspaceSidebar.jsx.
+- **Terminal:** features/terminal/TerminalPanel.jsx. Text/history stays in App so switching views does not discard it. Commands are never executed.
+- **Introduction popup:** features/introduction/IntroductionPanel.jsx. Its pointer behavior and bounds are in useIntroPanel.js.
 
-## Source versus published output
+## Simple view and gallery navigation
 
-Edit these source files, then run npm run build. Do not manually edit dist or bundled assets: rebuilding replaces them. The GitHub repository stores editable files under source/ and serves the production build from its root.
+- **Simple page:** pages/simple/SimpleView.jsx and SimpleView.css.
+- **Gallery:** pages/portfolio/Portfolio.jsx and Portfolio.css.
+- **Shared skill selection/UI:** features/skills/Skills.jsx.
+- **Details and chart:** features/skills/SkillDialog.jsx.
+- **Skill emphasis, blur, and chart styles:** features/skills/SkillsInteractions.css.
+- **Gallery URL helper:** utils/portfolioNavigation.js. It uses the build release ID from vite.config.js to avoid cached gallery HTML.
 
-VS Code can restore an old unsaved tab after restarting. If a tab has a dot, do not blindly save or discard it. Compare its unsaved contents with the saved file first using File: Compare Active File with Saved from the Command Palette. The website and browser editor are different from these real source files.
+A Simple-view skill click highlights the skill/toolbox link, applies light blur, and scrolls to the link if necessary. The highlighted link carries the matching skill ID to the gallery and opens its popup. Ordinary toolbox links open the list; Code-view skill links highlight the matching card. Invalid IDs never open an unrelated skill. Navigation stays above the spotlight while scrolling.
 
-## Skill proficiency and certificate update
+## Shared dialogs and view behavior
 
-- src/skillsData.js is the canonical ordered list of all 29 skills, including SEO under Web optimization. Each record has id, name, score (including decimals), color, and description. Do not alphabetize or rank by score. PC Assembly includes Ethernet crimping; network troubleshooting follows network configuration.
-- src/Skills.jsx renders the toolbox, full cards, anchored detail popup, and proficiency chart from that dataset. SkillsProvider shares popup state between gallery sections.
-- src/SkillsInteractions.css styles skill buttons, lightly blurred native dialogs, numeric meters, and the fixed-scale horizontal chart.
-- src/PortfolioEnhancements.css controls bottom toolbox placement, emphasized home/live-preview buttons, certificate link styles, and enlarged instructions.
-- src/profileContent.js contains certificationDetails (direct certificate destinations) and generates the Code view skill content and certificate navigation note.
-- src/SimpleView.jsx renders direct certificate links and the LinkedIn note for the two certificates without direct URLs.
-- src/useViewTransition.js now uses 3660ms to reveal the destination and 4000ms total. The matching progress animation is 3660ms in src/ViewTransition.css. Reduced-motion timing stays brief.
+- **About/photo/progress note:** components/dialogs/AboutPortfolio.jsx.
+- **Website instructions:** components/dialogs/WebsiteGuide.jsx and WebsiteGuide.css.
+- **Keyboard help:** components/dialogs/KeyboardShortcuts.jsx.
+- **Error recovery:** components/dialogs/PageErrorBoundary.jsx, wrapping both entry points.
+- **View preference:** hooks/useViewMode.js. Refresh opens Code view; normal navigation carries the chosen mode.
+- **Four-second transition:** hooks/useViewTransition.js. Reduced-motion timing remains shorter.
+- **Loading wording/visual:** components/navigation/ViewTransition.jsx and ViewTransition.css.
+- **Shared clipboard status:** hooks/useCopyContact.js and components/contact/ContactCopyButton.jsx.
 
-## Reliable gallery navigation and recovery
+## Styles and imports
 
-- src/portfolioNavigation.js generates gallery links with the build's release ID. Use portfolioUrl() for new home-to-gallery links so cached HTML is not reused across releases.
-- vite.config.js generates the release ID each build.
-- src/PageErrorBoundary.jsx wraps both page entry points and offers a latest-version reload if rendering fails.
-- Keep the previous production assets when publishing; a browser with cached HTML may still request them. Copy the new dist files over the existing deployment without pruning old hashed assets during routine releases.
-- Simple view's sticky navigation remains usable during page scrolling. Code view still dismisses menus when its editor scrolls.
+Component/page CSS is colocated where practical. Code workspace compatibility rules remain together in pages/code/CodeView.css and Workspace.css. Shared enhancements are in styles/portfolio-shared.css. Existing selectors and import order are preserved so this refactor does not redesign the website.
 
-Simple view’s highlighted toolbox link passes a validated skill ID in the details query parameter and a matching skill anchor. SkillsProvider opens that skill’s popup on arrival. Ordinary toolbox and Code-view links keep their existing behavior.
+When adding a component, use a relative import to its actual folder. Do not move public files into src unless you also change how they are imported. Main HTML files and package/Vite configuration stay at the project root.
+
+## Checks before publishing
+
+Run **npm run check** to run 10 focused tests, lint, formatting checks, and the production build. Use **npm run format** after editing.
+
+Also preview and check Code/Simple switching, edited text/tabs, reset, menus, contact copying, intro/guide/About, terminal history, gallery links, all skill interactions, the chart, and phone/tablet layouts. Automated tests cover shared content and URL behavior; they do not replace browser interaction checks.
+
+## Publishing and backups
+
+The canonical editable project is this WebPortfolio folder. The existing GitHub Pages publishing checkout stores built files at its root and an editable project backup under source/. Sync source file moves as moves; do not leave stale duplicate source files behind.
+
+Build with **npm run build**, copy dist/ to the existing deployment root, and keep previous hashed production assets so cached pages still have their dependencies. Update the source backup, commit the checked changes, and confirm GitHub Pages succeeds. Never publish node_modules or the local source backup directory.
+
+The pre-refactor source snapshot was saved outside this project under the Codex workspace in portfolio-refactor-backup-20261106.
+
+## Root files
+
+| File                               | Purpose                                                                         |
+| ---------------------------------- | ------------------------------------------------------------------------------- |
+| index.html / portfolio.html        | Browser entry documents and metadata                                            |
+| vite.config.js                     | React build, both pages, release ID                                             |
+| package.json / package-lock.json   | Scripts and installed dependency versions; valid JSON does not support comments |
+| .oxlintrc.json                     | Lint checks                                                                     |
+| .prettierrc.json / .prettierignore | Consistent formatting; generated files excluded                                 |
+| README.md                          | Setup commands and folder overview                                              |
+| FILE_GUIDE.md                      | This detailed map                                                               |
+
+No global VS Code preferences were changed. If VS Code shows an old unsaved buffer after the refactor, review it before saving it over the reorganized files.

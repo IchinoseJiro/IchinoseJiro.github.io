@@ -1,0 +1,225 @@
+/* Navigation emphasis, enlarged instructions, and bottom-positioned skill toolboxes. */
+/* Give every gallery return-home link a consistent blue treatment. */
+.pg-shell a[href='/'],
+.simple-shell .simple-brand {
+  border: 1px solid #679bb9;
+  border-radius: 6px;
+  background: #243e51;
+  color: #d8f0ff;
+  box-shadow: 0 0 0 2px #7dcfff0b;
+}
+.pg-shell a[href='/']:hover,
+.simple-shell .simple-brand:hover {
+  background: #305773;
+  border-color: #a3dcff;
+}
+.pg-titlebar .pg-brand {
+  padding: 7px 12px;
+  min-height: 44px;
+}
+.pg-titlebar .pg-home {
+  background: #17648d;
+  border-color: #80c6eb;
+  color: #fff;
+  font-weight: 600;
+}
+.pg-rail > a[href='/'] {
+  width: calc(100% - 8px);
+  margin: 0 4px;
+  min-height: 44px;
+}
+.pg-endnote a[href='/'] {
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.simple-shell .simple-brand {
+  padding: 4px 9px;
+}
+/* The current project's live preview is the main action within its feature card. */
+.pg-current-info .pg-current-visit {
+  background: #157db1;
+  color: #fff;
+  border: 1px solid #a2dcff;
+  box-shadow:
+    0 0 0 4px #7dcfff12,
+    0 8px 24px #0003;
+  min-height: 48px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.pg-current-info .pg-current-visit:hover {
+  background: #2499d0;
+  border-color: #def5ff;
+}
+/* More readable project and view instructions, without expanding past the sidebar. */
+.home-workspace-page .sidebar .sidebar-project-hint {
+  margin: 12px 10px;
+  padding: 12px 10px;
+  font-size: 12px;
+  line-height: 1.6;
+  border-left-width: 3px;
+  flex: none;
+}
+.home-workspace-page .sidebar .sidebar-project-hint span {
+  display: block;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 3px;
+  font-weight: 600;
+}
+.home-workspace-page .sidebar .sidebar-project-hint p + p {
+  margin-top: 12px;
+}
+.simple-shell .simple-hint {
+  font-size: 13px;
+  padding: 14px 18px;
+  line-height: 1.6;
+  max-width: 100%;
+}
+.simple-shell .simple-hint small {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.simple-shell .simple-hint span {
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 600;
+}
+/* Anchor the home toolbox above Outline/Timeline; scroll icons internally as needed. */
+.home-workspace-page .sidebar .skills-sidebar {
+  margin: auto 10px 8px;
+  padding-top: 12px;
+  flex: none;
+}
+.home-workspace-page .sidebar .skills-sidebar h3 {
+  display: block;
+  font-size: 9px;
+  margin-bottom: 8px;
+}
+.home-workspace-page .sidebar .skills-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 3px;
+  max-height: clamp(88px, 30dvh, 232px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #5c798b #252526;
+  padding: 2px;
+}
+.home-workspace-page .sidebar .skill-mini {
+  min-height: 44px;
+  padding: 6px 2px;
+}
+.home-workspace-page .sidebar .skill-mini .skill-vector {
+  width: 23px;
+  height: 23px;
+}
+.home-workspace-page .sidebar .side-foot {
+  display: flex;
+  margin-top: 0;
+}
+/* On the gallery desktop sidebar, notices precede the toolbox at the bottom. */
+@media (min-width: 901px) {
+  .pg-explorer .pg-explorer-note {
+    margin: 18px 12px 12px;
+  }
+  .pg-explorer .skills-sidebar {
+    margin: auto 12px 0;
+    padding-top: 12px;
+    flex: none;
+  }
+  .pg-explorer .skills-mini-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3px;
+    max-height: clamp(88px, 38dvh, 310px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #5c798b #202227;
+    padding: 2px;
+  }
+  .pg-explorer .skills-sidebar .skill-mini {
+    min-height: 44px;
+    padding: 6px 2px;
+  }
+  .pg-explorer .skills-sidebar .skill-mini .skill-vector {
+    width: 24px;
+    height: 24px;
+  }
+  .pg-explorer .skills-sidebar .skill-mini span {
+    display: none;
+  }
+  .pg-explorer .skills-sidebar .skills-see-all {
+    min-height: 44px;
+    padding: 10px 0 0;
+    font-size: 11px;
+    color: #a1dcff;
+  }
+}
+/* Certification links: readable targets and a shared LinkedIn note for unavailable URLs. */
+.simple-certifications li {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+.simple-certifications li > a,
+.simple-certifications li > span {
+  padding: 10px 12px;
+}
+.simple-certifications li > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  color: #a2ddff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.simple-certifications li > a:hover {
+  color: #e1f5ff;
+  background: #304657;
+  border-radius: 5px;
+}
+.simple-certifications .certificate-sharing-note {
+  margin: 16px 0 0;
+  max-width: 720px;
+  font-size: 12px;
+  color: #a8bdcc;
+  line-height: 1.8;
+}
+.simple-certifications .certificate-sharing-note a {
+  color: #9edbff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .simple-shell .simple-hint {
+    display: grid;
+    width: 100%;
+    padding: 14px;
+  }
+  .simple-shell .simple-hint p {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  .simple-header .simple-brand {
+    padding: 3px 6px;
+    gap: 5px;
+  }
+  .simple-header .simple-brand > .brand-logo {
+    width: 24px;
+    height: 24px;
+  }
+  .simple-header .simple-menubar .menu-trigger {
+    padding: 0 7px;
+  }
+  .pg-titlebar .pg-brand {
+    padding: 6px 8px;
+  }
+  .pg-titlebar .pg-home {
+    padding: 8px 10px;
+  }
+}

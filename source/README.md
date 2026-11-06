@@ -1,20 +1,42 @@
-# Portfolio source guide
+# LunR Code portfolio
 
-See [FILE_GUIDE.md](FILE_GUIDE.md) for the file map and explanations of each website section.
+Jireh’s React + Vite portfolio, with Code view, Simple view, and a separate project/skills gallery.
 
-# React + Vite
+## Start here in VS Code
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Open this **WebPortfolio** folder in VS Code. Start with [FILE_GUIDE.md](FILE_GUIDE.md) for a feature-by-feature map. The [src folder guide](src/README.md) gives a shorter overview.
 
-Currently, two official plugins are available:
+- **src/data/**: edit your profile, jobs, certifications, skills/ratings, and projects here.
+- **src/pages/**: layouts and styles for Simple view, the gallery, and the Code view workspace.
+- **src/features/**: editor, tabs, terminal, introduction panel, skills, and sidebar controls.
+- **src/components/**: shared branding, navigation, contact controls, and dialogs.
+- **src/hooks/**: shared view preferences, transitions, and clipboard behavior.
+- **src/utils/**: versioned gallery links and validated skill destinations.
+- **src/App.jsx**: home-page state and commands. It keeps editor text/tabs alive while switching views.
+- **public/**: public images, logos, project screenshots, favicon, and robots.txt.
+- **tests/**: focused navigation and shared-content regression checks.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Run locally
 
-## React Compiler
+Open the VS Code terminal in this folder:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Run **npm install** if dependencies are not installed.
+2. Run **npm run dev** and open the address it prints.
+3. Press **Ctrl+C** in that terminal when you want to stop the preview.
 
-## Expanding the Oxlint configuration
+## Check and format changes
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- **npm run format**: format source code, styles, docs, and tests.
+- **npm run check**: run tests, lint, formatting checks, and a production build.
+- **npm run build**: generate the production website in **dist/**.
+- **npm run preview**: view the built website locally.
+
+Prettier is included as a development tool. You can install the Prettier VS Code extension if you want formatting from the editor; no global VS Code settings were changed.
+
+## Publishing
+
+The live site is hosted by the existing **IchinoseJiro/IchinoseJiro.github.io** repository. The separate publishing checkout contains built files at its root and an editable backup under **source/**.
+
+Publish the contents of **dist/** to that repository’s root and sync the editable source backup. Keep previous hashed assets during routine releases so cached pages and already-open tabs can still load their dependencies. Gallery links include a build version to avoid reusing stale HTML.
+
+The removed resume remains removed. Skill ratings are personal self-assessments, and every skill display follows the same ordered dataset.

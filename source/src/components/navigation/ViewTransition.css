@@ -1,0 +1,200 @@
+/* View switching overlay: native modal above either home-page layout. */
+.view-transition {
+  border: 0;
+  padding: 0;
+  margin: auto;
+  width: min(340px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
+  background: transparent;
+  color: #dceaf4;
+  font:
+    14px/1.5 'Segoe UI',
+    Arial,
+    sans-serif;
+  outline: none;
+}
+.view-transition::backdrop {
+  background: #111922e8;
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  animation: view-backdrop-in 140ms ease-out both;
+}
+/* Branded card and destination preview: appears before the layout changes. */
+.view-transition-card {
+  box-sizing: border-box;
+  padding: 24px 26px 22px;
+  border: 1px solid #45657c;
+  border-top: 2px solid #7dcfff;
+  border-radius: 12px;
+  background: linear-gradient(140deg, #243647, #1b252f);
+  text-align: center;
+  box-shadow: 0 20px 64px #0005;
+  animation: view-card-in 180ms ease-out both;
+}
+.view-transition-card > .brand-logo {
+  display: block;
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 9px;
+}
+.view-transition-brand {
+  color: #9db8cd;
+  font:
+    9px/1.6 Consolas,
+    monospace;
+  letter-spacing: 2px;
+}
+.view-transition-card p {
+  margin: 15px 0 5px;
+  color: #e3f3ff;
+  font-size: 17px;
+  font-weight: 500;
+}
+.view-transition-description {
+  display: block;
+  font-size: 11px;
+  color: #a4b8c8;
+}
+.view-transition-preview {
+  height: 64px;
+  max-width: 216px;
+  margin: 18px auto 0;
+  padding: 10px 12px;
+  border: 1px solid #3c5265;
+  border-radius: 5px;
+  background: #18232d;
+  box-sizing: border-box;
+}
+.view-transition-preview-code {
+  text-align: left;
+  color: #88cfff;
+  font:
+    10px/1.4 Consolas,
+    monospace;
+}
+.view-transition-preview-code span {
+  display: block;
+}
+.view-transition-preview-code span:nth-child(2) {
+  color: #d9ba9f;
+}
+.view-transition-preview-simple {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.view-transition-preview-simple span {
+  background: #365d77;
+  border-radius: 2px;
+}
+.view-transition-preview-simple span:first-child {
+  grid-column: 1 / -1;
+  background: #75c5ed;
+  width: 65%;
+}
+/* Decorative progress line represents the transition, not a network download. */
+.view-transition-progress {
+  height: 3px;
+  margin-top: 20px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #3a4c5c;
+}
+.view-transition-progress > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #7dcfff;
+  transform-origin: left;
+  animation: view-progress 3660ms ease-out both;
+}
+/* Fade away after the destination is mounted beneath the overlay. */
+.view-transition-ready {
+  animation: view-card-out 300ms ease-in both;
+}
+.view-transition-ready::backdrop {
+  animation: view-backdrop-out 300ms ease-in both;
+}
+.view-transition-ready .view-transition-card {
+  animation: none;
+}
+.view-transition-ready .view-transition-progress > span {
+  animation: none;
+}
+@keyframes view-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes view-card-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes view-backdrop-in {
+  from {
+    background-color: #11192200;
+    backdrop-filter: blur(0);
+  }
+  to {
+    background-color: #111922e8;
+    backdrop-filter: blur(9px);
+  }
+}
+@keyframes view-backdrop-out {
+  from {
+    background-color: #111922e8;
+    backdrop-filter: blur(9px);
+  }
+  to {
+    background-color: #11192200;
+    backdrop-filter: blur(0);
+  }
+}
+@keyframes view-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+/* Short landscape screens keep the message and branding visible without a large card. */
+@media (max-height: 400px) {
+  .view-transition-card {
+    padding: 14px 22px;
+  }
+  .view-transition-preview {
+    display: none;
+  }
+  .view-transition-card > .brand-logo {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+  }
+  .view-transition-card p {
+    margin-top: 9px;
+  }
+  .view-transition-progress {
+    margin-top: 12px;
+  }
+}
+/* Motion-sensitive visitors get a brief static destination message. */
+@media (prefers-reduced-motion: reduce) {
+  .view-transition,
+  .view-transition::backdrop,
+  .view-transition * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
