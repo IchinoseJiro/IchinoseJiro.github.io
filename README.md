@@ -26,3 +26,7 @@ The build is written to `source/dist/`. Publish that directory's contents at the
 Visitors can select Simple view or Code view from the View menu. Code view opens by default on first visits and browser refreshes. A selection made through View carries between the home page and project gallery until the next refresh.
 
 Gallery navigation uses a release query generated at build time to avoid reusing cached HTML. Keep previous hashed assets during routine publishing so cached pages and already-open tabs can still load their dependencies. Both page entry points include a readable recovery screen for rendering errors.
+
+## Editing the organized source
+
+Open source/ in VS Code, then start with source/FILE_GUIDE.md or source/src/README.md. Pages, features, shared components, data, hooks, and utilities have separate folders. Run npm run check inside source/ for the regression tests, lint, formatting checks, and production build.
