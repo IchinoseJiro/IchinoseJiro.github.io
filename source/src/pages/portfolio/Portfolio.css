@@ -1545,10 +1545,11 @@
 /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-link small */
 .pg-current-link small {
   font:
-    8px/1.6 Consolas,
+    7px/1.4 Consolas,
     monospace;
   color: #ade1bb;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.35px;
+  font-weight: 400;
 }
 
 /* Shared page styling. Selectors: .pg-sr-only */
@@ -1620,5 +1621,31 @@
   /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current .pg-section-heading h2 */
   .pg-current .pg-section-heading h2 {
     font-size: 24px;
+  }
+}
+
+/* Fine separators between Explorer destinations, inset from the sidebar edges. */
+.pg-explorer > a {
+  position: relative;
+}
+.pg-explorer > a + a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 12px;
+  height: 1px;
+  background: #8c9aaa26;
+  pointer-events: none;
+}
+/* The Explorer becomes a horizontal row on phones/tablets: use short vertical dividers. */
+@media (max-width: 900px) {
+  .pg-explorer > a + a::before {
+    top: 10px;
+    bottom: 10px;
+    left: 0;
+    right: auto;
+    width: 1px;
+    height: auto;
   }
 }
