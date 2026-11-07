@@ -224,14 +224,6 @@
   background: #30343d;
 }
 
-/* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-readme */
-.pg-explorer .pg-readme {
-  background: #2b3039;
-  color: #d8e7f2;
-  border-left: 2px solid var(--pg-cyan);
-  padding-left: 21px;
-}
-
 /* Gallery left navigation and Explorer. Selectors: .pg-readme span */
 .pg-readme span {
   color: var(--pg-cyan);
@@ -830,11 +822,6 @@
     padding-left: 14px;
   }
 
-  /* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-readme */
-  .pg-explorer .pg-readme {
-    padding-left: 12px;
-  }
-
   /* College project cards, screenshots, and descriptions. Selectors: .pg-card-body */
   .pg-card-body {
     grid-template-columns: minmax(0, 1fr);
@@ -912,21 +899,10 @@
     border-radius: 4px;
   }
 
-  /* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-readme */
-  .pg-explorer .pg-readme {
-    padding-left: 12px;
-    border: 0;
-  }
-
   /* Shared page styling. Selectors: .pg-main */
   .pg-main {
     grid-column: 2;
     grid-row: 2;
-  }
-
-  /* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-readme */
-  .pg-explorer .pg-readme {
-    background: transparent;
   }
 
   /* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>small */
@@ -1647,5 +1623,26 @@
     right: auto;
     width: 1px;
     height: auto;
+  }
+}
+
+/* The Explorer follows the section in view without shifting the link layout. */
+.pg-explorer > a[aria-current='location'] {
+  background: #2a3946;
+  color: #dbeaf3;
+  box-shadow: inset 2px 0 #7cabc4;
+}
+
+/* Keep link targets below the sticky tabs, including the mobile Explorer strip. */
+.pg-main :is(.pg-current, .pg-card, .skills-section) {
+  scroll-margin-top: 64px;
+}
+
+@media (max-width: 900px) {
+  .pg-explorer > a[aria-current='location'] {
+    box-shadow: inset 0 -2px #7cabc4;
+  }
+  .pg-main :is(.pg-current, .pg-card, .skills-section) {
+    scroll-margin-top: 110px;
   }
 }

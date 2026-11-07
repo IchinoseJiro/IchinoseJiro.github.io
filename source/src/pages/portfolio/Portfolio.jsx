@@ -8,11 +8,16 @@ import { SkillsProvider, SkillsSection, SkillsSidebar } from '../../features/ski
 import useViewMode from '../../hooks/useViewMode.js'
 import '../../styles/portfolio-shared.css'
 
+const explorerSections = ['projects', currentProject.id, ...projects.map(({ id }) => id), 'skills']
+
 export default function Portfolio() {
   // Gallery display preference and screenshot dialog state.
   const [viewMode] = useViewMode()
   const [preview, setPreview] = useState(null)
+  const [activeSection, setActiveSection] = useState('projects')
   const dialogRef = useRef(null)
+  const explorerRef = useRef(null)
+  const tabsRef = useRef(null)
   // Open a project or skill directly using its URL anchor.
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -22,6 +27,52 @@ export default function Portfolio() {
     })
     return () => cancelAnimationFrame(frame)
   }, [])
+  // Follow the last section to reach the reading area below the sticky tabs.
+  useEffect(() => {
+    const sections = explorerSections.map((id) => document.getElementById(id))
+    let frame
+    const updateSection = () => {
+      frame = undefined
+      const tabBottom = Math.max(0, tabsRef.current.getBoundingClientRect().bottom)
+      const readingLine = tabBottom + Math.min(160, (window.innerHeight - tabBottom) * 0.25)
+      let current = 'projects'
+
+      for (const section of sections) {
+        if (section && section.getBoundingClientRect().top <= readingLine) current = section.id
+      }
+      setActiveSection(current)
+    }
+    const scheduleUpdate = () => {
+      if (frame === undefined) frame = requestAnimationFrame(updateSection)
+    }
+
+    scheduleUpdate()
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', scheduleUpdate)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
+    }
+  }, [])
+
+  // Keep the active link visible when the Explorer becomes a horizontal strip.
+  useEffect(() => {
+    const explorer = explorerRef.current
+    const revealActiveLink = () => {
+      const link = explorer.querySelector('[aria-current="location"]')
+      if (!link || explorer.scrollWidth <= explorer.clientWidth) return
+      const row = explorer.getBoundingClientRect()
+      const item = link.getBoundingClientRect()
+      if (item.left < row.left) explorer.scrollLeft += item.left - row.left
+      else if (item.right > row.right) explorer.scrollLeft += item.right - row.right
+    }
+
+    revealActiveLink()
+    window.addEventListener('resize', revealActiveLink)
+    return () => window.removeEventListener('resize', revealActiveLink)
+  }, [activeSection])
+
   useEffect(() => {
     if (preview && !dialogRef.current.open) dialogRef.current.showModal()
   }, [preview])
@@ -63,23 +114,39 @@ export default function Portfolio() {
             </span>
           </aside>
           {/* Explorer: current project, college work, skills, and workspace notes. */}
-          <nav className="pg-explorer" aria-label="Project explorer">
+          <nav ref={explorerRef} className="pg-explorer" aria-label="Project explorer">
             <div className="pg-explorer-title">
               {viewMode === 'simple' ? 'EXPLORE' : 'EXPLORER'} <span>···</span>
             </div>
             <p>⌄ &nbsp; MY PROJECTS</p>
-            <a className="pg-readme" href="#projects">
+            <a
+              className="pg-readme"
+              href="#projects"
+              aria-current={activeSection === 'projects' ? 'location' : undefined}
+            >
               <span>ⓘ</span> {viewMode === 'simple' ? 'Projects' : 'README.md'}
             </a>
-            <a className="pg-current-link" href="#re-spawnpoint">
+            <a
+              className="pg-current-link"
+              href="#re-spawnpoint"
+              aria-current={activeSection === currentProject.id ? 'location' : undefined}
+            >
               <span>◉</span> Re-spawnpoint <small>IN PROGRESS</small>
             </a>
             {projects.map((project) => (
-              <a key={project.id} href={`#${project.id}`}>
+              <a
+                key={project.id}
+                href={`#${project.id}`}
+                aria-current={activeSection === project.id ? 'location' : undefined}
+              >
                 <span style={{ color: project.accent }}>◇</span> {project.folder}
               </a>
             ))}
-            <a className="pg-skills-link" href="#skills">
+            <a
+              className="pg-skills-link"
+              href="#skills"
+              aria-current={activeSection === 'skills' ? 'location' : undefined}
+            >
               <span>⌘</span> Skills
             </a>
             <div className="pg-explorer-note">
@@ -95,7 +162,7 @@ export default function Portfolio() {
           </nav>
           <main className="pg-main" id="projects">
             {/* Portfolio and Skills tab links. */}
-            <nav className="pg-tabbar" aria-label="Portfolio sections">
+            <nav ref={tabsRef} className="pg-tabbar" aria-label="Portfolio sections">
               <a href="#projects">
                 <span>
                   <i>ⓘ</i> Portfolio
