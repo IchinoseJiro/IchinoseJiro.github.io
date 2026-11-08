@@ -10,6 +10,7 @@ export const profile = {
   education: 'Holy Angel University',
   degree: 'BS Information Technology',
   specialization: 'Web Development',
+  educationTimeline: '2021–2025',
   graduated: 'November 2025',
   summary:
     'Fresh graduate with entry-level front-end and back-end experience, and project-based website development using React.js and Python.',

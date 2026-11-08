@@ -180,6 +180,7 @@ export default function SimpleView({ menu, copyButton, onAbout }) {
               <h3>{profile.education}</h3>
               <p>{profile.degree}</p>
               <p>{profile.specialization} specialization</p>
+              <p>Attended {profile.educationTimeline}</p>
             </div>
             <span className="simple-graduation">
               Graduated
