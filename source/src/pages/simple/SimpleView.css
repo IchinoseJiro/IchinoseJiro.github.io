@@ -564,7 +564,8 @@ body.simple-view-page #root {
 
 /* Simple view Education and university logo. Selectors: .simple-education-card */
 .simple-education-card {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) auto;
   align-items: center;
   gap: 24px;
   padding: 26px;
@@ -599,9 +600,54 @@ body.simple-view-page #root {
   margin: 0;
 }
 
+/* Project links sit between the university and graduation details. */
+.simple-education-projects h4 {
+  margin: 0 0 9px;
+  color: #a9c8df;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.simple-education-projects ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.simple-education-projects li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 9px;
+  font-size: 13px;
+}
+
+.simple-education-projects a {
+  color: #b4d9f1;
+  font-weight: 600;
+  border-radius: 2px;
+}
+
+.simple-education-projects a:hover {
+  color: #e0f2ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.simple-education-projects a:focus-visible {
+  outline-offset: 3px;
+}
+
+.simple-education-stack {
+  color: #a5b6c6;
+  font-size: 11px;
+}
+
 /* Simple view Education and university logo. Selectors: .simple-graduation */
 .simple-graduation {
-  margin-left: auto;
+  justify-self: end;
   font-size: 11px;
   color: #8ea4b6;
   white-space: nowrap;
@@ -612,6 +658,23 @@ body.simple-view-page #root {
   font-size: 12px;
   color: #c2d4e3;
   font-weight: 500;
+}
+
+/* Stack project links and the graduation date below the university details. */
+@media (max-width: 760px) {
+  .simple-education-card {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .simple-education-projects,
+  .simple-graduation {
+    grid-column: 2;
+  }
+
+  .simple-graduation {
+    justify-self: start;
+  }
 }
 
 /* Simple view page layout and content sections. Selectors: .simple-skills */
@@ -1051,7 +1114,6 @@ body.simple-view-page #root {
   .simple-education-card {
     padding: 20px;
     gap: 16px;
-    flex-wrap: wrap;
   }
 
   /* Simple view Education and university logo. Selectors: .simple-education-mark */
@@ -1061,20 +1123,9 @@ body.simple-view-page #root {
     font-size: 22px;
   }
 
-  /* Simple view Education and university logo. Selectors: .simple-education-card>div */
-  .simple-education-card > div {
-    flex: 1;
-    min-width: 0;
-  }
-
   /* Simple view Education and university logo. Selectors: .simple-education-card h3 */
   .simple-education-card h3 {
     font-size: 16px;
-  }
-
-  /* Simple view Education and university logo. Selectors: .simple-graduation */
-  .simple-graduation {
-    margin-left: 56px;
   }
 
   /* Simple view project gallery callout. Selectors: .simple-project-callout */
@@ -1293,11 +1344,6 @@ body.simple-view-page #root {
   .simple-education-mark {
     width: 56px;
     height: 56px;
-  }
-
-  /* Simple view Education and university logo. Selectors: .simple-graduation */
-  .simple-graduation {
-    margin-left: 72px;
   }
 }
 

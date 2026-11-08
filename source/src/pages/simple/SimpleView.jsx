@@ -4,6 +4,7 @@ import BrandLogo from '../../components/branding/BrandLogo.jsx'
 import SocialLinks from '../../components/contact/SocialLinks.jsx'
 import NavigationHint from '../../components/navigation/NavigationHint.jsx'
 import { SkillsSection } from '../../features/skills/Skills.jsx'
+import { projects } from '../../data/projects.js'
 import { profile, experience, certificationDetails, contact } from '../../data/profileContent.js'
 import './SimpleView.css'
 import '../../styles/portfolio-shared.css'
@@ -159,7 +160,7 @@ export default function SimpleView({ menu, copyButton, onAbout }) {
             </p>
           </div>
         </section>
-        {/* Education: HAU logo, degree, specialization, and graduation. */}
+        {/* Education: university details, college work, and graduation. */}
         <section
           className="simple-section"
           id="simple-education"
@@ -181,6 +182,19 @@ export default function SimpleView({ menu, copyButton, onAbout }) {
               <p>{profile.degree}</p>
               <p>{profile.specialization} specialization</p>
               <p>Attended {profile.educationTimeline}</p>
+            </div>
+            <div className="simple-education-projects">
+              <h4>College Projects</h4>
+              <ul>
+                {projects.map((project) => (
+                  <li key={project.id}>
+                    <a href={portfolioUrl(project.id)}>
+                      {project.title} <span aria-hidden="true">↗</span>
+                    </a>
+                    <span className="simple-education-stack">HTML, CSS, {project.database}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
             <span className="simple-graduation">
               Graduated
