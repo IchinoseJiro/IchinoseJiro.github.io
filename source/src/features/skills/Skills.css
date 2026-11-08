@@ -30,32 +30,6 @@
   flex-shrink: 0;
 }
 
-/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>a:first-child */
-.pg-tabbar > a:first-child {
-  display: flex;
-  align-items: center;
-  align-self: stretch;
-  padding: 0 20px;
-  border-top: 2px solid #7dcfff;
-  background: #1b1d21;
-  font:
-    12px Consolas,
-    monospace;
-}
-
-/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>a:first-child span */
-.pg-tabbar > a:first-child span {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>a:first-child i */
-.pg-tabbar > a:first-child i {
-  font-style: normal;
-  color: #7dcfff;
-}
-
 /* Code view left icons and Explorer sidebar. Selectors: .skills-sidebar */
 .skills-sidebar {
   margin: 6px 12px 24px;
@@ -271,38 +245,6 @@
   margin: 26px 12px 20px;
 }
 
-/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar .pg-skills-tab */
-.pg-tabbar .pg-skills-tab {
-  display: flex;
-  align-items: center;
-  min-height: 42px;
-  padding: 0 18px;
-  color: #a7c8df;
-  border-left: 1px solid #343a44;
-  border-right: 1px solid #343a44;
-  font:
-    12px Consolas,
-    monospace;
-  background: #20242b;
-}
-
-/* Gallery Portfolio and Skills tabs — mouse hover feedback. Selectors: .pg-skills-tab:hover */
-.pg-skills-tab:hover {
-  background: #2c3540;
-}
-
-/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar */
-.pg-tabbar {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-}
-
-/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>small */
-.pg-tabbar > small {
-  margin-left: auto;
-}
-
 /* Gallery left navigation and Explorer. Selectors: .pg-explorer .pg-skills-link */
 .pg-explorer .pg-skills-link {
   color: #a7c8df;
@@ -372,12 +314,6 @@
   .skill-card .skill-vector {
     width: 30px;
     height: 30px;
-  }
-
-  /* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar .pg-skills-tab */
-  .pg-tabbar .pg-skills-tab {
-    font-size: 11px;
-    padding: 0 14px;
   }
 
   /* Skills icons, toolbox, and grouped cards. Selectors: .skills-section>h2 */

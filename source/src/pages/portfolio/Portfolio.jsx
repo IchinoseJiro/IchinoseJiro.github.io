@@ -17,7 +17,7 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('projects')
   const dialogRef = useRef(null)
   const explorerRef = useRef(null)
-  const tabsRef = useRef(null)
+  const sectionBarRef = useRef(null)
   // Open a project or skill directly using its URL anchor.
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -27,14 +27,14 @@ export default function Portfolio() {
     })
     return () => cancelAnimationFrame(frame)
   }, [])
-  // Follow the last section to reach the reading area below the sticky tabs.
+  // Follow the last section to reach the reading area below the sticky title.
   useEffect(() => {
     const sections = explorerSections.map((id) => document.getElementById(id))
     let frame
     const updateSection = () => {
       frame = undefined
-      const tabBottom = Math.max(0, tabsRef.current.getBoundingClientRect().bottom)
-      const readingLine = tabBottom + Math.min(160, (window.innerHeight - tabBottom) * 0.25)
+      const barBottom = Math.max(0, sectionBarRef.current.getBoundingClientRect().bottom)
+      const readingLine = barBottom + Math.min(160, (window.innerHeight - barBottom) * 0.25)
       let current = 'projects'
 
       for (const section of sections) {
@@ -161,18 +161,10 @@ export default function Portfolio() {
             <SkillsSidebar />
           </nav>
           <main className="pg-main" id="projects">
-            {/* Portfolio and Skills tab links. */}
-            <nav ref={tabsRef} className="pg-tabbar" aria-label="Portfolio sections">
-              <a href="#projects">
-                <span>
-                  <i>ⓘ</i> Portfolio
-                </span>
-              </a>
-              <a className="pg-skills-tab" href="#skills">
-                ⌘ &nbsp; Skills
-              </a>
-              <small>PROJECT SHOWCASE</small>
-            </nav>
+            {/* Sticky title for the project gallery and skills. */}
+            <div ref={sectionBarRef} className="pg-section-bar">
+              Projects &amp; Skills
+            </div>
             <div className="pg-content">
               {/* Gallery introduction and current/college project counts. */}
               <header className="pg-hero">

@@ -262,49 +262,22 @@
   min-width: 0;
 }
 
-/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar */
-.pg-tabbar {
+/* Sticky title above the project gallery and skills. */
+.pg-section-bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
   height: 42px;
+  padding-inline: 20px;
   border-bottom: 1px solid var(--pg-border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background: #181a1e;
-}
-
-/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>span */
-.pg-tabbar > span {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 0 20px;
-  background: var(--pg-bg);
-  border-top: 2px solid #7dcfff;
+  color: #c6e2f4;
   font:
-    12px Consolas,
-    monospace;
-}
-
-/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar i */
-.pg-tabbar i {
-  font-style: normal;
-  color: var(--pg-cyan);
-}
-
-/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar b */
-.pg-tabbar b {
-  color: #667787;
-  font-size: 8px;
-  margin-left: 18px;
-}
-
-/* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>small */
-.pg-tabbar > small {
-  padding-right: 28px;
-  letter-spacing: 1.7px;
-  font-size: 9px;
-  color: #777f8b;
+    600 13px/1.3 'Segoe UI',
+    sans-serif;
+  letter-spacing: 0.045em;
 }
 
 /* Shared page styling. Selectors: .pg-content */
@@ -905,13 +878,6 @@
     grid-row: 2;
   }
 
-  /* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>small */
-  .pg-tabbar > small {
-    font-size: 8px;
-    padding-right: 15px;
-    letter-spacing: 1px;
-  }
-
   /* Shared page styling. Selectors: .pg-content */
   .pg-content {
     padding: 32px 20px 22px;
@@ -1001,11 +967,6 @@
   .pg-explorer > a {
     font-size: 10px;
     padding: 10px;
-  }
-
-  /* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar>small */
-  .pg-tabbar > small {
-    display: none;
   }
 
   /* Shared page styling. Selectors: .pg-content */
@@ -1293,8 +1254,8 @@
     min-height: 44px;
   }
 
-  /* Gallery Portfolio and Skills tabs. Selectors: .pg-tabbar */
-  .pg-tabbar {
+  /* Keep the title below the mobile Explorer strip. */
+  .pg-section-bar {
     top: 52px;
   }
 
@@ -1633,7 +1594,7 @@
   box-shadow: inset 2px 0 #7cabc4;
 }
 
-/* Keep link targets below the sticky tabs, including the mobile Explorer strip. */
+/* Keep link targets below the sticky title, including the mobile Explorer strip. */
 .pg-main :is(.pg-current, .pg-card, .skills-section) {
   scroll-margin-top: 64px;
 }
