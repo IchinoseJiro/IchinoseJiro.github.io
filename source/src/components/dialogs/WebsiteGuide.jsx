@@ -67,16 +67,13 @@ export default function WebsiteGuide({ onClose }) {
             <article>
               <span>View → Simple view</span>
               <p>
-                A traditional portfolio with readable sections, cards, and a photo. Scroll to
-                explore everything.
+                A traditional portfolio with readable sections, cards, and a photo. It opens when
+                you first visit or refresh the site.
               </p>
             </article>
             <article>
               <span>View → Code view</span>
-              <p>
-                The editor-inspired layout with files, tabs, and editable information. This is the
-                default when you refresh.
-              </p>
+              <p>An editor-inspired layout with files, tabs, and editable information.</p>
             </article>
           </div>
         </section>

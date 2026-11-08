@@ -1,44 +1,43 @@
-// Shared view preference: Code view on refresh, with selection remembered during navigation.
+// Default to Simple view on arrival or refresh, with continuity between portfolio pages.
 import { useCallback, useEffect, useState } from 'react'
 
-// Browser storage key that remembers the selected home-page view.
 const storageKey = 'lunr-code:view-mode'
-function readMode() {
+const galleryPath = '/portfolio.html'
+
+function initialMode() {
+  const navigation = performance.getEntriesByType('navigation')[0]
+  if (navigation?.type === 'reload' || !document.referrer) return 'simple'
+
+  // The view choice carries only when following a link between home and the gallery.
+  const previous = new URL(document.referrer)
+  const fromCompanionPage =
+    window.location.pathname === galleryPath
+      ? previous.pathname === '/' || previous.pathname === '/index.html'
+      : previous.pathname === galleryPath
+
+  if (previous.origin !== window.location.origin || !fromCompanionPage) return 'simple'
+
   try {
-    return localStorage.getItem(storageKey) === 'simple' ? 'simple' : 'code'
+    return sessionStorage.getItem(storageKey) === 'code' ? 'code' : 'simple'
   } catch {
-    return 'code'
+    return 'simple'
   }
 }
+
 export default function useViewMode() {
-  // A full browser refresh starts in Code view; ordinary page navigation reads the saved selection.
-  const [mode, updateMode] = useState(() => {
-    const navigation = performance.getEntriesByType('navigation')[0]
-    return navigation?.type === 'reload' ? 'code' : readMode()
-  })
+  const [mode, updateMode] = useState(initialMode)
+
   useEffect(() => {
     try {
-      localStorage.setItem(storageKey, mode)
+      sessionStorage.setItem(storageKey, mode)
     } catch {
       /* The view still works without browser storage. */
     }
   }, [mode])
-  useEffect(() => {
-    const sync = (event) => {
-      if (event.key === storageKey) updateMode(readMode())
-    }
-    window.addEventListener('storage', sync)
-    return () => window.removeEventListener('storage', sync)
-  }, [])
-  // Accept only the two supported view names, persist the choice, and update React immediately.
+
   const setMode = useCallback((next) => {
-    if (next !== 'simple' && next !== 'code') return
-    try {
-      localStorage.setItem(storageKey, next)
-    } catch {
-      /* Mode still works when browser storage is unavailable. */
-    }
-    updateMode(next)
+    if (next === 'simple' || next === 'code') updateMode(next)
   }, [])
+
   return [mode, setMode]
 }

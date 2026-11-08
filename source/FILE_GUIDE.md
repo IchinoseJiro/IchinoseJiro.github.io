@@ -77,7 +77,7 @@ A Simple-view skill click highlights the skill/toolbox link, applies light blur,
 - **Website instructions:** components/dialogs/WebsiteGuide.jsx and WebsiteGuide.css.
 - **Keyboard help:** components/dialogs/KeyboardShortcuts.jsx.
 - **Error recovery:** components/dialogs/PageErrorBoundary.jsx, wrapping both entry points.
-- **View preference:** hooks/useViewMode.js. Refresh opens Code view; normal navigation carries the chosen mode.
+- **View preference:** hooks/useViewMode.js. New visits and refreshes open Simple view. Links between home and the project gallery carry the chosen mode in the current tab.
 - **Four-second transition:** hooks/useViewTransition.js. Reduced-motion timing remains shorter.
 - **Loading wording/visual:** components/navigation/ViewTransition.jsx and ViewTransition.css.
 - **Shared clipboard status:** hooks/useCopyContact.js and components/contact/ContactCopyButton.jsx.
