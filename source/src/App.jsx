@@ -245,9 +245,16 @@ function App() {
   }
   // Go menu navigation and home-page view switching.
   const goTo = (label) => {
-    if (isSimple)
-      document.getElementById(`simple-${label.toLowerCase()}`)?.scrollIntoView({ block: 'start' })
-    else setFile(sectionForFile[label])
+    if (!isSimple) {
+      setFile(sectionForFile[label])
+      return
+    }
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    document.getElementById(`simple-${label.toLowerCase()}`)?.scrollIntoView({
+      block: 'start',
+      behavior: reducedMotion ? 'instant' : 'smooth',
+    })
   }
   const changeView = (mode) => {
     startViewTransition(mode)
