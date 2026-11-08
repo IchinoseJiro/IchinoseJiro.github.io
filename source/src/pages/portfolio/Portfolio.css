@@ -269,6 +269,7 @@
   z-index: 5;
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 42px;
   padding-inline: 20px;
   border-bottom: 1px solid var(--pg-border);
