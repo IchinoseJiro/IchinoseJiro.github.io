@@ -336,9 +336,9 @@ function App() {
     Go: [
       ['About', '', () => goTo('About')],
       ['Experience', '', () => goTo('Experience')],
+      ...(isSimple ? [['Education', '', () => goTo('Education')]] : []),
       ['Skills', '', () => goTo('Skills')],
       ['Contact', '', () => goTo('Contact')],
-      ...(isSimple ? [['Education', '', () => goTo('Education')]] : []),
     ],
     Run: [
       [
