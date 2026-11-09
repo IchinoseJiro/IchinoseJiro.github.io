@@ -365,6 +365,13 @@ export default function Portfolio() {
             </div>
           </main>
         </div>
+        {showBackToTop && (
+          <div className="pg-floating-actions">
+            <button className="pg-back-to-top" type="button" onClick={scrollToTop}>
+              <span aria-hidden="true">↑</span> Back to top
+            </button>
+          </div>
+        )}
         {/* Gallery status bar and project totals. */}
         <footer className="pg-status">
           <span>⎇ main &nbsp; ◉ 1 in progress · 2 college</span>
@@ -374,11 +381,6 @@ export default function Portfolio() {
             LunR Code
           </span>
         </footer>
-        {showBackToTop && (
-          <button className="pg-back-to-top" type="button" onClick={scrollToTop}>
-            <span aria-hidden="true">↑</span> Back to top
-          </button>
-        )}
         {/* Screenshot viewer shared by current and college projects. */}
         <dialog
           ref={dialogRef}

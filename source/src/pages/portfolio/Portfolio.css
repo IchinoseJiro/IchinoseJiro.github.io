@@ -14,11 +14,12 @@
   --pg-border: #33363d;
   --pg-muted: #999fa9;
   --pg-cyan: #7dcfff;
+  --pg-content-gutter: clamp(22px, 4vw, 72px);
+  --pg-floating-inset: calc(14px + env(safe-area-inset-right, 0px));
+  --pg-floating-width: 110px;
   background: var(--pg-bg);
   color: #e2e5eb;
   min-height: 100dvh;
-  /* Leave room for the floating action below the footer. */
-  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
   font:
     14px/1.6 'Segoe UI',
     Arial,
@@ -110,13 +111,21 @@
     border-color 0.2s;
 }
 
-/* Keep the floating action clear of device insets. */
-.pg-back-to-top {
-  position: fixed;
-  right: calc(14px + env(safe-area-inset-right, 0px));
+/* Float above the gallery and stop at the status bar without adding page height. */
+.pg-floating-actions {
+  position: sticky;
   bottom: calc(14px + env(safe-area-inset-bottom, 0px));
   z-index: 25;
+  height: 0;
+}
+
+.pg-back-to-top {
+  position: absolute;
+  right: var(--pg-floating-inset);
+  bottom: 6px;
+  width: var(--pg-floating-width);
   min-height: 44px;
+  justify-content: center;
   gap: 6px;
   font-weight: 600;
   white-space: nowrap;
@@ -295,7 +304,7 @@
 .pg-content {
   max-width: 1440px;
   margin: auto;
-  padding: 54px clamp(22px, 4vw, 72px) 28px;
+  padding: 54px var(--pg-content-gutter) 28px;
 }
 
 /* Gallery headings and project summaries. Selectors: .pg-hero */
@@ -629,6 +638,11 @@
   align-items: center;
   gap: 16px;
   padding: 40px 0 10px;
+  /* Keep the workspace link clear when the floating button reaches the footer. */
+  padding-inline-end: max(
+    0px,
+    calc(var(--pg-floating-inset) + var(--pg-floating-width) + 8px - var(--pg-content-gutter))
+  );
 }
 
 /* Gallery closing message and status bar. Selectors: .pg-endnote>span */
@@ -841,6 +855,9 @@
 
 /* Screen-size or user-preference adjustment: (max-width:900px) */
 @media (max-width: 900px) {
+  .pg-shell {
+    --pg-content-gutter: 20px;
+  }
   /* Gallery left navigation and Explorer. Selectors: .pg-layout */
   .pg-layout {
     grid-template-columns: 42px minmax(0, 1fr);
@@ -891,7 +908,7 @@
 
   /* Shared page styling. Selectors: .pg-content */
   .pg-content {
-    padding: 32px 20px 22px;
+    padding: 32px var(--pg-content-gutter) 22px;
   }
 
   /* Gallery headings and project summaries. Selectors: .pg-hero h1 */
@@ -927,6 +944,9 @@
 
 /* Screen-size or user-preference adjustment: (max-width:520px) */
 @media (max-width: 520px) {
+  .pg-shell {
+    --pg-content-gutter: 14px;
+  }
   /* Gallery header and home link. Selectors: .pg-titlebar */
   .pg-titlebar {
     padding: 8px 10px;
@@ -981,7 +1001,7 @@
 
   /* Shared page styling. Selectors: .pg-content */
   .pg-content {
-    padding: 28px 14px 18px;
+    padding: 28px var(--pg-content-gutter) 18px;
   }
 
   /* Gallery headings and project summaries. Selectors: .pg-hero */
