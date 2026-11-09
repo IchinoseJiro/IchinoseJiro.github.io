@@ -15,9 +15,11 @@ export default function Portfolio() {
   const [viewMode] = useViewMode()
   const [preview, setPreview] = useState(null)
   const [activeSection, setActiveSection] = useState('projects')
+  const [showBackToTop, setShowBackToTop] = useState(false)
   const dialogRef = useRef(null)
   const explorerRef = useRef(null)
   const sectionBarRef = useRef(null)
+  const homeLinkRef = useRef(null)
   // Open a project or skill directly using its URL anchor.
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -33,6 +35,7 @@ export default function Portfolio() {
     let frame
     const updateSection = () => {
       frame = undefined
+      setShowBackToTop(window.scrollY > 120)
       const barBottom = Math.max(0, sectionBarRef.current.getBoundingClientRect().bottom)
       const readingLine = barBottom + Math.min(160, (window.innerHeight - barBottom) * 0.25)
       let current = 'projects'
@@ -77,6 +80,12 @@ export default function Portfolio() {
     if (preview && !dialogRef.current.open) dialogRef.current.showModal()
   }, [preview])
 
+  function scrollToTop() {
+    homeLinkRef.current.focus({ preventScroll: true })
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'instant' : 'smooth' })
+  }
+
   return (
     <SkillsProvider>
       <div className={'pg-shell' + (viewMode === 'simple' ? ' gallery-simple' : '')}>
@@ -85,16 +94,14 @@ export default function Portfolio() {
         </a>
         {/* Gallery header: branding and return-home link. */}
         <header className="pg-titlebar">
-          <a className="pg-brand" href="/" aria-label="Back to Jireh's home page">
-            <b>
-              <BrandLogo decorative />
-            </b>
+          <div className="pg-brand">
+            <BrandLogo decorative />
             <span>
               LunR Code <i>/ Jireh Chantengco</i>
             </span>
-          </a>
+          </div>
           <div className="pg-header-actions">
-            <a className="pg-home" href="/">
+            <a ref={homeLinkRef} className="pg-home" href="/">
               ← Back to home
             </a>
           </div>
@@ -367,6 +374,11 @@ export default function Portfolio() {
             LunR Code
           </span>
         </footer>
+        {showBackToTop && (
+          <button className="pg-back-to-top" type="button" onClick={scrollToTop}>
+            <span aria-hidden="true">↑</span> Back to top
+          </button>
+        )}
         {/* Screenshot viewer shared by current and college projects. */}
         <dialog
           ref={dialogRef}

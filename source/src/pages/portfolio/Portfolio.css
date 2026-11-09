@@ -17,6 +17,8 @@
   background: var(--pg-bg);
   color: #e2e5eb;
   min-height: 100dvh;
+  /* Leave room for the floating action below the footer. */
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
   font:
     14px/1.6 'Segoe UI',
     Arial,
@@ -76,30 +78,26 @@
   align-items: center;
   gap: 12px;
   font-size: 13px;
+  font-weight: 600;
 }
 
-/* Gallery header and home link. Selectors: .pg-brand>b */
-.pg-brand > b {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border: 1px solid #4d6475;
-  color: var(--pg-cyan);
-  font:
-    15px Consolas,
-    monospace;
-  border-radius: 7px;
+/* Gallery header logo. Selectors: .pg-brand > .brand-logo */
+.pg-brand > .brand-logo {
+  flex: none;
+  width: 36px;
+  height: 36px;
 }
 
 /* Gallery header and home link. Selectors: .pg-brand i */
 .pg-brand i {
   font-style: normal;
+  font-weight: 400;
   color: var(--pg-muted);
 }
 
-/* Gallery header and home link. Selectors: .pg-home */
-.pg-home {
+/* Gallery navigation controls. Selectors: .pg-home, .pg-back-to-top */
+.pg-home,
+.pg-back-to-top {
   font-size: 12px;
   border: 1px solid #3d424c;
   border-radius: 5px;
@@ -110,6 +108,18 @@
   transition:
     background 0.2s,
     border-color 0.2s;
+}
+
+/* Keep the floating action clear of device insets. */
+.pg-back-to-top {
+  position: fixed;
+  right: calc(14px + env(safe-area-inset-right, 0px));
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  z-index: 25;
+  min-height: 44px;
+  gap: 6px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /* Gallery header and home link — mouse hover feedback. Selectors: .pg-home:hover */
@@ -935,11 +945,10 @@
     display: none;
   }
 
-  /* Gallery header and home link. Selectors: .pg-brand>b */
-  .pg-brand > b {
-    width: 28px;
-    height: 28px;
-    font-size: 13px;
+  /* Gallery header logo. Selectors: .pg-brand > .brand-logo */
+  .pg-brand > .brand-logo {
+    width: 30px;
+    height: 30px;
   }
 
   /* Gallery header and home link. Selectors: .pg-home */

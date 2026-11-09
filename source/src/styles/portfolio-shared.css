@@ -1,6 +1,7 @@
 /* Navigation emphasis, enlarged instructions, and bottom-positioned skill toolboxes. */
-/* Give every gallery return-home link a consistent blue treatment. */
+/* Give gallery navigation controls a consistent blue treatment. */
 .pg-shell a[href='/'],
+.pg-shell .pg-back-to-top,
 .simple-shell .simple-brand {
   border: 1px solid #679bb9;
   border-radius: 6px;
@@ -9,13 +10,10 @@
   box-shadow: 0 0 0 2px #7dcfff0b;
 }
 .pg-shell a[href='/']:hover,
+.pg-shell .pg-back-to-top:hover,
 .simple-shell .simple-brand:hover {
   background: #305773;
   border-color: #a3dcff;
-}
-.pg-titlebar .pg-brand {
-  padding: 7px 12px;
-  min-height: 44px;
 }
 .pg-titlebar .pg-home {
   background: #17648d;
@@ -215,9 +213,6 @@
   }
   .simple-header .simple-menubar .menu-trigger {
     padding: 0 7px;
-  }
-  .pg-titlebar .pg-brand {
-    padding: 6px 8px;
   }
   .pg-titlebar .pg-home {
     padding: 8px 10px;

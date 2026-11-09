@@ -133,21 +133,6 @@
   margin-right: 8px;
 }
 
-/* Gallery header and home link. Selectors: .pg-shell .pg-brand>b */
-.pg-shell .pg-brand > b {
-  border: 0;
-  background: transparent;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-}
-
-/* Gallery header and home link. Selectors: .pg-brand>b>.brand-logo */
-.pg-brand > b > .brand-logo {
-  width: 36px;
-  height: 36px;
-}
-
 /* Gallery left navigation and Explorer. Selectors: .pg-rail-bottom>.brand-logo */
 .pg-rail-bottom > .brand-logo {
   width: 26px;
@@ -183,12 +168,5 @@
   .status-brand > .brand-logo {
     width: 14px;
     height: 14px;
-  }
-
-  /* Gallery header and home link. Selectors: .pg-shell .pg-brand>b,.pg-brand>b>.brand-logo */
-  .pg-shell .pg-brand > b,
-  .pg-brand > b > .brand-logo {
-    width: 30px;
-    height: 30px;
   }
 }
