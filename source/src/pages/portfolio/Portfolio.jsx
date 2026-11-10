@@ -363,24 +363,24 @@ export default function Portfolio() {
                 <a href="/">Back to my workspace ↗</a>
               </section>
             </div>
+            {showBackToTop && (
+              <div className="pg-floating-actions">
+                <button className="pg-back-to-top" type="button" onClick={scrollToTop}>
+                  <span aria-hidden="true">↑</span> Back to top
+                </button>
+              </div>
+            )}
+            {/* Keep the status bar in the gallery column, alongside the Explorer. */}
+            <footer className="pg-status" role="contentinfo">
+              <span>⎇ main &nbsp; ◉ 1 in progress · 2 college</span>
+              <span>Lowell Jireh P. Chantengco · Project portfolio</span>
+              <span className="pg-status-brand">
+                <BrandLogo decorative />
+                LunR Code
+              </span>
+            </footer>
           </main>
         </div>
-        {showBackToTop && (
-          <div className="pg-floating-actions">
-            <button className="pg-back-to-top" type="button" onClick={scrollToTop}>
-              <span aria-hidden="true">↑</span> Back to top
-            </button>
-          </div>
-        )}
-        {/* Gallery status bar and project totals. */}
-        <footer className="pg-status">
-          <span>⎇ main &nbsp; ◉ 1 in progress · 2 college</span>
-          <span>Lowell Jireh P. Chantengco · Project portfolio</span>
-          <span className="pg-status-brand">
-            <BrandLogo decorative />
-            LunR Code
-          </span>
-        </footer>
         {/* Screenshot viewer shared by current and college projects. */}
         <dialog
           ref={dialogRef}
