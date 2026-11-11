@@ -1,6 +1,7 @@
 // Website instructions: centered modal opened from the introduction panel or Help menu.
 import { useEffect, useRef } from 'react'
 import BrandLogo from '../branding/BrandLogo.jsx'
+import { currentProject } from '../../data/projects.js'
 import './WebsiteGuide.css'
 
 export default function WebsiteGuide({ onClose }) {
@@ -91,8 +92,8 @@ export default function WebsiteGuide({ onClose }) {
             <div>
               <dt>See my projects</dt>
               <dd>
-                Choose <strong>File → Portfolio</strong> for my current Re-spawnpoint project and
-                college work. Use Back to home to return.
+                Choose <strong>File → Portfolio</strong> for my current {currentProject.title}{' '}
+                project and college work. Use Back to home to return.
               </dd>
             </div>
             <div>

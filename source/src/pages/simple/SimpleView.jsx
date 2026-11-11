@@ -4,7 +4,7 @@ import BrandLogo from '../../components/branding/BrandLogo.jsx'
 import SocialLinks from '../../components/contact/SocialLinks.jsx'
 import NavigationHint from '../../components/navigation/NavigationHint.jsx'
 import { SkillsSection } from '../../features/skills/Skills.jsx'
-import { projects } from '../../data/projects.js'
+import { currentProject, projects } from '../../data/projects.js'
 import { profile, experience, certificationDetails, contact } from '../../data/profileContent.js'
 import './SimpleView.css'
 import '../../styles/portfolio-shared.css'
@@ -217,8 +217,8 @@ export default function SimpleView({ menu, copyButton, onAbout }) {
             <p className="simple-eyebrow">CURRENT & COLLEGE PROJECTS</p>
             <h2 id="simple-project-title">See what I’m building.</h2>
             <p>
-              Follow Re-spawnpoint, my current personal project, and explore COFFEEGO and Autoworld
-              Carwash from college.
+              Follow {currentProject.title}, my current personal project, and explore COFFEEGO and
+              Autoworld Carwash from college.
             </p>
           </div>
           <a className="simple-secondary" href={portfolioUrl()}>

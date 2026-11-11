@@ -1345,7 +1345,7 @@
 
 /* Featured current project */
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current */
+/* Featured ongoing personal project. Selectors: .pg-current */
 .pg-current {
   scroll-margin-top: 72px;
   margin: 0 0 48px;
@@ -1381,7 +1381,7 @@
   margin-bottom: 0;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-progress-badge */
+/* Featured ongoing personal project. Selectors: .pg-progress-badge */
 .pg-progress-badge {
   display: inline-flex;
   align-items: center;
@@ -1397,7 +1397,7 @@
     monospace;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-progress-badge:before */
+/* Featured ongoing personal project. Selectors: .pg-progress-badge:before */
 .pg-progress-badge:before {
   content: '';
   width: 6px;
@@ -1406,7 +1406,7 @@
   background: #9ce3b6;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-card */
+/* Featured ongoing personal project. Selectors: .pg-current-card */
 .pg-current-card {
   border: 1px solid #52798e;
   border-top: 3px solid #7dcfff;
@@ -1418,7 +1418,7 @@
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-image */
+/* Featured ongoing personal project. Selectors: .pg-current-image */
 .pg-current-image {
   padding: 26px;
   display: flex;
@@ -1427,13 +1427,13 @@
   background: #12212b66;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info */
+/* Featured ongoing personal project. Selectors: .pg-current-info */
 .pg-current-info {
   min-width: 0;
   padding: 30px;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info .pg-eyebrow */
+/* Featured ongoing personal project. Selectors: .pg-current-info .pg-eyebrow */
 .pg-current-info .pg-eyebrow {
   font-size: 9px;
   line-height: 1.8;
@@ -1442,7 +1442,7 @@
   margin: 0 0 12px;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info h3 */
+/* Featured ongoing personal project. Selectors: .pg-current-info h3 */
 .pg-current-info h3 {
   font-size: clamp(27px, 3vw, 38px);
   line-height: 1.15;
@@ -1450,7 +1450,7 @@
   margin: 0 0 10px;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info>p,.pg-current-info li */
+/* Featured ongoing personal project. Selectors: .pg-current-info>p,.pg-current-info li */
 .pg-current-info > p,
 .pg-current-info li {
   color: #bac7d2;
@@ -1458,25 +1458,25 @@
   line-height: 1.85;
 }
 
-/* Featured ongoing Re-spawnpoint project — keyboard focus indicator. Selectors: .pg-current-info .pg-current-focus */
+/* Featured ongoing personal project — keyboard focus indicator. Selectors: .pg-current-info .pg-current-focus */
 .pg-current-info .pg-current-focus {
   color: #a8dfff;
   font-size: 15px;
   margin: 0 0 18px;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info ul */
+/* Featured ongoing personal project. Selectors: .pg-current-info ul */
 .pg-current-info ul {
   padding-left: 18px;
   margin: 18px 0;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info li+li */
+/* Featured ongoing personal project. Selectors: .pg-current-info li+li */
 .pg-current-info li + li {
   margin-top: 5px;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-visit */
+/* Featured ongoing personal project. Selectors: .pg-current-visit */
 .pg-current-visit {
   display: inline-flex;
   align-items: center;
@@ -1491,25 +1491,25 @@
   font-size: 12px;
 }
 
-/* Featured ongoing Re-spawnpoint project — mouse hover feedback. Selectors: .pg-current-visit:hover */
+/* Featured ongoing personal project — mouse hover feedback. Selectors: .pg-current-visit:hover */
 .pg-current-visit:hover {
   background: #2186b2;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info .pg-current-note */
+/* Featured ongoing personal project. Selectors: .pg-current-info .pg-current-note */
 .pg-current-info .pg-current-note {
   font-size: 11px;
   color: #93a8b9;
   margin: 14px 0 0;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-link */
+/* Featured ongoing personal project. Selectors: .pg-current-link */
 .pg-current-link {
   color: #a8dfff !important;
   flex-wrap: wrap;
 }
 
-/* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-link small */
+/* Featured ongoing personal project. Selectors: .pg-current-link small */
 .pg-current-link small {
   font:
     7px/1.4 Consolas,
@@ -1530,22 +1530,22 @@
 
 /* Screen-size or user-preference adjustment: (max-width:1200px) */
 @media (max-width: 1200px) {
-  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-card */
+  /* Featured ongoing personal project. Selectors: .pg-current-card */
   .pg-current-card {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-image */
+  /* Featured ongoing personal project. Selectors: .pg-current-image */
   .pg-current-image {
     padding: 22px;
   }
 
-  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info */
+  /* Featured ongoing personal project. Selectors: .pg-current-info */
   .pg-current-info {
     padding: 26px;
   }
 
-  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-link small */
+  /* Featured ongoing personal project. Selectors: .pg-current-link small */
   .pg-current-link small {
     display: none;
   }
@@ -1559,33 +1559,33 @@
     align-items: flex-start;
   }
 
-  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-progress-badge */
+  /* Featured ongoing personal project. Selectors: .pg-progress-badge */
   .pg-progress-badge {
     font-size: 9px;
     padding: 6px 8px;
   }
 
-  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-image */
+  /* Featured ongoing personal project. Selectors: .pg-current-image */
   .pg-current-image {
     padding: 14px;
   }
 
-  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-info */
+  /* Featured ongoing personal project. Selectors: .pg-current-info */
   .pg-current-info {
     padding: 22px 18px;
   }
 
-  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current */
+  /* Featured ongoing personal project. Selectors: .pg-current */
   .pg-current {
     margin-bottom: 36px;
   }
 
-  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current-visit */
+  /* Featured ongoing personal project. Selectors: .pg-current-visit */
   .pg-current-visit {
     width: 100%;
   }
 
-  /* Featured ongoing Re-spawnpoint project. Selectors: .pg-current .pg-section-heading h2 */
+  /* Featured ongoing personal project. Selectors: .pg-current .pg-section-heading h2 */
   .pg-current .pg-section-heading h2 {
     font-size: 24px;
   }

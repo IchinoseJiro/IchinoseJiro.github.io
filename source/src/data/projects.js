@@ -1,12 +1,23 @@
 // Current project: screenshot metadata and live Vercel address.
 export const currentProject = {
-  id: 're-spawnpoint',
-  title: 'Re-spawnpoint',
-  image: '/projects/respawnpoint.jpg',
-  width: 1280,
-  height: 720,
-  alt: 'Re-spawnpoint gaming storefront preview with a Gear up. Drop in. hero and gaming PC artwork.',
-  url: 'https://re-spawnpoint.vercel.app/',
+  id: 'carecircle',
+  title: 'CareCircle',
+  image: '/projects/carecircle.jpg',
+  width: 1440,
+  height: 1000,
+  alt: 'CareCircle household dashboard showing shared chores, weekly progress, household members, and recent activity.',
+  url: 'https://re-spawnpoint.vercel.app/?demo=1',
+  focus: 'A little more in sync, one chore at a time.',
+  description:
+    'An ongoing personal SaaS project that helps households share chores, coordinate responsibilities, and keep track of everyday routines. Built with Supabase authentication and PostgreSQL for shared household data.',
+  features: [
+    'Create, assign, and complete chores with daily or weekly recurrence',
+    'Track household progress, recent activity, and due or overdue chores',
+    'Manage household members and roles, with a separate interactive portfolio demo',
+  ],
+  technologies: ['HTML', 'CSS', 'JavaScript', 'Supabase', 'PostgreSQL'],
+  previewNote:
+    'The live preview uses sample household data saved in your browser. Real households use Supabase authentication and shared storage.',
 }
 
 // College projects: descriptions, technologies, screenshots, and availability notes.

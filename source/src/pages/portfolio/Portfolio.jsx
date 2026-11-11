@@ -23,7 +23,10 @@ export default function Portfolio() {
   // Open a project or skill directly using its URL anchor.
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
-      const target = document.getElementById(window.location.hash.slice(1))
+      const anchor = window.location.hash.slice(1)
+      const target = document.getElementById(
+        anchor === 're-spawnpoint' ? currentProject.id : anchor,
+      )
       // SkillsProvider centers and highlights skill anchors; keep project anchors here.
       if (!target?.classList.contains('skill-card')) target?.scrollIntoView({ block: 'start' })
     })
@@ -135,10 +138,10 @@ export default function Portfolio() {
             </a>
             <a
               className="pg-current-link"
-              href="#re-spawnpoint"
+              href={`#${currentProject.id}`}
               aria-current={activeSection === currentProject.id ? 'location' : undefined}
             >
-              <span>◉</span> Re-spawnpoint <small>IN PROGRESS</small>
+              <span>◉</span> {currentProject.title} <small>IN PROGRESS</small>
             </a>
             {projects.map((project) => (
               <a
@@ -200,7 +203,7 @@ export default function Portfolio() {
               {/* Featured current personal project, before the college work. */}
               <section
                 className="pg-current"
-                id="re-spawnpoint"
+                id={currentProject.id}
                 aria-labelledby="current-project-title"
               >
                 <div className="pg-section-heading">
@@ -216,7 +219,7 @@ export default function Portfolio() {
                       className="pg-image-button"
                       type="button"
                       onClick={() => setPreview(currentProject)}
-                      aria-label="Enlarge Re-spawnpoint screenshot"
+                      aria-label={`Enlarge ${currentProject.title} screenshot`}
                     >
                       <img
                         src={currentProject.image}
@@ -224,26 +227,23 @@ export default function Portfolio() {
                         width={currentProject.width}
                         height={currentProject.height}
                       />
-                      <span>↗ View storefront screenshot</span>
+                      <span>↗ View dashboard screenshot</span>
                     </button>
                   </div>
                   <div className="pg-current-info">
                     <p className="pg-eyebrow">PERSONAL PROJECT · OUTSIDE THE CLASSROOM</p>
-                    <h3>Re-spawnpoint</h3>
-                    <p className="pg-current-focus">A gaming storefront, taking shape.</p>
-                    <p>
-                      An ongoing personal SaaS project, currently available as a gaming gear
-                      storefront preview. I’m continuing to develop it beyond my college work.
-                    </p>
+                    <h3>{currentProject.title}</h3>
+                    <p className="pg-current-focus">{currentProject.focus}</p>
+                    <p>{currentProject.description}</p>
                     <ul>
-                      <li>Product search, category filters, and sorting</li>
-                      <li>Wishlist and shopping bag saved in the browser</li>
-                      <li>Responsive storefront for desktop, tablet, and mobile</li>
+                      {currentProject.features.map((feature) => (
+                        <li key={feature}>{feature}</li>
+                      ))}
                     </ul>
                     <div className="pg-tags" aria-label="Current preview technologies">
-                      <span>HTML</span>
-                      <span>CSS</span>
-                      <span>JavaScript</span>
+                      {currentProject.technologies.map((technology) => (
+                        <span key={technology}>{technology}</span>
+                      ))}
                     </div>
                     <a
                       className="pg-current-visit"
@@ -254,10 +254,7 @@ export default function Portfolio() {
                       Visit live preview <span aria-hidden="true">↗</span>
                       <span className="pg-sr-only"> (opens in a new tab)</span>
                     </a>
-                    <p className="pg-current-note">
-                      Frontend demo with sample products and prices. Checkout and newsletter signup
-                      are preview-only.
-                    </p>
+                    <p className="pg-current-note">{currentProject.previewNote}</p>
                   </div>
                 </article>
               </section>
