@@ -286,13 +286,14 @@ body.home-workspace-page #root {
 .home-workspace-page .sidebar .side-title {
   height: 30px;
   min-height: 30px;
+  font-size: 13px;
   flex: none;
 }
 
 /* Code view left icons and Explorer sidebar. Selectors: .home-workspace-page .sidebar .folder */
 .home-workspace-page .sidebar .folder {
   padding: 7px 10px;
-  font-size: 10px;
+  font-size: 12px;
   flex: none;
 }
 
@@ -558,7 +559,7 @@ body.home-workspace-page #root {
   width: 100%;
   min-height: 28px;
   padding: 6px 12px;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.2;
 }
 .home-workspace-page .sidebar > .sidebar-bottom {
