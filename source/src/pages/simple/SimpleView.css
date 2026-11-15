@@ -8,6 +8,13 @@
 
 /* Simple view header, profile sections, cards, contacts, and mobile layout. */
 
+/* Animate section links on the page's scrolling element when motion is preferred. */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(body.simple-view-page) {
+    scroll-behavior: smooth;
+  }
+}
+
 /* Shared page styling. Selectors: body.simple-view-page,body.simple-view-page #root */
 body.simple-view-page,
 body.simple-view-page #root {
