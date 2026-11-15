@@ -29,12 +29,12 @@ export function SkillsProvider({ children }) {
       const { skill, openDetails } = getSkillDestination(window.location, allSkills)
       if (!skill) return
       const card = revealSkill(skill)
-      // A Simple-view toolbox link explicitly requests this skill's details on arrival.
+      // Explicit detail links also work when opened directly or from an older bookmark.
       if (card && openDetails) {
         const rect = card.getBoundingClientRect()
         setPanel({
-          type: 'detail',
           skill,
+          trigger: card,
           anchor: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom },
         })
       }
@@ -47,12 +47,12 @@ export function SkillsProvider({ children }) {
     }
   }, [revealSkill])
   const openSkill = (skill, event, fromSidebar = false) => {
-    const target = fromSidebar ? revealSkill(skill) : event.currentTarget
+    const target = (fromSidebar && revealSkill(skill)) || event.currentTarget
     setSelectedSkillId(skill.id)
-    const rect = (target || event.currentTarget).getBoundingClientRect()
+    const rect = target.getBoundingClientRect()
     setPanel({
-      type: 'detail',
       skill,
+      trigger: target,
       anchor: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom },
     })
   }

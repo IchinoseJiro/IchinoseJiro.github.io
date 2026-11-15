@@ -7,7 +7,7 @@ export default function SkillDialog({ panel, onClose }) {
   const ref = useRef(null)
   useLayoutEffect(() => {
     const dialog = ref.current
-    const previous = document.activeElement
+    const previous = panel.trigger || document.activeElement
     if (!dialog.open) dialog.showModal()
     document.body.classList.add('skills-dialog-open')
     const position = () => {
@@ -31,7 +31,10 @@ export default function SkillDialog({ panel, onClose }) {
     return () => {
       document.body.classList.remove('skills-dialog-open')
       window.removeEventListener('resize', position)
-      if (previous?.isConnected) previous.focus({ preventScroll: true })
+      // Restore focus after React removes the modal and the page becomes interactive.
+      queueMicrotask(() => {
+        if (previous?.isConnected) previous.focus({ preventScroll: true })
+      })
     }
   }, [panel])
   const outside = (event) => {
