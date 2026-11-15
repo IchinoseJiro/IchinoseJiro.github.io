@@ -3,7 +3,7 @@
 | What you want to change                                               | Start here                                                             |
 | --------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | Your name, education, work history, certificates, contact information | data/profileContent.js                                                 |
-| Skill order, scores, colors, descriptions                             | data/skillsData.js                                                     |
+| Skill categories, colors, descriptions                                | data/skillsData.js                                                     |
 | Current/college project details and live link                         | data/projects.js                                                       |
 | Simple view layout                                                    | pages/simple/SimpleView.jsx                                            |
 | Project gallery layout                                                | pages/portfolio/Portfolio.jsx                                          |
@@ -18,7 +18,7 @@
 | Typing-only terminal                                                  | features/terminal/TerminalPanel.jsx                                    |
 | Skills cards, handoff/highlighting, sidebar icons                     | features/skills/Skills.jsx                                             |
 | Skill icon vectors                                                    | features/skills/SkillIcon.jsx                                          |
-| Skill popup and proficiency chart                                     | features/skills/SkillDialog.jsx                                        |
+| Skill description popup                                               | features/skills/SkillDialog.jsx                                        |
 | Copy email/phone buttons                                              | components/contact/ContactCopyButton.jsx, hooks/useCopyContact.js      |
 | LinkedIn / GitHub links                                               | components/contact/SocialLinks.jsx                                     |
 | LunR Code branding                                                    | components/branding/                                                   |

@@ -1,4 +1,4 @@
-/* Shared skill controls, anchored detail windows, and the 0–10 proficiency chart. */
+/* Category boxes, description buttons, and accessible skill popups. */
 .skills-section-heading {
   display: flex;
   align-items: center;
@@ -6,37 +6,61 @@
   gap: 20px;
   flex-wrap: wrap;
 }
-.skills-chart-button {
+.skills-section-heading h2 {
+  margin: 0 0 12px;
+  color: #e2e5eb;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+.skills-toolbox-link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 9px;
-  min-height: 46px;
-  padding: 11px 16px;
-  border: 1px solid #91d8ff;
-  border-radius: 7px;
-  background: #176f9e;
-  color: #fff;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #679bb9;
+  border-radius: 6px;
+  background: #243e51;
+  color: #d8f0ff;
+  text-decoration: none;
+}
+.skills-toolbox-link:hover {
+  background: #305773;
+}
+.skills-groups-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: start;
+}
+.skills-groups-grid > .skills-group {
+  margin: 0;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #3c5060;
+  border-radius: 10px;
+  background: #202831;
+}
+.skills-groups-grid .skills-group > h3 {
+  margin: 0 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #394b59;
   font:
-    600 13px/1.5 'Segoe UI',
+    600 16px/1.4 'Segoe UI',
     sans-serif;
-  box-shadow:
-    0 0 0 4px #7dcfff12,
-    0 8px 24px #0003;
-  cursor: pointer;
+  color: #b8def4;
 }
-.skills-chart-button:hover {
-  background: #2488bd;
-  border-color: #c5ecff;
-}
-.skills-chart-button > span {
-  font-size: 20px;
+.skills-section .skills-card-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+  gap: 12px;
 }
 .skills-section .skill-card {
   display: grid;
   grid-template-columns: 34px minmax(0, 1fr);
-  gap: 7px 12px;
+  gap: 8px 12px;
   width: 100%;
+  padding: 16px;
   text-align: left;
   color: #d4e0ea;
   cursor: pointer;
@@ -47,19 +71,21 @@
 .skill-card-name {
   min-width: 0;
   overflow-wrap: anywhere;
-  font-weight: 500;
+  font-weight: 600;
 }
-.skill-card-score {
-  grid-column: 2;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px 12px;
-  color: #95bdd5;
+.skill-card-description {
+  grid-column: 1 / -1;
+  color: #aebfcd;
+  font-size: 12px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.skill-card-hint {
+  grid-column: 1 / -1;
+  color: #8fc7e5;
   font-size: 11px;
-}
-.skill-card-score small {
-  color: #849baa;
-  font-size: 10px;
 }
 .skills-sidebar button.skill-mini {
   font: inherit;
@@ -67,18 +93,16 @@
   cursor: pointer;
   width: 100%;
 }
-.skills-sidebar button.skills-see-all {
-  width: 100%;
-  text-align: left;
-  border: 0;
-  background: none;
-  cursor: pointer;
-}
 :is(.skills-section, .skills-sidebar) :is(button, a):focus-visible {
   outline: 2px solid #9cdeff;
   outline-offset: 3px;
 }
-/* Both detail and chart dialogs use a light blur, rather than the heavier About backdrop. */
+.skills-section .skill-card.is-selected {
+  outline: 2px solid #daa263;
+  outline-offset: 2px;
+  border-color: #daa263;
+  background: #283d4c;
+}
 body.skills-dialog-open {
   overflow: hidden;
 }
@@ -114,10 +138,6 @@ body.skills-dialog-open {
   position: fixed;
   width: min(350px, calc(100vw - 24px));
   margin: 0;
-}
-.skill-chart-dialog {
-  width: min(820px, calc(100vw - 28px));
-  margin: auto;
 }
 .skill-dialog-header {
   position: sticky;
@@ -183,252 +203,18 @@ body.skills-dialog-open {
   color: #b9cbd8;
   font-size: 13px;
 }
-.skill-rating-label {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 5px 12px;
-  font-size: 11px;
-  color: #a3bfd2;
-}
-.skill-rating-label strong {
-  font-size: 16px;
-  color: #daf2ff;
-}
-.skill-detail-meter {
-  display: block;
-  width: 100%;
-  height: 14px;
-  margin: 9px 0;
-  accent-color: #83cfff;
-}
-.skill-detail-meter::-webkit-meter-bar {
-  background: #3b4e5e;
-  border: 0;
-  border-radius: 9px;
-}
-.skill-detail-meter::-webkit-meter-optimum-value {
-  background: #83cfff;
-  border-radius: 9px;
-}
-.skill-rating-note {
-  display: block;
-  color: #93aabc;
-  font-size: 10px;
-}
-/* Accessible horizontal bars: labels and exact scores remain visible as text. */
-.skill-chart-content {
-  padding: 20px 24px;
-}
-.skill-chart-content > p {
-  margin: 0 0 18px;
-  color: #a9becd;
-  font-size: 12px;
-}
-.skill-chart-axis {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 46px 14px 244px;
-  color: #91aec2;
-  font:
-    10px Consolas,
-    monospace;
-  border-bottom: 1px solid #4a6174;
-  padding-bottom: 6px;
-}
-.skill-chart-group {
-  margin-bottom: 24px;
-}
-.skill-chart-group h3 {
-  color: #acd9ef;
-  font-size: 13px;
-  font-weight: 500;
-  margin: 0 0 10px;
-}
-.skill-chart-group ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 5px;
-}
-.skill-chart-row {
-  display: grid;
-  grid-template-columns: 230px minmax(0, 1fr) 32px;
-  align-items: center;
-  gap: 14px;
-  padding: 5px 0;
-}
-.skill-chart-name {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #d2e0ea;
-  font-size: 12px;
-  min-width: 0;
-}
-.skill-chart-name .skill-vector {
-  width: 24px;
-  height: 24px;
-}
-.skill-chart-track {
-  display: block;
-  height: 10px;
-  border-radius: 5px;
-  background: repeating-linear-gradient(to right, #3b4d5d 0, #3b4d5d calc(50% - 1px), #597184 50%);
-  overflow: hidden;
-}
-.skill-chart-track > span {
-  display: block;
-  height: 100%;
-  border-radius: 5px;
-}
-.skill-chart-value {
-  color: #e1edf6;
-  font:
-    12px Consolas,
-    monospace;
-  text-align: right;
-}
-.skill-chart-content .skill-chart-footnote {
-  border-top: 1px solid #425565;
-  padding-top: 14px;
-  margin-bottom: 0;
-}
-.skill-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-}
-@media (max-width: 600px) {
-  .skills-section-heading {
-    gap: 12px;
+
+@media (max-width: 700px) {
+  .skills-groups-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
   }
-  .skills-chart-button {
-    width: 100%;
-  }
-  .skills-section .skill-card {
-    padding: 14px;
-    gap: 6px 9px;
-  }
-  .skill-chart-content {
+  .skills-groups-grid > .skills-group {
     padding: 16px;
   }
-  .skill-chart-axis {
-    margin: 0 38px 14px 0;
-  }
-  .skill-chart-row {
-    grid-template-columns: minmax(0, 1fr) 30px;
-    gap: 6px 8px;
-    padding: 7px 0;
-  }
-  .skill-chart-name {
-    grid-column: 1/-1;
-  }
-  .skill-chart-track {
-    grid-column: 1;
-  }
-  .skill-chart-value {
-    grid-column: 2;
-  }
-  .skill-dialog-header {
-    padding: 12px 14px;
-  }
-  .skill-dialog-header h2 {
-    font-size: 16px;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .skills-chart-button,
   .skills-section .skill-card {
-    animation: none;
     transition: none;
   }
-}
-
-/* Give skill names enough space on desktop; stack icon and label on narrow cards. */
-.skills-section .skills-card-grid {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
-}
-@media (max-width: 600px) {
-  .skills-section .skills-card-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .skills-section .skill-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 9px;
-  }
-  .skill-card-score {
-    display: block;
-  }
-  .skill-card-score small {
-    display: block;
-    margin-top: 3px;
-  }
-}
-
-/* Selected main-content skill stays easy to find after a toolbox link or popup. */
-.skills-section .skill-card.is-selected {
-  outline: 3px solid #f3aa5d;
-  outline-offset: 3px;
-  border-color: #f3aa5d;
-  background: linear-gradient(135deg, #29475b, #25333e);
-  box-shadow:
-    0 0 0 7px #f3aa5d1a,
-    0 0 24px #7dcfff30;
-}
-.skills-section .skill-card.is-selected .skill-card-score small {
-  color: #ffd29a;
-  font-weight: 600;
-}
-
-/* Simple view links to the full gallery toolbox; skill clicks emphasize this route. */
-.skills-toolbox-link {
-  text-decoration: none;
-}
-.skills-toolbox-link:focus-visible {
-  outline: 3px solid #ffd29a;
-  outline-offset: 4px;
-}
-.skills-toolbox-link.is-highlighted {
-  border: 2px solid #f3aa5d;
-  background: #29475b;
-  color: #ffe0b0;
-  box-shadow:
-    0 0 0 4px #f3aa5d25,
-    0 0 22px #f3aa5d40;
-  animation: toolbox-attention 1.2s ease-out 2;
-}
-@keyframes toolbox-attention {
-  50% {
-    box-shadow:
-      0 0 0 8px #f3aa5d18,
-      0 0 30px #f3aa5d70;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .skills-toolbox-link.is-highlighted {
-    animation: none;
-  }
-}
-
-/* Keep the non-blocking skill spotlight below the sticky navigation (z-index 40). */
-.simple-toolbox-blur {
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  pointer-events: none;
-  background: #0b141c18;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-}
-.toolbox-attention-active .skills-toolbox-link,
-.toolbox-attention-active .skill-card.is-selected {
-  position: relative;
-  z-index: 31;
 }

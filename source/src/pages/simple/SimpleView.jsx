@@ -4,7 +4,7 @@ import BrandLogo from '../../components/branding/BrandLogo.jsx'
 import SocialLinks from '../../components/contact/SocialLinks.jsx'
 import NavigationHint from '../../components/navigation/NavigationHint.jsx'
 import { SkillsSection } from '../../features/skills/Skills.jsx'
-import { currentProject, projects } from '../../data/projects.js'
+import { projects } from '../../data/projects.js'
 import { profile, experience, certificationDetails, contact } from '../../data/profileContent.js'
 import './SimpleView.css'
 import '../../styles/portfolio-shared.css'
@@ -207,24 +207,6 @@ export default function SimpleView({ menu, copyButton, onAbout }) {
         <div id="simple-skills" className="simple-skills">
           <SkillsSection plain toolboxLink />
         </div>
-        {/* Current and college project gallery callout. */}
-        <section
-          className="simple-section simple-project-callout"
-          aria-labelledby="simple-project-title"
-        >
-          <BrandLogo decorative />
-          <div>
-            <p className="simple-eyebrow">CURRENT & COLLEGE PROJECTS</p>
-            <h2 id="simple-project-title">See what I’m building.</h2>
-            <p>
-              Follow {currentProject.title}, my current personal project, and explore COFFEEGO and
-              Autoworld Carwash from college.
-            </p>
-          </div>
-          <a className="simple-secondary" href={portfolioUrl()}>
-            Open project gallery ↗
-          </a>
-        </section>
         {/* Contact copy controls and LinkedIn/GitHub links. */}
         <section
           className="simple-section simple-contact"

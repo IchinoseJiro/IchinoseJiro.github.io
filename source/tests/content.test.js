@@ -1,14 +1,14 @@
-// Protect content shared by Code view, Simple view, the toolbox, and chart.
+// Protect content shared by Code view, Simple view, and the toolbox.
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { allSkills, skillGroups } from '../src/data/skillsData.js'
 import { files, initialDocuments } from '../src/data/profileContent.js'
 import { currentProject, projects } from '../src/data/projects.js'
 
-test('skill IDs are unique, descriptions exist, and ratings stay within the 0–10 scale', () => {
+test('skill IDs are unique and every tool has a description and color', () => {
   assert.equal(new Set(allSkills.map((skill) => skill.id)).size, allSkills.length)
   for (const skill of allSkills) {
-    assert.ok(Number.isFinite(skill.score) && skill.score >= 0 && skill.score <= 10)
+    assert.equal('score' in skill, false)
     assert.ok(skill.name && skill.description && skill.color)
   }
   assert.deepEqual(

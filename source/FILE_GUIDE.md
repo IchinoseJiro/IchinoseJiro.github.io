@@ -24,7 +24,7 @@ Start with [the source folder map](src/README.md). Each source file has comments
 | src/features/workspace/    | Activity rail, Explorer, search, titlebar                              |
 | src/features/introduction/ | Moon-button popup and drag-position hook                               |
 | src/features/terminal/     | Typing-only CMD-style terminal                                         |
-| src/features/skills/       | Shared cards, icons, popups, chart, and toolbox selection behavior     |
+| src/features/skills/       | Grouped cards, icons, description popups, and toolbox navigation       |
 | src/components/branding/   | LunR Code logo and its styles                                          |
 | src/components/contact/    | Contact copy button and social links                                   |
 | src/components/navigation/ | Menus, orange hint, transition overlay                                 |
@@ -42,7 +42,7 @@ Start with [the source folder map](src/README.md). Each source file has comments
 
 - **Profile, jobs, education, contact information:** src/data/profileContent.js.
 - **Certificates:** certificationDetails in profileContent.js. Existing public links open in a new tab; certificates without links point visitors to LinkedIn.
-- **Skills:** src/data/skillsData.js. This single ordered dataset feeds Code view text, Simple view, toolbox icons, skill windows, and chart. Keep the existing category/item order rather than sorting by score or alphabetically.
+- **Skills:** src/data/skillsData.js. This single ordered dataset feeds Code view text, Simple view, toolbox icons, and skill description windows. Keep the shared category/item order.
 - **Skill icons:** src/features/skills/SkillIcon.jsx. Each vector matches the skill’s id.
 - **Projects:** src/data/projects.js. currentProject is the ongoing personal project; projects contains the college work and availability notes.
 - **Photo/logos/screenshots:** public/. Use a leading slash for public asset paths, such as /images/HAU-logo.png.
@@ -65,8 +65,8 @@ PC Assembly includes Ethernet cable crimping in its description. System & Networ
 - **Simple page:** pages/simple/SimpleView.jsx and SimpleView.css.
 - **Gallery:** pages/portfolio/Portfolio.jsx and Portfolio.css.
 - **Shared skill selection/UI:** features/skills/Skills.jsx.
-- **Details and chart:** features/skills/SkillDialog.jsx.
-- **Skill emphasis, blur, and chart styles:** features/skills/SkillsInteractions.css.
+- **Skill descriptions:** features/skills/SkillDialog.jsx.
+- **Category boxes, skill emphasis, and popup styles:** features/skills/SkillsInteractions.css.
 - **Gallery URL helper:** utils/portfolioNavigation.js. It uses the build release ID from vite.config.js to avoid cached gallery HTML.
 
 A Simple-view skill click highlights the skill/toolbox link, applies light blur, and scrolls to the link if necessary. The highlighted link carries the matching skill ID to the gallery and opens its popup. Ordinary toolbox links open the list; Code-view skill links highlight the matching card. Invalid IDs never open an unrelated skill. Navigation stays above the spotlight while scrolling.
@@ -92,7 +92,7 @@ When adding a component, use a relative import to its actual folder. Do not move
 
 Run **npm run check** to run 10 focused tests, lint, formatting checks, and the production build. Use **npm run format** after editing.
 
-Also preview and check Code/Simple switching, edited text/tabs, reset, menus, contact copying, intro/guide/About, terminal history, gallery links, all skill interactions, the chart, and phone/tablet layouts. Automated tests cover shared content and URL behavior; they do not replace browser interaction checks.
+Also preview and check Code/Simple switching, edited text/tabs, reset, menus, contact copying, intro/guide/About, terminal history, gallery links, all skill interactions and phone/tablet layouts. Automated tests cover shared content and URL behavior; they do not replace browser interaction checks.
 
 ## Publishing and backups
 

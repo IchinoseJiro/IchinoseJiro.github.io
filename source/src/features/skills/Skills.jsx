@@ -2,15 +2,7 @@ import SkillDialog from './SkillDialog.jsx'
 import { SkillIcon } from './SkillIcon.jsx'
 import { portfolioUrl, getSkillDestination } from '../../utils/portfolioNavigation.js'
 // Shared skills UI. All category and item ordering comes directly from skillsData.js.
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { allSkills, skillGroups } from '../../data/skillsData.js'
 import './Skills.css'
@@ -18,7 +10,7 @@ import './SkillsInteractions.css'
 
 const SkillsContext = createContext(null)
 
-// Share a single skill popup or chart between the gallery sidebar and skills section.
+// Share a single description popup between the gallery sidebar and skills section.
 export function SkillsProvider({ children }) {
   const [panel, setPanel] = useState(null)
   const [selectedSkillId, setSelectedSkillId] = useState('')
@@ -64,9 +56,8 @@ export function SkillsProvider({ children }) {
       anchor: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom },
     })
   }
-  const openChart = () => setPanel({ type: 'chart' })
   return (
-    <SkillsContext.Provider value={{ openSkill, openChart, selectedSkillId }}>
+    <SkillsContext.Provider value={{ openSkill, selectedSkillId }}>
       {children}
       {panel && createPortal(<SkillDialog panel={panel} onClose={close} />, document.body)}
     </SkillsContext.Provider>
@@ -108,15 +99,9 @@ export function SkillsSidebar() {
           ),
         )}
       </div>
-      {context ? (
-        <button type="button" className="skills-see-all" onClick={context.openChart}>
-          View proficiency chart ↗
-        </button>
-      ) : (
-        <a className="skills-see-all" href={portfolioUrl('skills')}>
-          Explore all skills ↗
-        </a>
-      )}
+      <a className="skills-see-all" href={context ? '#skills' : portfolioUrl('skills')}>
+        Explore all skills ↗
+      </a>
     </section>
   )
 }
@@ -133,138 +118,49 @@ export function SkillsSection(props) {
   )
 }
 function SkillsGrid({ plain = false, toolboxLink = false }) {
-  // Re-emphasize the gallery link each time a Simple-view skill is selected.
-  const [toolboxClicks, setToolboxClicks] = useState(0)
-  const [attentionSkill, setAttentionSkill] = useState('')
-  const gridRef = useRef(null)
-  const toolboxButtonRef = useRef(null)
-  // Bring the highlighted destination below the sticky header when lower skills are clicked.
-  useLayoutEffect(() => {
-    if (!toolboxLink || !toolboxClicks || !toolboxButtonRef.current) return
-    const rect = toolboxButtonRef.current.getBoundingClientRect()
-    const headerBottom =
-      document.querySelector('.simple-header')?.getBoundingClientRect().bottom ?? 0
-    if (rect.top >= headerBottom + 16 && rect.bottom <= window.innerHeight - 16) return
-    window.scrollTo({
-      top: Math.max(0, window.scrollY + rect.top - headerBottom - 24),
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        ? 'instant'
-        : 'smooth',
-    })
-  }, [toolboxLink, toolboxClicks])
-  // The blur is visual only: all skills remain clickable and any outside click dismisses it.
-  useEffect(() => {
-    if (!attentionSkill) return
-    const dismiss = (event) => {
-      // Keep the selected destination intact until the link's navigation completes.
-      if (event.target.closest?.('.skills-toolbox-link') && gridRef.current?.contains(event.target))
-        return
-      const card = event.target.closest?.('.skill-card')
-      if (card && gridRef.current?.contains(card)) return
-      setAttentionSkill('')
-    }
-    const escape = (event) => {
-      if (event.key === 'Escape') setAttentionSkill('')
-    }
-    document.addEventListener('click', dismiss, true)
-    document.addEventListener('keydown', escape)
-    return () => {
-      document.removeEventListener('click', dismiss, true)
-      document.removeEventListener('keydown', escape)
-    }
-  }, [attentionSkill])
-  const { openSkill, openChart, selectedSkillId } = useContext(SkillsContext)
-  const highlightedSkill = toolboxLink ? attentionSkill : selectedSkillId
+  const { openSkill, selectedSkillId } = useContext(SkillsContext)
   return (
-    <section
-      ref={gridRef}
-      className={'skills-section' + (attentionSkill ? ' toolbox-attention-active' : '')}
-      id="skills"
-      aria-labelledby="skills-title"
-    >
+    <section className="skills-section" id="skills" aria-labelledby="skills-title">
       <div className="skills-section-heading">
         <div>
           <p className="skills-eyebrow">{plain ? 'SKILLS & TOOLS' : '// SKILLS.JSON'}</p>
           <h2 id="skills-title">My toolbox, always growing.</h2>
         </div>
-        {toolboxLink ? (
-          <a
-            ref={toolboxButtonRef}
-            key={toolboxClicks}
-            className={
-              'skills-chart-button skills-toolbox-link' + (attentionSkill ? ' is-highlighted' : '')
-            }
-            href={portfolioUrl(
-              attentionSkill ? 'skill-' + attentionSkill : 'skills',
-              attentionSkill,
-            )}
-          >
-            <span aria-hidden="true">↗</span> Explore full toolbox
+        {toolboxLink && (
+          <a className="skills-toolbox-link" href={portfolioUrl('skills')}>
+            Explore full toolbox ↗
           </a>
-        ) : (
-          <button
-            type="button"
-            className="skills-chart-button"
-            onClick={openChart}
-            aria-haspopup="dialog"
-          >
-            <span aria-hidden="true">▥</span> View proficiency chart
-          </button>
         )}
       </div>
       <p className="skills-intro">
-        {toolboxLink
-          ? 'Select a skill to highlight it, then explore the full toolbox for details and the proficiency chart.'
-          : 'Select a skill for its description and self-assessed proficiency.'}
+        Explore the categories below. Select any skill or tool to learn what it is used for.
       </p>
-      {attentionSkill &&
-        createPortal(<div className="simple-toolbox-blur" aria-hidden="true" />, document.body)}
-      {skillGroups.map((group) => (
-        <div className="skills-group" key={group.title}>
-          <h3>
-            <span aria-hidden="true">⌄</span> {group.title}
-          </h3>
-          <div className="skills-card-grid">
-            {group.skills.map((skill) => (
-              <button
-                type="button"
-                className={'skill-card' + (highlightedSkill === skill.id ? ' is-selected' : '')}
-                id={'skill-' + skill.id}
-                key={skill.id}
-                style={{ '--skill-accent': skill.color }}
-                onClick={(event) => {
-                  if (toolboxLink) {
-                    setToolboxClicks((count) => count + 1)
-                    setAttentionSkill(skill.id)
-                  } else openSkill(skill, event)
-                }}
-                aria-haspopup={toolboxLink ? undefined : 'dialog'}
-                aria-pressed={toolboxLink ? attentionSkill === skill.id : undefined}
-                aria-label={
-                  toolboxLink
-                    ? 'Highlight ' + skill.name + ' and explore full toolbox'
-                    : 'View ' + skill.name + ' proficiency details'
-                }
-              >
-                <SkillIcon skill={skill} />
-                <span className="skill-card-name">{skill.name}</span>
-                <span className="skill-card-score">
-                  {skill.score} / 10{' '}
-                  <small>
-                    {toolboxLink
-                      ? attentionSkill === skill.id
-                        ? 'Selected · Explore toolbox ↗'
-                        : 'Explore toolbox ↗'
-                      : highlightedSkill === skill.id
-                        ? 'Selected · Details ↗'
-                        : 'Details ↗'}
-                  </small>
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-      ))}
+      <div className="skills-groups-grid">
+        {skillGroups.map((group) => (
+          <section className="skills-group" key={group.title} aria-label={group.title}>
+            <h3>{group.title}</h3>
+            <div className="skills-card-grid">
+              {group.skills.map((skill) => (
+                <button
+                  type="button"
+                  className={'skill-card' + (selectedSkillId === skill.id ? ' is-selected' : '')}
+                  id={'skill-' + skill.id}
+                  key={skill.id}
+                  style={{ '--skill-accent': skill.color }}
+                  onClick={(event) => openSkill(skill, event)}
+                  aria-haspopup="dialog"
+                  aria-label={'Learn about ' + skill.name}
+                >
+                  <SkillIcon skill={skill} />
+                  <span className="skill-card-name">{skill.name}</span>
+                  <span className="skill-card-description">{skill.description}</span>
+                  <span className="skill-card-hint">What it’s for ↗</span>
+                </button>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
     </section>
   )
 }

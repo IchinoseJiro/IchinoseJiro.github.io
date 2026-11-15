@@ -73,6 +73,6 @@ const format = (value) => JSON.stringify(value, null, 2)
 export const initialDocuments = {
   'about.jsx': `// A little about me\nconst developer = ${format(profile)}\n\nexport default developer`,
   'experience.jsx': `// Work experience & certifications\n// To open certificate links, choose View → Simple view, then find Certifications under Experience. Certificate links open in a new tab.\nconst experience = ${format(experience)}\n\nconst certifications = ${format(certifications)}\n\nexport default { experience, certifications }`,
-  'skills.jsx': `// Self-assessed proficiency, on a scale of 1–10\n// Categories and skills follow the same order as the toolbox and chart.\nconst skills = ${format(skillGroups.map((group) => ({ category: group.title, skills: group.skills.map(({ name, score, description }) => ({ name, proficiency: score, description })) })))}\n\nexport default skills`,
+  'skills.jsx': `// Skills and tools: what each is used for\n// Categories and skills follow the same order as the toolbox.\nconst skills = ${format(skillGroups.map((group) => ({ category: group.title, skills: group.skills.map(({ name, description }) => ({ name, description })) })))}\n\nexport default skills`,
   'contact.jsx': `// Contact details\nconst contact = ${format(contact)}\n\nexport default contact`,
 }
