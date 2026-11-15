@@ -191,15 +191,19 @@ body.skills-dialog-open {
   outline-offset: 2px;
 }
 .skill-detail-body {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
   padding: 20px;
 }
 .skill-detail-body > .skill-vector {
   width: 48px;
   height: 48px;
-  margin-bottom: 14px;
 }
 .skill-detail-body p {
-  margin: 0 0 20px;
+  margin: 0;
+  overflow-wrap: anywhere;
   color: #b9cbd8;
   font-size: 13px;
 }
