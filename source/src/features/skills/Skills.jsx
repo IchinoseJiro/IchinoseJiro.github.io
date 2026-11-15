@@ -133,14 +133,16 @@ function SkillsGrid({ plain = false, toolboxLink = false }) {
         )}
       </div>
       <p className="skills-intro">
-        Explore the categories below. Select any skill or tool to learn what it is used for.
+        {toolboxLink
+          ? 'A preview of each category. Select a skill to learn what it is used for, or explore the full toolbox for the complete collection.'
+          : 'Explore the categories below. Select any skill or tool to learn what it is used for.'}
       </p>
       <div className="skills-groups-grid">
         {skillGroups.map((group) => (
           <section className="skills-group" key={group.title} aria-label={group.title}>
             <h3>{group.title}</h3>
             <div className="skills-card-grid">
-              {group.skills.map((skill) => (
+              {(toolboxLink ? group.skills.slice(0, 2) : group.skills).map((skill) => (
                 <button
                   type="button"
                   className={'skill-card' + (selectedSkillId === skill.id ? ' is-selected' : '')}
