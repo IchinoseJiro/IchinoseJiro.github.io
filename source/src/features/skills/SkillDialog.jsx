@@ -82,6 +82,7 @@ export default function SkillDialog({ panel, onClose }) {
       <div className="skill-detail-body">
         <SkillIcon skill={panel.skill} />
         <p>{panel.skill.description}</p>
+        {panel.skill.note && <p className="skill-detail-note">{panel.skill.note}</p>}
       </div>
     </dialog>
   )

@@ -55,6 +55,13 @@ export const skillGroups = [
         color: '#becbd8',
         description: 'A lightweight Node.js framework for defining server routes and web APIs.',
       },
+      {
+        id: 'django',
+        name: 'Django',
+        color: '#8ac7ad',
+        description:
+          'A Python web framework for building backend applications with URL routing, database models, forms, and an administration interface.',
+      },
     ],
   },
   {
@@ -92,6 +99,7 @@ export const skillGroups = [
         name: 'Tailwind CSS',
         color: '#81d6dc',
         description: 'A CSS framework that uses utility classes to compose responsive designs.',
+        note: 'Tailwind CSS is my favorite framework.',
       },
     ],
   },

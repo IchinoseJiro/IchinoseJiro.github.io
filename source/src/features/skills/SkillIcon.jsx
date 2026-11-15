@@ -194,6 +194,15 @@ function IconShape({ id }) {
           </text>
         </>
       )
+    case 'django':
+      return (
+        <>
+          <rect x="4" y="4" width="40" height="40" rx="9" />
+          <text x="24" y="32" fontSize="25">
+            dj
+          </text>
+        </>
+      )
     case 'canva':
       return (
         <>
