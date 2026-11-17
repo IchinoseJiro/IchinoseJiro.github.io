@@ -2,10 +2,10 @@
 export const currentProject = {
   id: 'carecircle',
   title: 'CareCircle',
-  image: '/projects/carecircle.jpg',
+  image: '/projects/carecircle.jpg?v=20261117',
   width: 1440,
   height: 1000,
-  alt: 'CareCircle household dashboard showing shared chores, weekly progress, household members, and recent activity.',
+  alt: 'CareCircle household planner with a chore list, assigned household members, weekly completion progress, and a top navigation bar.',
   url: 'https://re-spawnpoint.vercel.app/?demo=1',
   focus: 'A little more in sync, one chore at a time.',
   description:
