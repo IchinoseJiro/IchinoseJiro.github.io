@@ -1,6 +1,13 @@
 // Simple vectors for the toolbox and full cards, tinted by the shared skill record.
 function IconShape({ id }) {
   switch (id) {
+    case 'postman':
+      return (
+        <>
+          <circle cx="24" cy="24" r="20" />
+          <path d="m13 35 5-11L31 11l6 6-13 13-11 5Zm5-11 6 6M28 14l6 6M13 35l9-9" />
+        </>
+      )
     case 'html':
       return (
         <>

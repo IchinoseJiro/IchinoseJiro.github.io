@@ -65,6 +65,18 @@ export const skillGroups = [
     ],
   },
   {
+    title: 'APIs & Testing',
+    skills: [
+      {
+        id: 'postman',
+        name: 'Postman',
+        color: '#f6a17d',
+        description:
+          'A tool for sending API requests, inspecting responses, and organizing tests for web services.',
+      },
+    ],
+  },
+  {
     title: 'Frontend frameworks',
     skills: [
       {
