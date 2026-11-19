@@ -348,7 +348,7 @@ export default function Portfolio() {
               </section>
               {/* Full shared skills grid. */}
               <SkillsSection plain={viewMode === 'simple'} />
-              {/* Closing message and return-home link. */}
+              {/* Closing message. */}
               <section className="pg-endnote">
                 <span aria-hidden="true">
                   <BrandLogo decorative />
@@ -357,7 +357,6 @@ export default function Portfolio() {
                   <h2>Every project starts with a little curiosity.</h2>
                   <p>Thanks for exploring my work, past and in progress.</p>
                 </div>
-                <a href="/">Back to my workspace ↗</a>
               </section>
             </div>
             {showBackToTop && (
