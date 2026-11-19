@@ -34,6 +34,14 @@
     sans-serif;
 }
 
+/* Fixed geometry keeps the chevron centered independently of font baselines. */
+.view-menu-chevron {
+  display: block;
+  flex: none;
+  width: 12px;
+  height: 12px;
+}
+
 /* Top navigation menu buttons and dropdowns. Selectors: .view-mode-current */
 .view-mode-current {
   font-size: 10px;

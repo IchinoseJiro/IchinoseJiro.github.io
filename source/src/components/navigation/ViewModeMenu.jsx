@@ -68,7 +68,17 @@ export default function ViewModeMenu() {
           }
         }}
       >
-        View <span aria-hidden="true">⌄</span>
+        View
+        <svg className="view-menu-chevron" viewBox="0 0 12 12" aria-hidden="true">
+          <path
+            d="m3 4.5 3 3 3-3"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </button>
       {open && (
         <div
