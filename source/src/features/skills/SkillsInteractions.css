@@ -73,15 +73,6 @@
   overflow-wrap: anywhere;
   font-weight: 600;
 }
-.skill-card-description {
-  grid-column: 1 / -1;
-  color: #aebfcd;
-  font-size: 12px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
 .skill-card-hint {
   grid-column: 1 / -1;
   color: #8fc7e5;

@@ -1,6 +1,67 @@
 // Simple vectors for the toolbox and full cards, tinted by the shared skill record.
 function IconShape({ id }) {
   switch (id) {
+    case 'git':
+      return (
+        <>
+          <path d="m24 3 21 21-21 21L3 24Z" />
+          <path d="m16 11 15 15M24 19v16" />
+          <circle cx="24" cy="19" r="3" />
+          <circle cx="31" cy="26" r="3" />
+          <circle cx="24" cy="35" r="3" />
+        </>
+      )
+    case 'bootstrap':
+      return (
+        <>
+          <rect x="4" y="6" width="40" height="36" rx="8" />
+          <text x="24" y="34" fontSize="29">
+            B
+          </text>
+        </>
+      )
+    case 'wordpress':
+      return (
+        <>
+          <circle cx="24" cy="24" r="21" />
+          <circle cx="24" cy="24" r="17" />
+          <text x="24" y="33" fontSize="27" style={{ fontFamily: 'Georgia, serif' }}>
+            W
+          </text>
+        </>
+      )
+    case 'docker':
+      return (
+        <>
+          <path d="M5 24h29c3 0 6-2 7-5l4 3c-1 4-4 6-8 7-2 9-9 13-18 11C10 38 5 32 5 24Z" />
+          <path d="M9 17h7v7H9Zm8 0h7v7h-7Zm8 0h7v7h-7ZM17 9h7v7h-7Zm8 0h7v7h-7Zm0-8h7v7h-7Z" />
+          <circle cx="12" cy="29" r="1" fill="currentColor" />
+        </>
+      )
+    case 'chatgpt':
+      return (
+        <>
+          {[0, 60, 120, 180, 240, 300].map((angle) => (
+            <path
+              key={angle}
+              transform={`rotate(${angle} 24 24)`}
+              d="M18 8c0-7 13-7 16 0l4 8-14 8-8-5V9l8-5"
+            />
+          ))}
+        </>
+      )
+    case 'claude':
+      return (
+        <>
+          {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle) => (
+            <path key={angle} transform={`rotate(${angle} 24 24)`} d="M24 4v13" />
+          ))}
+        </>
+      )
+    case 'gemini':
+      return (
+        <path d="M24 3C24 17 31 24 45 24 31 24 24 31 24 45 24 31 17 24 3 24 17 24 24 17 24 3Z" />
+      )
     case 'postman':
       return (
         <>

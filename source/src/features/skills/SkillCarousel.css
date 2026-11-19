@@ -1,29 +1,35 @@
-/* Gallery categories use the available width for three readable cards. */
+/* Compact category rows keep side controls and cards inside each box. */
 .skills-groups-grid.is-carousel-layout {
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.skills-groups-grid.is-carousel-layout > .skills-carousel {
+  padding: 16px;
 }
 .skills-carousel-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #394b59;
+  text-align: center;
 }
 .skills-carousel-heading h3 {
   margin: 0;
   color: #b8def4;
   font:
-    600 16px/1.4 'Segoe UI',
+    600 15px/1.4 'Segoe UI',
     sans-serif;
 }
-.skills-carousel-controls {
-  display: flex;
-  flex: none;
+.skills-carousel-body {
+  --carousel-controls-space: 104px;
+  min-width: 0;
+}
+.skills-carousel-body.has-controls {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: center;
   gap: 8px;
 }
-.skills-carousel-controls button {
+.skills-carousel-control {
   display: grid;
   place-items: center;
   width: 44px;
@@ -32,10 +38,13 @@
   border-radius: 6px;
   color: #d8f0ff;
   background: #243e51;
-  font-size: 21px;
+  padding: 0;
+  font:
+    600 15px/1 Consolas,
+    monospace;
   cursor: pointer;
 }
-.skills-carousel-controls button:hover {
+.skills-carousel-control:hover {
   background: #305773;
   border-color: #a3dcff;
 }
@@ -52,9 +61,17 @@
 .skills-carousel-track.is-looping {
   transform: translateX(calc(-1 * (100% + 12px) / var(--visible-skills)));
 }
-.skills-carousel-track > .skill-card {
+.skills-section .skills-carousel-track > .skill-card {
   flex: 0 0 calc((100% - (var(--visible-skills) - 1) * 12px) / var(--visible-skills));
-  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 112px;
+  padding: 12px 8px;
+  text-align: center;
+  font-size: 12px;
   box-sizing: border-box;
 }
 .skills-carousel-track > .skill-card:hover {
@@ -67,4 +84,9 @@
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+@media (max-width: 1100px) {
+  .skills-groups-grid.is-carousel-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

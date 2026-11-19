@@ -113,6 +113,13 @@ export const skillGroups = [
         description: 'A CSS framework that uses utility classes to compose responsive designs.',
         note: 'Tailwind CSS is my favorite framework.',
       },
+      {
+        id: 'bootstrap',
+        name: 'Bootstrap',
+        color: '#bf9cf5',
+        description:
+          'A frontend toolkit with responsive layout utilities and reusable interface components.',
+      },
     ],
   },
   {
@@ -208,6 +215,58 @@ export const skillGroups = [
         color: '#c1ccdc',
         description:
           'A platform for hosting Git repositories, tracking changes, and collaborating on code.',
+      },
+      {
+        id: 'git',
+        name: 'Git',
+        color: '#ed9b82',
+        description:
+          'A version control system for tracking code changes, working with branches, and collaborating on software.',
+      },
+      {
+        id: 'wordpress',
+        name: 'WordPress',
+        color: '#91c6de',
+        description:
+          'A content management system for building and maintaining websites using themes, blocks, and plugins.',
+      },
+    ],
+  },
+  {
+    title: 'DevOps & Deployment',
+    skills: [
+      {
+        id: 'docker',
+        name: 'Docker',
+        color: '#87c5ee',
+        description:
+          'A platform for packaging and running applications with their dependencies in containers.',
+      },
+    ],
+  },
+  {
+    title: 'Artificial Intelligence',
+    skills: [
+      {
+        id: 'chatgpt',
+        name: 'ChatGPT',
+        color: '#8ed4bc',
+        description:
+          'An AI assistant for answering questions, developing ideas, drafting content, and assisting with code.',
+      },
+      {
+        id: 'claude',
+        name: 'Claude',
+        color: '#e8ac8f',
+        description:
+          'An AI assistant for working with text, analyzing information, and assisting with code.',
+      },
+      {
+        id: 'gemini',
+        name: 'Gemini',
+        color: '#a9baf8',
+        description:
+          'Google’s AI assistant for working with information, generating content, and assisting with code.',
       },
     ],
   },

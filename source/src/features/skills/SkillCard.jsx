@@ -18,8 +18,7 @@ export default function SkillCard({ skill, selected, onClick, visible = true, du
     >
       <SkillIcon skill={skill} />
       <span className="skill-card-name">{skill.name}</span>
-      <span className="skill-card-description">{skill.description}</span>
-      <span className="skill-card-hint">What it’s for ↗</span>
+      <span className="skill-card-hint">Details ↗</span>
     </Element>
   )
 }

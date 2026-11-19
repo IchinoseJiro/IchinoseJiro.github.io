@@ -8,7 +8,7 @@ export default function SkillCarousel({ group, selectedSkillId, openSkill, regis
   const count = group.skills.length
   const [start, setStart] = useState(0)
   const [visible, setVisible] = useState(1)
-  const viewportRef = useRef(null)
+  const bodyRef = useRef(null)
   const trackRef = useRef(null)
   const widthRef = useRef(0)
   const motionRef = useRef({ start: 0, visible: 1, animation: null, queue: [] })
@@ -70,11 +70,18 @@ export default function SkillCarousel({ group, selectedSkillId, openSkill, regis
   }
 
   useLayoutEffect(() => {
-    const viewport = viewportRef.current
+    const body = bodyRef.current
     const resize = (width) => {
       if (Math.abs(width - widthRef.current) < 1) return
       widthRef.current = width
-      const next = Math.min(count, width >= 740 ? 3 : width >= 460 ? 2 : 1)
+      const capacity = (space) => (space >= 390 ? 3 : space >= 240 ? 2 : 1)
+      const limit = window.innerWidth <= 900 ? 2 : 3
+      const fitsWithoutControls = count <= Math.min(limit, capacity(width - 12))
+      const controlsSpace = parseFloat(
+        getComputedStyle(body).getPropertyValue('--carousel-controls-space'),
+      )
+      const available = width - 12 - (fitsWithoutControls ? 0 : controlsSpace)
+      const next = Math.min(count, limit, capacity(available))
       stopMovement()
       motionRef.current.visible = next
       setVisible(next)
@@ -83,9 +90,9 @@ export default function SkillCarousel({ group, selectedSkillId, openSkill, regis
         setStart(0)
       }
     }
-    resize(viewport.getBoundingClientRect().width - 12)
+    resize(body.getBoundingClientRect().width)
     const observer = new ResizeObserver(([entry]) => resize(entry.contentRect.width))
-    observer.observe(viewport)
+    observer.observe(body)
     return () => {
       observer.disconnect()
       stopMovement()
@@ -124,72 +131,78 @@ export default function SkillCarousel({ group, selectedSkillId, openSkill, regis
     >
       <header className="skills-carousel-heading">
         <h3>{group.title}</h3>
-        {canMove && (
-          <div className="skills-carousel-controls">
-            <button
-              type="button"
-              aria-label={'Previous skill in ' + group.title}
-              onClick={() => move(-1)}
-            >
-              <span aria-hidden="true">←</span>
-            </button>
-            <button
-              type="button"
-              aria-label={'Next skill in ' + group.title}
-              onClick={() => move(1)}
-            >
-              <span aria-hidden="true">→</span>
-            </button>
-          </div>
-        )}
       </header>
-      <div
-        className="skills-carousel-viewport"
-        ref={viewportRef}
-        style={{ '--visible-skills': visible }}
-        onPointerDown={(event) => {
-          suppressClickRef.current = false
-          if (event.pointerType === 'mouse' || !event.isPrimary) return
-          gestureRef.current = { id: event.pointerId, x: event.clientX, y: event.clientY }
-        }}
-        onPointerMove={(event) => {
-          const gesture = gestureRef.current
-          if (!gesture || gesture.id !== event.pointerId) return
-          if (Math.abs(event.clientX - gesture.x) > 45 && Math.abs(event.clientY - gesture.y) < 35)
-            event.currentTarget.setPointerCapture(event.pointerId)
-        }}
-        onPointerUp={finishGesture}
-        onPointerCancel={() => {
-          gestureRef.current = null
-        }}
-        onClickCapture={(event) => {
-          if (!suppressClickRef.current) return
-          suppressClickRef.current = false
-          event.preventDefault()
-          event.stopPropagation()
-        }}
-      >
-        <div className={'skills-carousel-track' + (canMove ? ' is-looping' : '')} ref={trackRef}>
-          {canMove && (
-            <SkillCard
-              skill={group.skills[(start + count - 1) % count]}
-              selected={selectedSkillId === group.skills[(start + count - 1) % count].id}
-              duplicate
-            />
-          )}
-          {ordered.map((skill, index) => (
-            <SkillCard
-              key={skill.id}
-              skill={skill}
-              visible={index < visible}
-              selected={selectedSkillId === skill.id}
-              onClick={(event) => {
-                stopMovement()
-                openSkill(skill, event)
-              }}
-            />
-          ))}
+      <div className={'skills-carousel-body' + (canMove ? ' has-controls' : '')} ref={bodyRef}>
+        {canMove && (
+          <button
+            className="skills-carousel-control"
+            type="button"
+            aria-label={'Previous skill in ' + group.title}
+            onClick={() => move(-1)}
+          >
+            <span aria-hidden="true">{'<<'}</span>
+          </button>
+        )}
+        <div
+          className="skills-carousel-viewport"
+          style={{ '--visible-skills': visible }}
+          onPointerDown={(event) => {
+            suppressClickRef.current = false
+            if (event.pointerType === 'mouse' || !event.isPrimary) return
+            gestureRef.current = { id: event.pointerId, x: event.clientX, y: event.clientY }
+          }}
+          onPointerMove={(event) => {
+            const gesture = gestureRef.current
+            if (!gesture || gesture.id !== event.pointerId) return
+            if (
+              Math.abs(event.clientX - gesture.x) > 45 &&
+              Math.abs(event.clientY - gesture.y) < 35
+            )
+              event.currentTarget.setPointerCapture(event.pointerId)
+          }}
+          onPointerUp={finishGesture}
+          onPointerCancel={() => {
+            gestureRef.current = null
+          }}
+          onClickCapture={(event) => {
+            if (!suppressClickRef.current) return
+            suppressClickRef.current = false
+            event.preventDefault()
+            event.stopPropagation()
+          }}
+        >
+          <div className={'skills-carousel-track' + (canMove ? ' is-looping' : '')} ref={trackRef}>
+            {canMove && (
+              <SkillCard
+                skill={group.skills[(start + count - 1) % count]}
+                selected={selectedSkillId === group.skills[(start + count - 1) % count].id}
+                duplicate
+              />
+            )}
+            {ordered.map((skill, index) => (
+              <SkillCard
+                key={skill.id}
+                skill={skill}
+                visible={index < visible}
+                selected={selectedSkillId === skill.id}
+                onClick={(event) => {
+                  stopMovement()
+                  openSkill(skill, event)
+                }}
+              />
+            ))}
+          </div>
         </div>
+        {canMove && (
+          <button
+            className="skills-carousel-control"
+            type="button"
+            aria-label={'Next skill in ' + group.title}
+            onClick={() => move(1)}
+          >
+            <span aria-hidden="true">{'>>'}</span>
+          </button>
+        )}
       </div>
       <p className="skills-carousel-status" role="status" aria-live="polite" aria-atomic="true">
         {ordered
