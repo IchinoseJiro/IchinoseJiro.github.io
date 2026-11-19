@@ -330,7 +330,7 @@ export function SkillIcon({ skill }) {
       strokeWidth="1.7"
       strokeLinecap="round"
       strokeLinejoin="round"
-      style={{ color: skill.color }}
+      style={{ color: skill.color, '--skill-color': skill.color }}
       aria-hidden="true"
       focusable="false"
     >

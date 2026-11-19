@@ -1,0 +1,437 @@
+/* Theme tokens are shared by page chrome, floating menus, and light-theme surfaces.
+   Existing component rules continue to define the original dark appearance. */
+:root {
+  --theme-menu: #252526;
+  --theme-text: #d7e7f2;
+  --theme-hover: #314658;
+  --theme-border: #425567;
+  --theme-accent: #7dcfff;
+}
+html[data-theme='light'] {
+  --theme-canvas: #f6f8fb;
+  --theme-surface: #ffffff;
+  --theme-chrome: #edf2f7;
+  --theme-menu: #ffffff;
+  --theme-text: #182b3c;
+  --theme-muted: #465e72;
+  --theme-hover: #dcebf7;
+  --theme-selected: #d6e9f8;
+  --theme-border: #a6b5c4;
+  --theme-control-border: #5d829f;
+  --theme-accent: #075f91;
+  --theme-button: #096793;
+  --theme-button-text: #ffffff;
+  --theme-button-surface: #e2f0fb;
+  --theme-warm: #fff1df;
+  --theme-warm-text: #7b4005;
+}
+/* These light-only overrides take precedence over the older component-specific colors. */
+html[data-theme='light'] body,
+html[data-theme='light']
+  :is(
+    .ide,
+    .workspace,
+    .editor-area,
+    .overview-grid,
+    .code,
+    .editor-surface,
+    .secondary-editor-surface,
+    .simple-shell,
+    .pg-shell,
+    .pg-main,
+    .pg-content,
+    .empty-editor,
+    .terminal-output,
+    .view-transition
+  ) {
+  color: var(--theme-text) !important;
+  background: var(--theme-canvas) !important;
+}
+html[data-theme='light']
+  :is(
+    .titlebar,
+    .menubar,
+    .activity,
+    .sidebar,
+    .sidebar-main,
+    .sidebar-bottom,
+    .side-title,
+    .folder,
+    .tabs,
+    .tab-actions,
+    .crumb,
+    .numbers,
+    .side-foot,
+    .terminal-heading,
+    .terminal-input-row,
+    .secondary-toolbar,
+    .simple-header,
+    .simple-footer,
+    .pg-titlebar,
+    .pg-rail,
+    .pg-explorer,
+    .pg-section-bar,
+    .pg-card-bar,
+    .pg-dialog-bar,
+    .skill-dialog-header,
+    .website-guide-header,
+    .website-guide-footer,
+    .window-minimized,
+    .window-closed
+  ) {
+  color: var(--theme-text) !important;
+  background: var(--theme-chrome) !important;
+  border-color: var(--theme-border) !important;
+}
+html[data-theme='light']
+  :is(
+    .simple-education-card,
+    .simple-job,
+    .contact-copy,
+    .copy-contact,
+    .skill-card,
+    .skills-group,
+    .intro-panel,
+    .help-dialog,
+    .about-dialog,
+    .skill-dialog,
+    .website-guide,
+    .pg-card,
+    .pg-current-card,
+    .pg-dialog,
+    .pg-code-note,
+    .growth-note,
+    .job-note,
+    .website-guide-views article,
+    .website-guide-steps li,
+    .simple-portrait figcaption,
+    .terminal-panel,
+    .secondary-editor,
+    .highlighted-code,
+    .dropdown,
+    .view-mode-dropdown,
+    .theme-submenu
+  ) {
+  color: var(--theme-text) !important;
+  background: var(--theme-surface) !important;
+  border-color: var(--theme-border) !important;
+}
+html[data-theme='light'] :is(h1, h2, h3, h4, p, li, summary, strong, label) {
+  color: var(--theme-text) !important;
+}
+html[data-theme='light']
+  :is(
+    small,
+    time,
+    .skills-intro,
+    .skills-eyebrow,
+    .simple-eyebrow,
+    .pg-eyebrow,
+    .simple-hero-description,
+    .simple-education-stack,
+    .simple-graduation,
+    .pg-intro,
+    .pg-description,
+    .pg-course,
+    .pg-project-note,
+    .pg-current-note,
+    .pg-explorer-title,
+    .pg-brand i,
+    .edit-hint,
+    .intro-drag-handle,
+    .about-kicker,
+    .about-credit span,
+    .view-transition-description,
+    .terminal-prompt,
+    .pg-meta,
+    .certificate-sharing-note,
+    .side-foot-row,
+    .skill-card-hint,
+    .numbers span
+  ) {
+  color: var(--theme-muted) !important;
+}
+html[data-theme='light']
+  :is(
+    .file,
+    .tab,
+    .tab-close,
+    .split-toggle,
+    .intro-close,
+    .skill-dialog-close,
+    .help-close,
+    .website-guide-close,
+    .titlebar-actions button,
+    .activity button,
+    .intro-brand-toggle,
+    .view-transition-brand
+  ) {
+  color: var(--theme-text) !important;
+}
+html[data-theme='light'] a {
+  color: var(--theme-accent) !important;
+}
+html[data-theme='light']
+  :is(
+    .simple-primary,
+    .intro-guide-button,
+    .about-done,
+    .pg-preview-button,
+    .pg-current-visit,
+    .simple-skip,
+    .pg-skip
+  ) {
+  color: var(--theme-button-text) !important;
+  background: var(--theme-button) !important;
+  border-color: var(--theme-button) !important;
+}
+html[data-theme='light']
+  :is(.simple-primary, .intro-guide-button, .about-done, .pg-preview-button, .pg-current-visit)
+  :is(span, small, strong) {
+  color: inherit !important;
+}
+html[data-theme='light']
+  :is(
+    .simple-secondary,
+    .skills-toolbox-link,
+    .skills-carousel-control,
+    .pg-home,
+    .pg-back-to-top,
+    .social-links a,
+    .view-mode-menu > button,
+    .simple-brand,
+    .menu-trigger,
+    .navigation-toggle,
+    .cta-row button
+  ) {
+  color: var(--theme-accent) !important;
+  background: var(--theme-button-surface) !important;
+  border-color: var(--theme-control-border) !important;
+}
+html[data-theme='light']
+  :is(
+    .dropdown-item:hover,
+    .dropdown-item:focus-visible,
+    .theme-submenu .dropdown-item[aria-checked='true'],
+    .view-mode-menu > button:hover,
+    .menu-trigger:hover,
+    .simple-secondary:hover,
+    .skills-carousel-control:hover,
+    .skills-toolbox-link:hover,
+    .contact-copy:hover,
+    .social-links a:hover,
+    .file:hover,
+    .tab:hover
+  ) {
+  background: var(--theme-hover) !important;
+  color: var(--theme-text) !important;
+}
+html[data-theme='light']
+  :is(
+    .file.selected,
+    .tab.active,
+    .skill-card.is-selected,
+    .pg-explorer a[aria-current='location'],
+    .pg-rail-active,
+    .activity button.chosen
+  ) {
+  color: var(--theme-text) !important;
+  background: var(--theme-selected) !important;
+  border-color: var(--theme-accent) !important;
+}
+html[data-theme='light'] :is(.pg-current-image, .pg-image-area, .pg-dialog-image) {
+  background: var(--theme-chrome) !important;
+  border-color: var(--theme-border) !important;
+}
+html[data-theme='light'] :is(.pg-tags span, .pg-code-note b, .pg-meta b, .pg-progress-badge) {
+  color: var(--theme-accent) !important;
+  background: var(--theme-button-surface) !important;
+  border-color: var(--theme-control-border) !important;
+}
+html[data-theme='light'] .sidebar-project-hint,
+html[data-theme='light'] .ide .menu-trigger:is([data-menu-name='File'], [data-menu-name='View']) {
+  color: var(--theme-warm-text) !important;
+  background: var(--theme-warm) !important;
+  border-color: #b47631 !important;
+}
+html[data-theme='light'] .sidebar-project-hint :is(p, span, small, strong, a) {
+  color: var(--theme-warm-text) !important;
+}
+html[data-theme='light'] :is(input, select) {
+  color: var(--theme-text) !important;
+  background: var(--theme-surface) !important;
+  border-color: var(--theme-control-border) !important;
+}
+html[data-theme='light'] :is(input, textarea)::placeholder {
+  color: var(--theme-muted) !important;
+  opacity: 1;
+}
+/* The editable textarea stays transparent over the syntax-highlighted layer. */
+html[data-theme='light'] textarea.code-editor {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent;
+  background: transparent !important;
+  caret-color: var(--theme-text) !important;
+}
+html[data-theme='light'] .syntax-comment {
+  color: #24673b !important;
+}
+html[data-theme='light'] .syntax-string {
+  color: #923821 !important;
+}
+html[data-theme='light'] .syntax-keyword {
+  color: #7b268b !important;
+}
+html[data-theme='light'] .syntax-number {
+  color: #7a4d10 !important;
+}
+html[data-theme='light'] .syntax-identifier {
+  color: #175a8a !important;
+}
+html[data-theme='light'] .syntax-punctuation {
+  color: #3c4a5b !important;
+}
+html[data-theme='light'] :is(.intro-body h1 span, .simple-title-accent, .skill-detail-note) {
+  color: var(--theme-accent) !important;
+}
+html[data-theme='light'] .skill-vector {
+  color: color-mix(in srgb, var(--skill-color), #102839 45%) !important;
+}
+html[data-theme='light'] :is(.pg-status, .ide > footer) {
+  color: white !important;
+  background: #075c89 !important;
+}
+html[data-theme='light'] :is(.pg-status, .ide > footer) :is(span, small, strong) {
+  color: inherit !important;
+}
+html[data-theme='light'] :is(.about-backdrop, .help-backdrop, .sidebar-backdrop) {
+  background: #233c5a33 !important;
+}
+html[data-theme='light']
+  :is(.skill-dialog, .website-guide, .pg-dialog, .view-transition)::backdrop {
+  background: #233c5a33;
+}
+html[data-theme='light'] :is(button, a, input, select, textarea):focus-visible {
+  outline-color: var(--theme-accent) !important;
+}
+html[data-theme='light'] :is(.window-close, .intro-close, .help-close):hover {
+  color: #ffffff !important;
+  background: #aa2534 !important;
+}
+html[data-theme='light'] * {
+  scrollbar-color: #8099ad var(--theme-chrome) !important;
+}
+html[data-theme='light'] ::-webkit-scrollbar-track {
+  background: var(--theme-chrome) !important;
+}
+html[data-theme='light'] ::-webkit-scrollbar-thumb {
+  background: #8099ad !important;
+}
+/* Details with fixed colors in the original theme need explicit light counterparts. */
+html[data-theme='light'] :is(.simple-hero h1 span, .intro-body h1 em) {
+  color: var(--theme-accent) !important;
+}
+html[data-theme='light']
+  :is(
+    .simple-facts > span,
+    .side-title button,
+    .dropdown-item,
+    .intro-drag-handle span,
+    .pg-explorer-note span
+  ) {
+  color: var(--theme-text) !important;
+}
+html[data-theme='light']
+  :is(
+    .simple-section,
+    .simple-section-nav,
+    .skills-section,
+    .skills-carousel-heading,
+    .pg-explorer-note,
+    .side-foot-row,
+    .skills-sidebar,
+    .intro-profile,
+    .growth-note,
+    .job-note,
+    .pg-code-note
+  ) {
+  border-color: var(--theme-border) !important;
+}
+html[data-theme='light'] :is(.tab-close, .help-dialog kbd, .simple-certifications a) {
+  color: var(--theme-text) !important;
+  background: var(--theme-chrome) !important;
+}
+html[data-theme='light'] :is(.file > span, .tab > span, .pg-explorer > a > span) {
+  color: var(--theme-accent) !important;
+}
+html[data-theme='light'] .pg-rail > a[href='/'] {
+  color: var(--theme-accent) !important;
+  background: var(--theme-button-surface) !important;
+}
+html[data-theme='light'] :is(.intro-profile span, .simple-availability) {
+  color: #24673b !important;
+}
+html[data-theme='light'] :is(.terminal-entry, .pg-explorer-note code) {
+  color: var(--theme-text) !important;
+}
+html[data-theme='light'] .dropdown-item[aria-checked='true'] {
+  color: var(--theme-text) !important;
+  background: var(--theme-selected) !important;
+}
+html[data-theme='light'] .skill-card.is-selected {
+  outline-color: var(--theme-accent) !important;
+}
+html[data-theme='light']
+  :is(
+    .simple-portrait,
+    .intro-panel,
+    .about-dialog,
+    .help-dialog,
+    .skill-dialog,
+    .website-guide,
+    .pg-dialog
+  ) {
+  box-shadow: 0 16px 48px #1b304426 !important;
+}
+html[data-theme='light']
+  :is(.simple-certifications li, .view-transition-card, .view-transition-preview) {
+  color: var(--theme-text) !important;
+  background: var(--theme-surface) !important;
+  border-color: var(--theme-border) !important;
+}
+html[data-theme='light'] :is(.contact-copy > span, .simple-footer button) {
+  color: var(--theme-accent) !important;
+}
+html[data-theme='light'] .view-transition-preview-code span {
+  color: var(--theme-accent) !important;
+}
+html[data-theme='light'] .view-transition-preview-code span:nth-child(2) {
+  color: #923821 !important;
+}
+html[data-theme='light'] .view-transition-progress {
+  background: var(--theme-chrome);
+}
+html[data-theme='light'] .view-transition-progress > span {
+  background: var(--theme-accent);
+}
+html[data-theme='light'] .simple-menubar .menu-trigger::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3' fill='none' stroke='%23075f91' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+html[data-theme='light']
+  :is(
+    .website-guide span,
+    .website-guide b,
+    .website-guide dt,
+    .website-guide dd,
+    .terminal-heading button,
+    .pg-card-bar b,
+    .pg-project-number
+  ) {
+  color: var(--theme-text) !important;
+}
+html[data-theme='light'] .website-guide-views article > span {
+  color: var(--theme-accent) !important;
+}
+html[data-theme='light'] .website-guide-footer span {
+  color: var(--theme-muted) !important;
+}

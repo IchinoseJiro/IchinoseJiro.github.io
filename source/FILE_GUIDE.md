@@ -117,3 +117,9 @@ The pre-refactor source snapshot was saved outside this project under the Codex 
 | FILE_GUIDE.md                      | This detailed map                                                               |
 
 No global VS Code preferences were changed. If VS Code shows an old unsaved buffer after the refactor, review it before saving it over the reorganized files.
+
+## Themes
+
+Both HTML entries load public/theme-init.js before the application styles. It applies the saved light/dark preference and provides the shared external store used by hooks/useTheme.js. The storage key is lunr-code:theme, with dark as the default. Theme switching remains available on the current page when storage is blocked.
+
+The home-page View menu and the gallery’s compact View menu reuse components/navigation/ThemeSubmenu.jsx. The submenu expands inside its parent on phones and opens alongside it on larger screens. Colors for the light theme and shared menu tokens live in styles/theme.css. Existing dark component styles remain the dark palette.

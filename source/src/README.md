@@ -27,6 +27,10 @@
 | About, guide, shortcuts, error recovery                               | components/dialogs/                                                    |
 | View preferences and transition duration                              | hooks/useViewMode.js, useViewTransition.js                             |
 | Loading animation and wording                                         | components/navigation/ViewTransition.jsx                               |
+| Theme startup and persistence                                         | public/theme-init.js, hooks/useTheme.js                                |
+| Light-theme colors                                                    | styles/theme.css                                                       |
+| View → Theme submenu                                                  | components/navigation/ThemeSubmenu.jsx, ThemeSubmenu.css               |
+| Gallery View menu                                                     | components/navigation/ViewModeMenu.jsx                                 |
 | Project/skill URLs                                                    | utils/portfolioNavigation.js                                           |
 
 CSS stays beside its owning component/page where possible. Shared Code workspace rules remain together in pages/code/ to preserve their existing cascade. Shared cross-page additions live in styles/portfolio-shared.css. Avoid moving those imports casually; their order affects the design.

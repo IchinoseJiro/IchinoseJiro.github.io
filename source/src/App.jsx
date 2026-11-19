@@ -412,6 +412,7 @@ function App() {
       menuActions={menuActions}
       viewMode={viewMode}
       runMenuAction={runMenuAction}
+      closeMenu={() => setOpenMenu('')}
     />
   )
 

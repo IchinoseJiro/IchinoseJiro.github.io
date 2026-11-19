@@ -1,71 +1,59 @@
-// Standalone view dropdown retained for reuse; the current gallery does not display it.
+// Compact gallery View menu. Theme is shared with the two home-page views.
 import { useEffect, useRef, useState } from 'react'
+import ThemeSubmenu from './ThemeSubmenu.jsx'
 import './ViewModeMenu.css'
 
-export default function ViewModeMenu({ mode, onChange }) {
+export default function ViewModeMenu() {
   const [open, setOpen] = useState(false)
   const [anchor, setAnchor] = useState({})
   const triggerRef = useRef(null)
   const menuRef = useRef(null)
   useEffect(() => {
-    if (open) menuRef.current?.querySelector('[aria-checked="true"]')?.focus()
+    if (open) menuRef.current?.querySelector('button')?.focus({ preventScroll: true })
   }, [open])
   useEffect(() => {
-    const closeOutside = (event) => {
-      if (!event.target.closest?.('.view-mode-menu')) setOpen(false)
+    const outside = (event) => {
+      if (!event.target.closest?.('.menu-root')) setOpen(false)
     }
     const close = () => setOpen(false)
     const scroll = (event) => {
-      if (!event.target.closest?.('.view-mode-dropdown')) setOpen(false)
+      if (!event.target.closest?.('.dropdown, .view-mode-dropdown')) setOpen(false)
     }
-    const escape = (event) => {
-      if (event.key === 'Escape' && menuRef.current) {
-        setOpen(false)
-        triggerRef.current?.focus()
-      }
-    }
-    document.addEventListener('pointerdown', closeOutside)
+    document.addEventListener('pointerdown', outside)
     document.addEventListener('scroll', scroll, true)
-    document.addEventListener('keydown', escape)
     window.addEventListener('resize', close)
     return () => {
-      document.removeEventListener('pointerdown', closeOutside)
+      document.removeEventListener('pointerdown', outside)
       document.removeEventListener('scroll', scroll, true)
-      document.removeEventListener('keydown', escape)
       window.removeEventListener('resize', close)
     }
   }, [])
-  // Position the dropdown below the button and keep it inside the viewport.
   const toggle = () => {
     const rect = triggerRef.current.getBoundingClientRect()
-    const width = Math.min(250, window.innerWidth - 16)
-    const top = rect.bottom + 5
+    const width = Math.min(220, document.documentElement.clientWidth - 16)
     setAnchor({
-      top,
-      left: Math.max(8, Math.min(rect.left, window.innerWidth - width - 8)),
+      top: rect.bottom + 4,
+      left: Math.max(8, Math.min(rect.left, document.documentElement.clientWidth - width - 8)),
       width,
-      maxHeight: Math.max(80, window.innerHeight - top - 8),
+      maxHeight: Math.max(44, window.innerHeight - rect.bottom - 12),
     })
     setOpen((current) => !current)
   }
-  // Keyboard navigation between menu choices using arrows, Home, and End.
   const keys = (event) => {
-    if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return
-    event.preventDefault()
-    const items = Array.from(event.currentTarget.querySelectorAll('button'))
-    const index = items.indexOf(document.activeElement)
-    const next =
-      event.key === 'Home'
-        ? 0
-        : event.key === 'End'
-          ? items.length - 1
-          : (index + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length
-    items[next]?.focus()
+    if (event.key === 'Escape' || event.key === 'Tab') {
+      event.preventDefault()
+      setOpen(false)
+      triggerRef.current.focus()
+    } else if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+      event.preventDefault()
+      menuRef.current.querySelector('button')?.focus()
+    }
   }
   return (
-    <div className="view-mode-menu">
+    <div className="view-mode-menu menu-root">
       <button
         ref={triggerRef}
+        data-menu-name="View"
         type="button"
         aria-label="View"
         aria-haspopup="menu"
@@ -76,38 +64,23 @@ export default function ViewModeMenu({ mode, onChange }) {
           if (event.key === 'ArrowDown') {
             event.preventDefault()
             if (!open) toggle()
+            else menuRef.current?.querySelector('button')?.focus()
           }
         }}
       >
         View <span aria-hidden="true">⌄</span>
       </button>
-      <span className="view-mode-current">{mode === 'simple' ? 'Simple view' : 'Code view'}</span>
       {open && (
         <div
           ref={menuRef}
           id="gallery-view-menu"
-          className="view-mode-dropdown"
+          className="view-mode-dropdown menu-root"
           role="menu"
-          aria-label="Display view"
+          aria-label="View"
           style={anchor}
           onKeyDown={keys}
         >
-          {['simple', 'code'].map((value) => (
-            <button
-              key={value}
-              type="button"
-              role="menuitemradio"
-              aria-checked={mode === value}
-              onClick={() => {
-                onChange(value)
-                setOpen(false)
-                triggerRef.current?.focus()
-              }}
-            >
-              <span>{value === 'simple' ? 'Simple view' : 'Code view'}</span>
-              <small>{mode === value ? '✓ Selected' : ''}</small>
-            </button>
-          ))}
+          <ThemeSubmenu onCloseMenu={() => setOpen(false)} />
         </div>
       )}
     </div>

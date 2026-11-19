@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import './Portfolio.css'
 import BrandLogo from '../../components/branding/BrandLogo.jsx'
 import SocialLinks from '../../components/contact/SocialLinks.jsx'
+import ViewModeMenu from '../../components/navigation/ViewModeMenu.jsx'
 import { SkillsProvider, SkillsSection, SkillsSidebar } from '../../features/skills/Skills.jsx'
 import useViewMode from '../../hooks/useViewMode.js'
 import '../../styles/portfolio-shared.css'
@@ -104,6 +105,7 @@ export default function Portfolio() {
             </span>
           </div>
           <div className="pg-header-actions">
+            <ViewModeMenu />
             <a ref={homeLinkRef} className="pg-home" href="/">
               ← Back to home
             </a>

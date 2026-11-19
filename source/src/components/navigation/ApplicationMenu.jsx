@@ -1,4 +1,5 @@
 // Top menus shared by Code view and Simple view; commands are supplied by App.
+import ThemeSubmenu from './ThemeSubmenu.jsx'
 export default function ApplicationMenu({
   isSimple,
   navigationVisible,
@@ -11,6 +12,7 @@ export default function ApplicationMenu({
   menuActions,
   viewMode,
   runMenuAction,
+  closeMenu,
 }) {
   return (
     <>
@@ -83,6 +85,7 @@ export default function ApplicationMenu({
               <small>{shortcut}</small>
             </button>
           ))}
+          {openMenu === 'View' && <ThemeSubmenu onCloseMenu={closeMenu} />}
         </div>
       )}{' '}
     </>
