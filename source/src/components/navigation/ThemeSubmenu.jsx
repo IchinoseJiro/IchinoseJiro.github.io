@@ -1,11 +1,13 @@
 // Shared View > Theme submenu. Narrow screens expand inside the parent menu.
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import useTheme from '../../hooks/useTheme.js'
+import ThemeRequestContext from './ThemeRequestContext.js'
 import './ThemeSubmenu.css'
 
 export default function ThemeSubmenu({ onCloseMenu }) {
-  const [theme, setTheme] = useTheme()
+  const [theme] = useTheme()
+  const requestTheme = useContext(ThemeRequestContext)
   const [open, setOpen] = useState(false)
   const [placement, setPlacement] = useState(null)
   const triggerRef = useRef(null)
@@ -92,9 +94,10 @@ export default function ThemeSubmenu({ onCloseMenu }) {
   }
   const choose = (next) => {
     cancelClose()
-    setTheme(next)
+    const confirming = requestTheme(next)
     onCloseMenu()
-    requestAnimationFrame(() => document.querySelector('[data-menu-name="View"]')?.focus())
+    if (!confirming)
+      requestAnimationFrame(() => document.querySelector('[data-menu-name="View"]')?.focus())
   }
   const choices = open && placement && (
     <div

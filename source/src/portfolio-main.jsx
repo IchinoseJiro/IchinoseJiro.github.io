@@ -4,12 +4,15 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles/global.css'
 import Portfolio from './pages/portfolio/Portfolio.jsx'
+import ThemeProvider from './components/navigation/ThemeProvider.jsx'
 import './styles/theme.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <PageErrorBoundary>
-      <Portfolio />
+      <ThemeProvider>
+        <Portfolio />
+      </ThemeProvider>
     </PageErrorBoundary>
   </StrictMode>,
 )

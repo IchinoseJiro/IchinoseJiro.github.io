@@ -1,15 +1,28 @@
 /* Theme tokens are shared by page chrome, floating menus, and light-theme surfaces.
    Existing component rules continue to define the original dark appearance. */
 :root {
+  --theme-canvas: #1e1e1e;
+  --theme-surface: #252526;
+  --theme-elevated: #202b35;
+  --theme-chrome: #252526;
   --theme-menu: #252526;
   --theme-text: #d7e7f2;
+  --theme-muted: #a4b8c8;
   --theme-hover: #314658;
   --theme-border: #425567;
   --theme-accent: #7dcfff;
+  --theme-focus: #9cdeff;
+  --theme-control-border: #679bb9;
+  --theme-button: #0875a8;
+  --theme-button-text: #ffffff;
+  --theme-button-surface: #243e51;
+  --theme-backdrop: #07111b70;
+  --theme-shadow: 0 18px 64px #0006;
 }
 html[data-theme='light'] {
   --theme-canvas: #f6f8fb;
   --theme-surface: #ffffff;
+  --theme-elevated: #ffffff;
   --theme-chrome: #edf2f7;
   --theme-menu: #ffffff;
   --theme-text: #182b3c;
@@ -19,11 +32,24 @@ html[data-theme='light'] {
   --theme-border: #a6b5c4;
   --theme-control-border: #5d829f;
   --theme-accent: #075f91;
+  --theme-focus: #075f91;
   --theme-button: #096793;
   --theme-button-text: #ffffff;
   --theme-button-surface: #e2f0fb;
   --theme-warm: #fff1df;
   --theme-warm-text: #7b4005;
+  --theme-warm-border: #b47631;
+  --theme-danger: #aa2534;
+  --theme-success: #24673b;
+  --theme-backdrop: #233c5a33;
+  --theme-shadow: 0 16px 48px #1b304426;
+  --theme-scrollbar: #617d94;
+  --theme-syntax-comment: #24673b;
+  --theme-syntax-string: #923821;
+  --theme-syntax-keyword: #7b268b;
+  --theme-syntax-number: #7a4d10;
+  --theme-syntax-identifier: #175a8a;
+  --theme-syntax-punctuation: #3c4a5b;
 }
 /* These light-only overrides take precedence over the older component-specific colors. */
 html[data-theme='light'] body,
@@ -176,7 +202,6 @@ html[data-theme='light']
     .simple-primary,
     .intro-guide-button,
     .about-done,
-    .pg-preview-button,
     .pg-current-visit,
     .simple-skip,
     .pg-skip
@@ -186,7 +211,7 @@ html[data-theme='light']
   border-color: var(--theme-button) !important;
 }
 html[data-theme='light']
-  :is(.simple-primary, .intro-guide-button, .about-done, .pg-preview-button, .pg-current-visit)
+  :is(.simple-primary, .intro-guide-button, .about-done, .pg-current-visit)
   :is(span, small, strong) {
   color: inherit !important;
 }
@@ -252,7 +277,7 @@ html[data-theme='light'] .sidebar-project-hint,
 html[data-theme='light'] .ide .menu-trigger:is([data-menu-name='File'], [data-menu-name='View']) {
   color: var(--theme-warm-text) !important;
   background: var(--theme-warm) !important;
-  border-color: #b47631 !important;
+  border-color: var(--theme-warm-border) !important;
 }
 html[data-theme='light'] .sidebar-project-hint :is(p, span, small, strong, a) {
   color: var(--theme-warm-text) !important;
@@ -274,22 +299,22 @@ html[data-theme='light'] textarea.code-editor {
   caret-color: var(--theme-text) !important;
 }
 html[data-theme='light'] .syntax-comment {
-  color: #24673b !important;
+  color: var(--theme-success) !important;
 }
 html[data-theme='light'] .syntax-string {
-  color: #923821 !important;
+  color: var(--theme-syntax-string) !important;
 }
 html[data-theme='light'] .syntax-keyword {
-  color: #7b268b !important;
+  color: var(--theme-syntax-keyword) !important;
 }
 html[data-theme='light'] .syntax-number {
-  color: #7a4d10 !important;
+  color: var(--theme-syntax-number) !important;
 }
 html[data-theme='light'] .syntax-identifier {
-  color: #175a8a !important;
+  color: var(--theme-syntax-identifier) !important;
 }
 html[data-theme='light'] .syntax-punctuation {
-  color: #3c4a5b !important;
+  color: var(--theme-syntax-punctuation) !important;
 }
 html[data-theme='light'] :is(.intro-body h1 span, .simple-title-accent, .skill-detail-note) {
   color: var(--theme-accent) !important;
@@ -305,27 +330,27 @@ html[data-theme='light'] :is(.pg-status, .ide > footer) :is(span, small, strong)
   color: inherit !important;
 }
 html[data-theme='light'] :is(.about-backdrop, .help-backdrop, .sidebar-backdrop) {
-  background: #233c5a33 !important;
+  background: var(--theme-backdrop) !important;
 }
 html[data-theme='light']
   :is(.skill-dialog, .website-guide, .pg-dialog, .view-transition)::backdrop {
-  background: #233c5a33;
+  background: var(--theme-backdrop);
 }
 html[data-theme='light'] :is(button, a, input, select, textarea):focus-visible {
   outline-color: var(--theme-accent) !important;
 }
 html[data-theme='light'] :is(.window-close, .intro-close, .help-close):hover {
   color: #ffffff !important;
-  background: #aa2534 !important;
+  background: var(--theme-danger) !important;
 }
 html[data-theme='light'] * {
-  scrollbar-color: #8099ad var(--theme-chrome) !important;
+  scrollbar-color: var(--theme-scrollbar) var(--theme-chrome) !important;
 }
 html[data-theme='light'] ::-webkit-scrollbar-track {
   background: var(--theme-chrome) !important;
 }
 html[data-theme='light'] ::-webkit-scrollbar-thumb {
-  background: #8099ad !important;
+  background: var(--theme-scrollbar) !important;
 }
 /* Details with fixed colors in the original theme need explicit light counterparts. */
 html[data-theme='light'] :is(.simple-hero h1 span, .intro-body h1 em) {
@@ -369,7 +394,7 @@ html[data-theme='light'] .pg-rail > a[href='/'] {
   background: var(--theme-button-surface) !important;
 }
 html[data-theme='light'] :is(.intro-profile span, .simple-availability) {
-  color: #24673b !important;
+  color: var(--theme-success) !important;
 }
 html[data-theme='light'] :is(.terminal-entry, .pg-explorer-note code) {
   color: var(--theme-text) !important;
@@ -391,7 +416,7 @@ html[data-theme='light']
     .website-guide,
     .pg-dialog
   ) {
-  box-shadow: 0 16px 48px #1b304426 !important;
+  box-shadow: var(--theme-shadow) !important;
 }
 html[data-theme='light']
   :is(.simple-certifications li, .view-transition-card, .view-transition-preview) {
@@ -406,7 +431,7 @@ html[data-theme='light'] .view-transition-preview-code span {
   color: var(--theme-accent) !important;
 }
 html[data-theme='light'] .view-transition-preview-code span:nth-child(2) {
-  color: #923821 !important;
+  color: var(--theme-syntax-string) !important;
 }
 html[data-theme='light'] .view-transition-progress {
   background: var(--theme-chrome);
@@ -434,4 +459,201 @@ html[data-theme='light'] .website-guide-views article > span {
 }
 html[data-theme='light'] .website-guide-footer span {
   color: var(--theme-muted) !important;
+}
+
+/* Light-mode interaction audit: secondary actions stay inset and separate from primary CTAs. */
+html[data-theme='light'] .pg-preview-button {
+  padding: 12px 16px;
+  border: 1px solid var(--theme-control-border);
+  border-radius: 6px;
+  color: var(--theme-accent) !important;
+  background: var(--theme-button-surface) !important;
+}
+html[data-theme='light'] .pg-preview-button > span {
+  color: inherit !important;
+  flex: none;
+  line-height: 1;
+}
+html[data-theme='light']
+  :is(
+    .skill-card-name,
+    .simple-job summary > b,
+    .skills-sidebar h3,
+    .skills-group > h3 > span,
+    .pg-dialog-bar h2 span,
+    .contact-copy em,
+    .secondary-toolbar,
+    .edit-hint,
+    .empty-editor span
+  ) {
+  color: var(--theme-muted) !important;
+}
+html[data-theme='light']
+  :is(
+    .skills-group > h3,
+    .skill-dialog-header,
+    .pg-dialog-bar,
+    .secondary-toolbar,
+    .intro-drag-handle,
+    .about-credit,
+    .simple-facts,
+    .terminal-panel,
+    .tabs,
+    .tab,
+    .crumb,
+    .numbers,
+    .pg-current-info,
+    .pg-image-area > p,
+    .simple-certifications,
+    .simple-education-projects
+  ) {
+  border-color: var(--theme-border) !important;
+}
+html[data-theme='light']
+  :is(.menu-trigger[aria-expanded='true'], .view-mode-menu > button[aria-expanded='true']) {
+  color: var(--theme-text) !important;
+  background: var(--theme-selected) !important;
+  border-color: var(--theme-accent) !important;
+}
+html[data-theme='light']
+  :is(
+    .skill-card:hover,
+    .skill-mini:hover,
+    .pg-preview-button:hover,
+    .pg-home:hover,
+    .pg-back-to-top:hover,
+    .simple-brand:hover,
+    .navigation-toggle:hover,
+    .split-toggle:hover,
+    .skill-dialog-close:hover,
+    .website-guide-close:hover,
+    .pg-dialog-bar button:hover,
+    .terminal-heading button:hover,
+    .simple-certifications a:hover,
+    .copy-contact:hover,
+    .cta-row button:hover,
+    .pg-explorer > a:hover,
+    .pg-rail > a:hover,
+    .activity button:hover,
+    .titlebar-actions button:hover,
+    .side-title button:hover
+  ) {
+  color: var(--theme-accent) !important;
+  background: var(--theme-hover) !important;
+  border-color: var(--theme-control-border) !important;
+}
+html[data-theme='light']
+  :is(
+    .simple-primary:hover,
+    .intro-guide-button:hover,
+    .about-done:hover,
+    .pg-current-visit:hover
+  ) {
+  background: var(--theme-accent) !important;
+  color: var(--theme-button-text) !important;
+}
+html[data-theme='light'] :is(.tab-close:hover, .titlebar-actions .window-close:hover) {
+  background: var(--theme-danger) !important;
+  color: var(--theme-button-text) !important;
+}
+html[data-theme='light']
+  :is(
+    .pg-preview-button:active,
+    .skill-card:active,
+    .menu-trigger:active,
+    .pg-home:active,
+    .skills-carousel-control:active
+  ) {
+  background: var(--theme-selected) !important;
+  color: var(--theme-text) !important;
+}
+html[data-theme='light'] :is(button:disabled, [aria-disabled='true']) {
+  color: var(--theme-muted) !important;
+  background: var(--theme-chrome) !important;
+  border-color: var(--theme-border) !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+html[data-theme='light']
+  :is(
+    .simple-portrait figcaption,
+    .pg-current-visit,
+    .simple-brand,
+    .pg-home,
+    .pg-back-to-top,
+    .menu-trigger,
+    .view-transition-card
+  ) {
+  box-shadow: none !important;
+}
+html[data-theme='light'] .pg-current-info .pg-current-visit {
+  box-shadow: 0 0 0 3px var(--theme-selected) !important;
+}
+html[data-theme='light'] .view-transition-preview-simple span {
+  background: var(--theme-selected);
+}
+html[data-theme='light'] .view-transition-preview-simple span:first-child {
+  background: var(--theme-accent);
+}
+html[data-theme='light'] .page-recovery :is(p, h1) {
+  color: var(--theme-text) !important;
+}
+html[data-theme='light'] .page-recovery button:focus-visible {
+  outline: 2px solid var(--theme-focus);
+  outline-offset: 3px;
+}
+html[data-theme='light'] ::selection {
+  background: var(--theme-selected);
+  color: var(--theme-text);
+}
+/* Non-default workspace states must use the same surfaces as the open editor. */
+html[data-theme='light'] :is(.tab, .window-closed section, .empty-logo) {
+  background: var(--theme-surface) !important;
+  border-color: var(--theme-border) !important;
+}
+html[data-theme='light']
+  :is(
+    .pg-dialog-bar button,
+    .secondary-toolbar button,
+    .drop-hint,
+    .window-minimized button span,
+    .tab-close > span
+  ) {
+  color: var(--theme-muted) !important;
+}
+html[data-theme='light'] :is(.window-closed button, .window-minimized button) {
+  color: var(--theme-button-text) !important;
+  background: var(--theme-button) !important;
+  border-color: var(--theme-button) !important;
+}
+html[data-theme='light'] .window-minimized button span {
+  color: inherit !important;
+}
+html[data-theme='light'] .pg-card {
+  box-shadow: 0 4px 16px #1b304410;
+}
+html[data-theme='light'] .pg-image-button {
+  box-shadow: 0 6px 18px #1b304426;
+}
+html[data-theme='light'] .skills-sidebar .skill-vector {
+  opacity: 1;
+}
+/* Small accessibility corrections retain the original dark palette and layout. */
+html[data-theme='dark'] .status-message {
+  color: #ffffff;
+}
+html[data-theme='dark'] :is(.side-title button, .tab-close) {
+  color: #a4b8c8;
+}
+html[data-theme='dark'] .edit-hint {
+  color: #a4b8c8;
+}
+html[data-theme='dark'] .intro-panel .intro-body .intro-guide-button {
+  background: #096793;
+}
+html[data-theme='dark'] .intro-panel .intro-body .intro-guide-button:hover {
+  background: #075f91;
+}
+html[data-theme='dark'] .pg-image-area > p {
+  color: #a4b8c8;
 }

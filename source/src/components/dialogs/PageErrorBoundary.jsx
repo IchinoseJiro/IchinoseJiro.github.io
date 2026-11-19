@@ -10,30 +10,36 @@ export default class PageErrorBoundary extends Component {
     if (!this.state.failed) return this.props.children
     return (
       <main
+        className="page-recovery"
         style={{
           minHeight: '100dvh',
           display: 'grid',
           placeItems: 'center',
           padding: 24,
           boxSizing: 'border-box',
-          background: '#181b20',
-          color: '#dbeaf4',
+          background: 'var(--theme-canvas, #181b20)',
+          color: 'var(--theme-text, #dbeaf4)',
           fontFamily: 'Segoe UI, sans-serif',
         }}
       >
         <section
-          style={{ maxWidth: 480, padding: 28, border: '1px solid #527991', borderRadius: 12 }}
+          style={{
+            maxWidth: 480,
+            padding: 28,
+            border: '1px solid var(--theme-control-border, #527991)',
+            borderRadius: 12,
+          }}
         >
-          <p style={{ color: '#7dcfff' }}>LunR Code</p>
+          <p style={{ color: 'var(--theme-accent, #7dcfff)' }}>LunR Code</p>
           <h1>This page couldn’t finish loading.</h1>
           <p>Please load the latest version of Jireh’s portfolio.</p>
           <button
             type="button"
             style={{
               padding: '12px 18px',
-              background: '#176f9e',
+              background: 'var(--theme-button, #176f9e)',
               color: '#fff',
-              border: '1px solid #91d8ff',
+              border: '1px solid var(--theme-control-border, #91d8ff)',
               borderRadius: 7,
               cursor: 'pointer',
               fontSize: 16,
@@ -47,7 +53,7 @@ export default class PageErrorBoundary extends Component {
             Reload latest version
           </button>
           <p>
-            <a href="/" style={{ color: '#7dcfff' }}>
+            <a href="/" style={{ color: 'var(--theme-accent, #7dcfff)' }}>
               Back to home
             </a>
           </p>

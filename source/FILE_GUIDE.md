@@ -123,3 +123,7 @@ No global VS Code preferences were changed. If VS Code shows an old unsaved buff
 Both HTML entries load public/theme-init.js before the application styles. It applies the saved light/dark preference and provides the shared external store used by hooks/useTheme.js. The storage key is lunr-code:theme, with dark as the default. Theme switching remains available on the current page when storage is blocked.
 
 The home-page View menu and the gallery’s compact View menu reuse components/navigation/ThemeSubmenu.jsx. The submenu expands inside its parent on phones and opens alongside it on larger screens. Colors for the light theme and shared menu tokens live in styles/theme.css. Existing dark component styles remain the dark palette.
+
+ThemeProvider.jsx wraps both page entries. ThemeSubmenu requests changes through ThemeRequestContext.js; the provider confirms dark-to-light choices in a native modal styled by ThemeConfirmation.css. Cancellation never writes a preference. Restoring a saved preference bypasses this confirmation. Entrance and exit motion respect reduced-motion preferences.
+
+THEME_AUDIT.md records the audited surfaces, corrections, and browser verification.
