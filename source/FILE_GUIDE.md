@@ -65,11 +65,13 @@ PC Assembly includes Ethernet cable crimping in its description. System & Networ
 - **Simple page:** pages/simple/SimpleView.jsx and SimpleView.css.
 - **Gallery:** pages/portfolio/Portfolio.jsx and Portfolio.css.
 - **Shared skill selection/UI:** features/skills/Skills.jsx.
+- **Gallery carousels:** features/skills/SkillCarousel.jsx and SkillCarousel.css. Each arrow or horizontal swipe advances one card. Real cards rotate after each animation; the temporary leading copy is inert and has no ID.
+- **Shared skill card:** features/skills/SkillCard.jsx.
 - **Skill descriptions:** features/skills/SkillDialog.jsx.
 - **Category boxes, skill emphasis, and popup styles:** features/skills/SkillsInteractions.css.
 - **Gallery URL helper:** utils/portfolioNavigation.js. It uses the build release ID from vite.config.js to avoid cached gallery HTML.
 
-A Simple-view skill click highlights the skill/toolbox link, applies light blur, and scrolls to the link if necessary. The highlighted link carries the matching skill ID to the gallery and opens its popup. Ordinary toolbox links open the list; Code-view skill links highlight the matching card. Invalid IDs never open an unrelated skill. Navigation stays above the spotlight while scrolling.
+Simple view shows the first two skills per category and opens descriptions directly. The gallery shows each complete category in a responsive carousel. Ordinary toolbox links open the list. Code-view skill links reveal and highlight a real card; gallery sidebar buttons also open its popup. Explicit detail links open the requested popup after revealing its card. Invalid IDs never open another skill.
 
 ## Shared dialogs and view behavior
 

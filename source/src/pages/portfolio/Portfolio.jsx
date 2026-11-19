@@ -346,8 +346,8 @@ export default function Portfolio() {
                   ))}
                 </div>
               </section>
-              {/* Full shared skills grid. */}
-              <SkillsSection plain={viewMode === 'simple'} />
+              {/* Full shared toolbox with one carousel per category. */}
+              <SkillsSection plain={viewMode === 'simple'} carousel />
               {/* Closing message. */}
               <section className="pg-endnote">
                 <span aria-hidden="true">

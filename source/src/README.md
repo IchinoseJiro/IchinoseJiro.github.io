@@ -17,6 +17,8 @@
 | Moon-button introduction popup and dragging                           | features/introduction/                                                 |
 | Typing-only terminal                                                  | features/terminal/TerminalPanel.jsx                                    |
 | Skills cards, handoff/highlighting, sidebar icons                     | features/skills/Skills.jsx                                             |
+| Gallery category carousels                                            | features/skills/SkillCarousel.jsx, SkillCarousel.css                   |
+| Shared skill card                                                     | features/skills/SkillCard.jsx                                          |
 | Skill icon vectors                                                    | features/skills/SkillIcon.jsx                                          |
 | Skill description popup                                               | features/skills/SkillDialog.jsx                                        |
 | Copy email/phone buttons                                              | components/contact/ContactCopyButton.jsx, hooks/useCopyContact.js      |

@@ -1,0 +1,70 @@
+/* Gallery categories use the available width for three readable cards. */
+.skills-groups-grid.is-carousel-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+.skills-carousel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #394b59;
+}
+.skills-carousel-heading h3 {
+  margin: 0;
+  color: #b8def4;
+  font:
+    600 16px/1.4 'Segoe UI',
+    sans-serif;
+}
+.skills-carousel-controls {
+  display: flex;
+  flex: none;
+  gap: 8px;
+}
+.skills-carousel-controls button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #679bb9;
+  border-radius: 6px;
+  color: #d8f0ff;
+  background: #243e51;
+  font-size: 21px;
+  cursor: pointer;
+}
+.skills-carousel-controls button:hover {
+  background: #305773;
+  border-color: #a3dcff;
+}
+.skills-carousel-viewport {
+  min-width: 0;
+  overflow: hidden;
+  padding: 6px;
+  touch-action: pan-y pinch-zoom;
+}
+.skills-carousel-track {
+  display: flex;
+  gap: 12px;
+}
+.skills-carousel-track.is-looping {
+  transform: translateX(calc(-1 * (100% + 12px) / var(--visible-skills)));
+}
+.skills-carousel-track > .skill-card {
+  flex: 0 0 calc((100% - (var(--visible-skills) - 1) * 12px) / var(--visible-skills));
+  min-height: 150px;
+  box-sizing: border-box;
+}
+.skills-carousel-track > .skill-card:hover {
+  transform: none;
+}
+.skills-carousel-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

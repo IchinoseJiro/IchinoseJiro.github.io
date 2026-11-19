@@ -1,9 +1,11 @@
 import SkillDialog from './SkillDialog.jsx'
+import SkillCard from './SkillCard.jsx'
+import SkillCarousel from './SkillCarousel.jsx'
 import { SkillIcon } from './SkillIcon.jsx'
 import { portfolioUrl, getSkillDestination } from '../../utils/portfolioNavigation.js'
 // Shared skills UI. All category and item ordering comes directly from skillsData.js.
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { createPortal, flushSync } from 'react-dom'
 import { allSkills, skillGroups } from '../../data/skillsData.js'
 import './Skills.css'
 import './SkillsInteractions.css'
@@ -14,12 +16,25 @@ const SkillsContext = createContext(null)
 export function SkillsProvider({ children }) {
   const [panel, setPanel] = useState(null)
   const [selectedSkillId, setSelectedSkillId] = useState('')
+  const revealersRef = useRef(new Map())
+  const registerReveal = useCallback((skills, reveal) => {
+    for (const skill of skills) revealersRef.current.set(skill.id, reveal)
+    return () => {
+      for (const skill of skills) {
+        if (revealersRef.current.get(skill.id) === reveal) revealersRef.current.delete(skill.id)
+      }
+    }
+  }, [])
   const close = useCallback(() => setPanel(null), [])
   // Code-view links and gallery toolbox clicks point to the same main-content card.
   const revealSkill = useCallback((skill) => {
+    // Commit the carousel position before measuring the target or opening its anchored popup.
+    flushSync(() => {
+      revealersRef.current.get(skill.id)?.(skill.id)
+      setSelectedSkillId(skill.id)
+    })
     const card = document.getElementById('skill-' + skill.id)
     if (!card) return null
-    setSelectedSkillId(skill.id)
     card.scrollIntoView({ block: 'center', behavior: 'instant' })
     card.focus({ preventScroll: true })
     return card
@@ -57,7 +72,7 @@ export function SkillsProvider({ children }) {
     })
   }
   return (
-    <SkillsContext.Provider value={{ openSkill, selectedSkillId }}>
+    <SkillsContext.Provider value={{ openSkill, selectedSkillId, registerReveal }}>
       {children}
       {panel && createPortal(<SkillDialog panel={panel} onClose={close} />, document.body)}
     </SkillsContext.Provider>
@@ -117,8 +132,8 @@ export function SkillsSection(props) {
     </SkillsProvider>
   )
 }
-function SkillsGrid({ plain = false, toolboxLink = false }) {
-  const { openSkill, selectedSkillId } = useContext(SkillsContext)
+function SkillsGrid({ plain = false, toolboxLink = false, carousel = false }) {
+  const { openSkill, selectedSkillId, registerReveal } = useContext(SkillsContext)
   return (
     <section className="skills-section" id="skills" aria-labelledby="skills-title">
       <div className="skills-section-heading">
@@ -137,31 +152,32 @@ function SkillsGrid({ plain = false, toolboxLink = false }) {
           ? 'A preview of each category. Select a skill to learn what it is used for, or explore the full toolbox for the complete collection.'
           : 'Explore the categories below. Select any skill or tool to learn what it is used for.'}
       </p>
-      <div className="skills-groups-grid">
-        {skillGroups.map((group) => (
-          <section className="skills-group" key={group.title} aria-label={group.title}>
-            <h3>{group.title}</h3>
-            <div className="skills-card-grid">
-              {(toolboxLink ? group.skills.slice(0, 2) : group.skills).map((skill) => (
-                <button
-                  type="button"
-                  className={'skill-card' + (selectedSkillId === skill.id ? ' is-selected' : '')}
-                  id={'skill-' + skill.id}
-                  key={skill.id}
-                  style={{ '--skill-accent': skill.color }}
-                  onClick={(event) => openSkill(skill, event)}
-                  aria-haspopup="dialog"
-                  aria-label={'Learn about ' + skill.name}
-                >
-                  <SkillIcon skill={skill} />
-                  <span className="skill-card-name">{skill.name}</span>
-                  <span className="skill-card-description">{skill.description}</span>
-                  <span className="skill-card-hint">What it’s for ↗</span>
-                </button>
-              ))}
-            </div>
-          </section>
-        ))}
+      <div className={'skills-groups-grid' + (carousel ? ' is-carousel-layout' : '')}>
+        {skillGroups.map((group) =>
+          carousel ? (
+            <SkillCarousel
+              key={group.title}
+              group={group}
+              selectedSkillId={selectedSkillId}
+              openSkill={openSkill}
+              registerReveal={registerReveal}
+            />
+          ) : (
+            <section className="skills-group" key={group.title} aria-label={group.title}>
+              <h3>{group.title}</h3>
+              <div className="skills-card-grid">
+                {(toolboxLink ? group.skills.slice(0, 2) : group.skills).map((skill) => (
+                  <SkillCard
+                    key={skill.id}
+                    skill={skill}
+                    selected={selectedSkillId === skill.id}
+                    onClick={(event) => openSkill(skill, event)}
+                  />
+                ))}
+              </div>
+            </section>
+          ),
+        )}
       </div>
     </section>
   )
